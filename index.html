@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nordic Travel Dashboard: Copenhagen & Stockholm</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="container">
+                <h1>Nordic Travel Dashboard: Copenhagen & Stockholm</h1>
+                <div class="city-tabs">
+                    <button class="tab-btn active" data-city="copenhagen">
+                        <i class="fas fa-crown"></i> Copenhagen
+                    </button>
+                    <button class="tab-btn" data-city="stockholm">
+                        <i class="fas fa-water"></i> Stockholm
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Map Container -->
+        <div class="map-container">
+            <div id="map"></div>
+            <div class="map-controls">
+                <div class="layer-controls">
+                    <label><input type="checkbox" id="attractions-layer" checked> <span class="marker-icon red"></span> Attractions</label>
+                    <label><input type="checkbox" id="restaurants-layer" checked> <span class="marker-icon blue"></span> Restaurants</label>
+                    <label><input type="checkbox" id="bars-layer" checked> <span class="marker-icon green"></span> Bars</label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+            <div class="container">
+                <!-- Filters and Search -->
+                <div class="filters-section">
+                    <div class="category-filters">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="attractions">Attractions</button>
+                        <button class="filter-btn" data-category="restaurants">Restaurants</button>
+                        <button class="filter-btn" data-category="bars">Bars</button>
+                        <button class="filter-btn" data-category="itinerary">Itinerary</button>
+                        <button class="filter-btn" data-category="tips">Local Tips</button>
+                    </div>
+                    
+                    <div class="search-and-price">
+                        <div class="search-box">
+                            <input type="text" id="search-input" placeholder="Search venues..." class="form-control">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        
+                        <div class="price-filter">
+                            <label>Price Range:</label>
+                            <select id="price-filter" class="form-control">
+                                <option value="all">All Prices</option>
+                                <option value="$">$ Budget</option>
+                                <option value="$$">$$ Moderate</option>
+                                <option value="$$$">$$$ Upscale</option>
+                                <option value="$$$$">$$$$ Luxury</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Sections -->
+                <div class="content-sections">
+                    <!-- Attractions Section -->
+                    <section id="attractions-section" class="content-section active">
+                        <h2>Attractions</h2>
+                        <div id="attractions-grid" class="venues-grid"></div>
+                    </section>
+
+                    <!-- Restaurants Section -->
+                    <section id="restaurants-section" class="content-section">
+                        <h2>Restaurants</h2>
+                        <div id="restaurants-grid" class="venues-grid"></div>
+                    </section>
+
+                    <!-- Bars Section -->
+                    <section id="bars-section" class="content-section">
+                        <h2>Bars & Nightlife</h2>
+                        <div id="bars-grid" class="venues-grid"></div>
+                    </section>
+
+                    <!-- Itinerary Section -->
+                    <section id="itinerary-section" class="content-section">
+                        <h2>Suggested Itineraries</h2>
+                        <div id="itinerary-content"></div>
+                    </section>
+
+                    <!-- Local Tips Section -->
+                    <section id="tips-section" class="content-section">
+                        <h2>Local Tips & Information</h2>
+                        <div id="tips-content"></div>
+                    </section>
+                </div>
+
+                <!-- My Trip Planner -->
+                <div class="trip-planner">
+                    <div class="trip-header">
+                        <h3><i class="fas fa-heart"></i> My Trip</h3>
+                        <button id="clear-trip" class="btn btn--sm btn--outline">Clear All</button>
+                    </div>
+                    <div id="trip-items" class="trip-items"></div>
+                    <div class="budget-calculator">
+                        <h4>Estimated Daily Budget</h4>
+                        <div class="budget-ranges">
+                            <div class="budget-item">
+                                <span class="budget-label">Budget</span>
+                                <span class="budget-amount">€30-50</span>
+                            </div>
+                            <div class="budget-item">
+                                <span class="budget-label">Mid-range</span>
+                                <span class="budget-amount">€80-120</span>
+                            </div>
+                            <div class="budget-item">
+                                <span class="budget-label">Luxury</span>
+                                <span class="budget-amount">€200+</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
