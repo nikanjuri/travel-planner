@@ -1,13 +1,331 @@
 // Travel Dashboard Data
-fetch('travel_dashboard_data.json')
-  .then(response => response.json())
-  .then(data => {
-    travelData = data;
-    initializeMap();
-    initializeEventListeners();
-    loadCity('copenhagen');
-    updateTripDisplay();
-  });
+const travelData = {
+  "cities": [
+    {
+      "name": "Copenhagen",
+      "center": {"lat": 55.6761, "lng": 12.5683},
+      "attractions": [
+        {
+          "name": "Tivoli Gardens",
+          "description": "One of the world's oldest amusement parks that inspired Walt Disney",
+          "hours": "Mon-Thu: 11:00-22:00, Fri-Sat: 11:00-24:00, Sun: 11:00-22:00",
+          "fee": "€25",
+          "duration": "3+ hours",
+          "location": {"lat": 55.6736, "lng": 12.5681},
+          "website": "tivoli.dk",
+          "tags": ["family-friendly", "seasonal", "evening", "historic"]
+        },
+        {
+          "name": "Nyhavn",
+          "description": "Picturesque 17th-century waterfront district with colorful buildings",
+          "hours": "24/7",
+          "fee": "Free",
+          "duration": "1-2 hours",
+          "location": {"lat": 55.6796, "lng": 12.5912},
+          "tags": ["historic", "waterfront", "photography", "dining"]
+        },
+        {
+          "name": "Amalienborg Palace",
+          "description": "The Queen's residence with guard changing at 12 noon",
+          "hours": "Daily, guard at 12:00",
+          "fee": "Museum entry required",
+          "duration": "1-2 hours",
+          "location": {"lat": 55.6844, "lng": 12.5928},
+          "tags": ["royal", "historic", "ceremony", "museum"]
+        },
+        {
+          "name": "The Little Mermaid",
+          "description": "Copenhagen's iconic symbol inspired by Hans Christian Andersen",
+          "hours": "24/7",
+          "fee": "Free",
+          "duration": "30 minutes",
+          "location": {"lat": 55.6929, "lng": 12.5993},
+          "tags": ["iconic", "cultural", "photography", "free"]
+        },
+        {
+          "name": "Rosenborg Castle",
+          "description": "Renaissance castle with Danish crown jewels and gardens",
+          "hours": "Seasonal variations",
+          "fee": "Admission required",
+          "duration": "2-3 hours",
+          "location": {"lat": 55.6857, "lng": 12.5773},
+          "tags": ["royal", "historic", "gardens", "crown-jewels"]
+        },
+        {
+          "name": "The Round Tower",
+          "description": "17th-century tower with spiraling ramp and city views",
+          "hours": "Daily",
+          "fee": "Free with Copenhagen Card",
+          "duration": "1-2 hours",
+          "location": {"lat": 55.6813, "lng": 12.5757},
+          "tags": ["historic", "panoramic-views", "architecture", "indoor"]
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "Geranium",
+          "cuisine": "Nordic Contemporary",
+          "description": "Three Michelin stars, run by Rasmus Kofoed with city views",
+          "hours": "Dinner service",
+          "priceRange": "$$$$",
+          "location": {"lat": 55.7058, "lng": 12.5546},
+          "bookingRequired": "Essential",
+          "michelinStars": 3,
+          "tags": ["fine-dining", "city-views", "nordic"]
+        },
+        {
+          "name": "noma",
+          "cuisine": "New Nordic", 
+          "description": "Revolutionary restaurant that launched New Nordic movement",
+          "hours": "Limited days",
+          "priceRange": "$$$$",
+          "location": {"lat": 55.6960, "lng": 12.6081},
+          "bookingRequired": "Essential",
+          "michelinStars": 2,
+          "tags": ["innovative", "fermentation", "local-ingredients"]
+        },
+        {
+          "name": "AOC",
+          "cuisine": "Contemporary",
+          "description": "Located in vaulted cellars of 17th-century mansion",
+          "hours": "Dinner service",
+          "priceRange": "$$$",
+          "location": {"lat": 55.6822, "lng": 12.5854},
+          "bookingRequired": "Recommended",
+          "michelinStars": 2,
+          "tags": ["historic-setting", "wine-collection"]
+        },
+        {
+          "name": "Ida Davidsen",
+          "cuisine": "Traditional Danish",
+          "description": "4th generation smørrebrød specialist since 1888",
+          "hours": "Lunch service",
+          "priceRange": "$$",
+          "location": {"lat": 55.6851, "lng": 12.5897},
+          "bookingRequired": "Groups only",
+          "tags": ["traditional", "smørrebrød", "family-run"]
+        }
+      ],
+      "bars": [
+        {
+          "name": "ROOF CPH",
+          "type": "Rooftop Bar",
+          "description": "Rooftop bar with city skyline views and mint-green rooftops",
+          "hours": "Evening, weather dependent",
+          "location": {"lat": 55.6784, "lng": 12.5732},
+          "dressCode": "Smart casual",
+          "priceRange": "$$$",
+          "tags": ["panoramic-views", "cocktails", "hotel-bar"]
+        },
+        {
+          "name": "Mikkeller",
+          "type": "Craft Brewery",
+          "description": "Copenhagen's craft brewery pioneer with unique flavors",
+          "hours": "Vary by location",
+          "location": {"lat": 55.6831, "lng": 12.5724},
+          "priceRange": "$$",
+          "tags": ["craft-beer", "innovative-flavors", "local"]
+        },
+        {
+          "name": "Rosforth & Rosforth",
+          "type": "Wine Bar",
+          "description": "Natural wine bar under Knippelsbro bridge",
+          "hours": "Afternoon/evening",
+          "location": {"lat": 55.6734, "lng": 12.5821},
+          "priceRange": "$$$",
+          "tags": ["natural-wine", "waterfront", "local"]
+        }
+      ],
+      "itinerary": [
+        {
+          "day": "Day 1: Historic Center",
+          "activities": [
+            {"time": "Morning", "activity": "Tivoli Gardens", "duration": "2-3 hours"},
+            {"time": "Lunch", "activity": "Ida Davidsen for smørrebrød", "duration": "1 hour"},
+            {"time": "Afternoon", "activity": "Nyhavn walking and canal cruise", "duration": "2-3 hours"},
+            {"time": "Dinner", "activity": "AOC or Michelin restaurant", "duration": "2-3 hours"},
+            {"time": "Evening", "activity": "ROOF CPH for cocktails", "duration": "2 hours"}
+          ]
+        },
+        {
+          "day": "Day 2: Royal Copenhagen",
+          "activities": [
+            {"time": "Morning", "activity": "Amalienborg Palace with guard ceremony", "duration": "2 hours"},
+            {"time": "Lunch", "activity": "Royal Cafe", "duration": "1 hour"},
+            {"time": "Afternoon", "activity": "Rosenborg Castle and gardens", "duration": "2-3 hours"},
+            {"time": "Dinner", "activity": "Geranium or noma", "duration": "3-4 hours"},
+            {"time": "Evening", "activity": "Craft beer tour in Nørrebro", "duration": "2-3 hours"}
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Stockholm",
+      "center": {"lat": 59.3293, "lng": 18.0686},
+      "attractions": [
+        {
+          "name": "Gamla Stan",
+          "description": "Stockholm's oldest district with medieval cobblestone streets",
+          "hours": "24/7, attractions vary",
+          "fee": "Free to explore",
+          "duration": "Half day",
+          "location": {"lat": 59.3251, "lng": 18.0719},
+          "tags": ["historic", "medieval", "walking", "photography"]
+        },
+        {
+          "name": "Vasa Museum",
+          "description": "17th-century warship recovered after 333 years",
+          "hours": "Daily",
+          "fee": "SEK 180",
+          "duration": "2-3 hours",
+          "location": {"lat": 59.3280, "lng": 18.0916},
+          "tags": ["maritime", "unique", "family-friendly"]
+        },
+        {
+          "name": "Skansen",
+          "description": "World's oldest open-air museum with Nordic wildlife",
+          "hours": "Daily, seasonal",
+          "fee": "Up to SEK 285",
+          "duration": "Full day",
+          "location": {"lat": 59.3255, "lng": 18.1034},
+          "tags": ["cultural-heritage", "family-friendly", "outdoor", "wildlife"]
+        },
+        {
+          "name": "Royal Palace",
+          "description": "600+ room palace with royal apartments and museums",
+          "hours": "Daily",
+          "fee": "Museum tickets required",
+          "duration": "2-3 hours",
+          "location": {"lat": 59.3267, "lng": 18.0717},
+          "tags": ["royal", "ceremony", "historic", "architecture"]
+        },
+        {
+          "name": "Fotografiska",
+          "description": "Contemporary photography center with waterfront views",
+          "hours": "Daily",
+          "fee": "Admission required",
+          "duration": "2-3 hours",
+          "location": {"lat": 59.3186, "lng": 18.0840},
+          "tags": ["contemporary-art", "photography", "waterfront"]
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "Frantzén",
+          "cuisine": "Contemporary",
+          "description": "Sweden's first three Michelin star restaurant",
+          "hours": "Dinner, very limited",
+          "priceRange": "$$$$",
+          "location": {"lat": 59.3326, "lng": 18.0649},
+          "bookingRequired": "Essential, months ahead",
+          "michelinStars": 3,
+          "tags": ["fine-dining", "innovative", "historic-building"]
+        },
+        {
+          "name": "AIRA",
+          "cuisine": "Nordic",
+          "description": "Seasonal Nordic flavors on Djurgården with sea views",
+          "hours": "Dinner service",
+          "priceRange": "$$$$",
+          "location": {"lat": 59.3247, "lng": 18.0952},
+          "bookingRequired": "Essential",
+          "michelinStars": 2,
+          "tags": ["seasonal", "sea-views", "nordic"]
+        },
+        {
+          "name": "Ekstedt",
+          "cuisine": "Nordic",
+          "description": "Unique cooking using only open fire, wood, and smoke",
+          "hours": "Dinner service",
+          "priceRange": "$$$",
+          "location": {"lat": 59.3345, "lng": 18.0632},
+          "bookingRequired": "Required",
+          "michelinStars": 1,
+          "tags": ["unique-cooking", "fire", "innovative"]
+        },
+        {
+          "name": "Sushi Sho",
+          "cuisine": "Japanese",
+          "description": "15-dish sushi tasting menu in open kitchen",
+          "hours": "Dinner service",
+          "priceRange": "$$$",
+          "location": {"lat": 59.342, "lng": 18.0639},
+          "bookingRequired": "Essential",
+          "michelinStars": 1,
+          "tags": ["sushi", "tasting-menu", "open-kitchen"]
+        }
+      ],
+      "bars": [
+        {
+          "name": "Freyja Söder",
+          "type": "Rooftop Bar",
+          "description": "Scandinavian elegance with graffiti outdoor bar and panoramic views",
+          "hours": "Seasonal outdoor",
+          "location": {"lat": 59.3167, "lng": 18.0679},
+          "priceRange": "$$$",
+          "tags": ["panoramic-views", "eclectic", "seasonal"]
+        },
+        {
+          "name": "Le Hibou",
+          "type": "Rooftop Bar", 
+          "description": "Year-round rooftop with Parisian-inspired cocktails",
+          "hours": "Year-round",
+          "location": {"lat": 59.3293, "lng": 18.0686},
+          "priceRange": "$$$",
+          "tags": ["cocktails", "year-round", "parisian-elegance"]
+        },
+        {
+          "name": "Trädgården",
+          "type": "Nightclub",
+          "description": "Popular summer outdoor club under Skanstull bridge",
+          "hours": "Summer seasonal",
+          "location": {"lat": 59.3086, "lng": 18.0747},
+          "priceRange": "$$",
+          "tags": ["outdoor-summer", "popular", "bridge-location"]
+        }
+      ],
+      "itinerary": [
+        {
+          "day": "Day 1: Old Town & Museums",
+          "activities": [
+            {"time": "Morning", "activity": "Gamla Stan exploration", "duration": "3-4 hours"},
+            {"time": "Lunch", "activity": "Traditional Swedish café", "duration": "1 hour"},
+            {"time": "Afternoon", "activity": "Royal Palace tour", "duration": "2-3 hours"},
+            {"time": "Dinner", "activity": "Traditional Swedish restaurant", "duration": "2 hours"},
+            {"time": "Evening", "activity": "Cocktails in Södermalm", "duration": "2-3 hours"}
+          ]
+        },
+        {
+          "day": "Day 2: Djurgården Island",
+          "activities": [
+            {"time": "Morning", "activity": "Vasa Museum", "duration": "2-3 hours"},
+            {"time": "Lunch", "activity": "Island café", "duration": "1 hour"},
+            {"time": "Afternoon", "activity": "Skansen Open-Air Museum", "duration": "3-4 hours"},
+            {"time": "Dinner", "activity": "Frantzén or AIRA", "duration": "3-4 hours"},
+            {"time": "Evening", "activity": "Rooftop bar with city views", "duration": "2 hours"}
+          ]
+        }
+      ]
+    }
+  ],
+  "localTips": {
+    "copenhagen": {
+      "transportation": "Copenhagen Card for unlimited transport + 80 attractions, DOT app for tickets",
+      "culture": "Hygge culture, fika coffee breaks, service included in bills",
+      "emergency": "Emergency: 112, Police: 114, Currency: DKK"
+    },
+    "stockholm": {
+      "transportation": "SL app for public transport, contactless payment works",
+      "culture": "Fika essential, Systembolaget for alcohol, English widely spoken",
+      "emergency": "Emergency: 112, Currency: SEK"
+    }
+  },
+  "budgetEstimates": {
+    "budget": {"daily": "€30-50", "description": "Street food, free attractions, neighborhood bars"},
+    "midrange": {"daily": "€80-120", "description": "Museum entries, casual dining, craft cocktails"},
+    "luxury": {"daily": "€200+", "description": "Michelin dining, premium experiences, high-end bars"}
+  }
+};
 
 // Dashboard State
 let currentCity = 'copenhagen';
