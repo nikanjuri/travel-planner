@@ -89,6 +89,9 @@ function showContentSections() {
         document.getElementById('attractions-section').classList.add('active');
         document.getElementById('restaurants-section').classList.add('active');
         document.getElementById('bars-section').classList.add('active');
+    } else if (currentCategory === 'itinerary') {
+        // For itinerary tab, don't show the "Suggested Itineraries" section
+        // The "My Trip" section is always visible, so do nothing here
     } else {
         // Show specific section
         const sectionId = currentCategory === 'tips' ? 'tips-section' : `${currentCategory}-section`;
