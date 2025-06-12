@@ -281,11 +281,6 @@ function createRestaurantCard(restaurant) {
                     <span class="detail-label">Cuisine:</span>
                     <span class="detail-value">${restaurant.cuisine}</span>
                 </div>` : ''}
-                ${restaurant.price_range ? `
-                <div class="detail-item">
-                    <span class="detail-label">Price:</span>
-                    <span class="detail-value">${restaurant.price_range}</span>
-                </div>` : ''}
                 ${restaurant.opening_hours ? `
                 <div class="detail-item">
                     <span class="detail-label">Hours:</span>
@@ -295,6 +290,11 @@ function createRestaurantCard(restaurant) {
                 <div class="detail-item">
                     <span class="detail-label">Michelin:</span>
                     <span class="detail-value michelin-stars">${stars}</span>
+                </div>` : ''}
+                ${restaurant.price_range ? `
+                <div class="detail-item">
+                    <span class="detail-label">Price:</span>
+                    <span class="detail-value">${restaurant.price_range}</span>
                 </div>` : ''}
             </div>
             <div class="venue-tags">
