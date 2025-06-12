@@ -269,21 +269,33 @@ function loadLocalTips(cityName) {
                         <i class="fas fa-bus"></i>
                         Transportation
                     </div>
-                    <div class="tip-content">${tips.transportation}</div>
+                    <div class="tip-content">${
+                      Array.isArray(tips.transportation)
+                        ? '<ul>' + tips.transportation.map(item => `<li>${item}</li>`).join('') + '</ul>'
+                        : tips.transportation
+                    }</div>
                 </div>
                 <div class="tip-card">
                     <div class="tip-title">
                         <i class="fas fa-heart"></i>
                         Culture
                     </div>
-                    <div class="tip-content">${tips.culture}</div>
+                    <div class="tip-content">${
+                      Array.isArray(tips.culture)
+                        ? '<ul>' + tips.culture.map(item => `<li>${item}</li>`).join('') + '</ul>'
+                        : tips.culture
+                    }</div>
                 </div>
                 <div class="tip-card">
                     <div class="tip-title">
                         <i class="fas fa-phone"></i>
                         Emergency Info
                     </div>
-                    <div class="tip-content">${tips.emergency}</div>
+                    <div class="tip-content">${
+                      Array.isArray(tips.emergency)
+                        ? '<ul>' + tips.emergency.map(item => `<li>${item}</li>`).join('') + '</ul>'
+                        : tips.emergency
+                    }</div>
                 </div>
             </div>
         `;
