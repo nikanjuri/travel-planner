@@ -12,16 +12,24 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
 
     fetch('travel_dashboard_data.json')
-      .then(response => response.json())
-      .then(data => {
-        window.travelData = data;
-        loadCity('copenhagen');
-        updateTripDisplay();
-      })
-      .catch(err => {
-        console.error('Failed to load travel data:', err);
-        alert('Could not load travel data.');
-      });
+  .then(response => response.text()) // TEMP: read as text
+  .then(text => {
+    console.log('Raw response:', text); // Show what's actually coming in
+
+    try {
+      const data = JSON.parse(text); // Manually try parsing
+      window.travelData = data;
+      loadCity('copenhagen');
+      updateTripDisplay();
+    } catch (jsonErr) {
+      console.error("❌ JSON parse failed:", jsonErr.message);
+      alert("JSON file is found but has a parse error.");
+    }
+  })
+  .catch(err => {
+    console.error('❌ Failed to fetch travel data:', err);
+    alert('Could not load travel data.');
+  });
 });
 
 // Map Initialization
