@@ -458,7 +458,7 @@
           "cuisine": "Danish",
           "description": "Expertly crafted smørrebrød using traditional techniques and high-quality ingredients.",
           "opening_hours": "11:00–16:00 (daily)",
-          "price_range": "$$$, "booking_required": false, "location": { "lat": 55.6810, "lng": 12.5801 }, "neighborhood": "City Center", "website": "https: //aamanns.dk", "tags": ["Danish", "smørrebrød", "traditional"], "rating": 4.4, "google_maps_url": "https://goo.gl/maps/aamanns" },
+          "price_range": "$$$", "booking_required": false, "location": { "lat": 55.6810, "lng": 12.5801 }, "neighborhood": "City Center", "website": "https: //aamanns.dk", "tags": ["Danish", "smørrebrød", "traditional"], "rating": 4.4, "google_maps_url": "https://goo.gl/maps/aamanns" },
           {
             "name": "Restaurant Schønnemann",
             "cuisine": "Danish",
