@@ -220,9 +220,9 @@ function createPopupContent(venue, type) {
         <h4>${venue.name}</h4>
         <p>${venue.description}</p>`;
     
-    if (venue.hours) content += `<p><strong>Hours:</strong> ${venue.hours}</p>`;
-    if (venue.fee) content += `<p><strong>Fee:</strong> ${venue.fee}</p>`;
-    if (venue.priceRange) content += `<p><strong>Price:</strong> ${venue.priceRange}</p>`;
+    if (venue.opening_hours) content += `<p><strong>Hours:</strong> ${venue.opening_hours}</p>`;
+    if (venue.entry_fee) content += `<p><strong>Fee:</strong> ${venue.entry_fee}</p>`;
+    if (venue.price_range) content += `<p><strong>Price:</strong> ${venue.price_range}</p>`;
     
     content += `</div>`;
     return content;
@@ -259,7 +259,7 @@ function loadItinerary(itinerary) {
 
 function loadLocalTips(cityName) {
     const content = document.getElementById('tips-content');
-    const tips = window.travelData.localTips[cityName];
+    const tips = (window.travelData.cities.find(c => c.name.toLowerCase() === cityName) || {}).local_tips;
     
     if (content && tips) {
         content.innerHTML = `
@@ -293,8 +293,9 @@ function loadLocalTips(cityName) {
 // Card Creation Functions
 function createAttractionCard(attraction) {
     const id = `attraction-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-    const priceCategory = attraction.fee === 'Free' || attraction.fee === 'Free to explore' ? 'free' : 
-                         attraction.fee.includes('€') || attraction.fee.includes('SEK') ? '$$' : '$';
+    const fee = attraction.entry_fee || '';
+    const priceCategory = fee === 'Free' || fee === 'Free to explore' ? 'free' :
+                         (fee.includes('€') || fee.includes('SEK')) ? '$$' : '$';
     
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="attractions" data-price="${priceCategory}">
@@ -313,15 +314,15 @@ function createAttractionCard(attraction) {
             <div class="venue-details">
                 <div class="detail-item">
                     <span class="detail-label">Hours:</span>
-                    <span class="detail-value">${attraction.hours}</span>
+                    <span class="detail-value">${attraction.opening_hours || ''}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Fee:</span>
-                    <span class="detail-value">${attraction.fee}</span>
+                    <span class="detail-value">${attraction.entry_fee || ''}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Duration:</span>
-                    <span class="detail-value">${attraction.duration}</span>
+                    <span class="detail-value">${attraction.duration || ''}</span>
                 </div>
             </div>
             <div class="venue-tags">
@@ -333,12 +334,19 @@ function createAttractionCard(attraction) {
 
 function createRestaurantCard(restaurant) {
     const id = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-    const stars = restaurant.michelinStars ? '⭐'.repeat(restaurant.michelinStars) : '';
-    
+    // Show booking badge if booking_required is true
+    const bookingBadge = restaurant.booking_required ? '<div class="booking-badge essential">Booking Essential</div>' : '';
+    // Optionally show rating if present
+    const ratingDisplay = restaurant.rating ? `
+        <div class="detail-item">
+            <span class="detail-label">Rating:</span>
+            <span class="detail-value">${restaurant.rating}</span>
+        </div>
+    ` : '';
+
     return `
-        <div class="venue-card" data-venue-id="${id}" data-category="restaurants" data-price="${restaurant.priceRange}">
-            ${restaurant.bookingRequired === 'Essential' || restaurant.bookingRequired === 'Essential, months ahead' ? '<div class="booking-badge essential">Booking Essential</div>' : ''}
-            ${restaurant.bookingRequired === 'Recommended' || restaurant.bookingRequired === 'Required' ? '<div class="booking-badge recommended">Booking Recommended</div>' : ''}
+        <div class="venue-card" data-venue-id="${id}" data-category="restaurants" data-price="${restaurant.price_range}">
+            ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${restaurant.name}</h3>
                 <div class="venue-actions">
@@ -358,18 +366,13 @@ function createRestaurantCard(restaurant) {
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Price:</span>
-                    <span class="detail-value">${restaurant.priceRange}</span>
+                    <span class="detail-value">${restaurant.price_range}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Hours:</span>
-                    <span class="detail-value">${restaurant.hours}</span>
+                    <span class="detail-value">${restaurant.opening_hours}</span>
                 </div>
-                ${restaurant.michelinStars ? `
-                <div class="detail-item">
-                    <span class="detail-label">Michelin:</span>
-                    <span class="detail-value michelin-stars">${stars}</span>
-                </div>
-                ` : ''}
+                ${ratingDisplay}
             </div>
             <div class="venue-tags">
                 ${restaurant.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
@@ -382,7 +385,7 @@ function createBarCard(bar) {
     const id = `bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
     
     return `
-        <div class="venue-card" data-venue-id="${id}" data-category="bars" data-price="${bar.priceRange || '$$'}">
+        <div class="venue-card" data-venue-id="${id}" data-category="bars" data-price="${bar.price_range || '$$'}">
             <div class="venue-header">
                 <h3 class="venue-name">${bar.name}</h3>
                 <div class="venue-actions">
@@ -402,7 +405,7 @@ function createBarCard(bar) {
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">Hours:</span>
-                    <span class="detail-value">${bar.hours}</span>
+                    <span class="detail-value">${bar.opening_hours || ''}</span>
                 </div>
                 ${bar.dressCode ? `
                 <div class="detail-item">
@@ -410,10 +413,10 @@ function createBarCard(bar) {
                     <span class="detail-value">${bar.dressCode}</span>
                 </div>
                 ` : ''}
-                ${bar.priceRange ? `
+                ${bar.price_range ? `
                 <div class="detail-item">
                     <span class="detail-label">Price:</span>
-                    <span class="detail-value">${bar.priceRange}</span>
+                    <span class="detail-value">${bar.price_range}</span>
                 </div>
                 ` : ''}
             </div>
