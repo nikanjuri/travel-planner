@@ -247,12 +247,19 @@ function createAttractionCard(attraction) {
 
 function createRestaurantCard(restaurant) {
     const id = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-    // You may need to adapt the Michelin stars and booking fields to your new JSON structure
     const stars = restaurant.michelinStars ? '⭐'.repeat(restaurant.michelinStars) : '';
+    
+    // Handle booking badge - check for both boolean and string values
+    let bookingBadge = '';
+    if (restaurant.booking_required === true || restaurant.booking_required === 'Essential' || restaurant.booking_required === 'Essential, months ahead') {
+        bookingBadge = '<div class="booking-badge essential">Booking Essential</div>';
+    } else if (restaurant.booking_required === 'Recommended' || restaurant.booking_required === 'Required') {
+        bookingBadge = '<div class="booking-badge recommended">Booking Recommended</div>';
+    }
+    
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="restaurants" data-price="${restaurant.price_range || ''}">
-            ${(restaurant.booking_required === 'Essential' || restaurant.booking_required === 'Essential, months ahead') ? '<div class="booking-badge essential">Booking Essential</div>' : ''}
-            ${(restaurant.booking_required === 'Recommended' || restaurant.booking_required === 'Required') ? '<div class="booking-badge recommended">Booking Recommended</div>' : ''}
+            ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${restaurant.name}</h3>
                 <div class="venue-actions">
@@ -296,8 +303,18 @@ function createRestaurantCard(restaurant) {
 
 function createBarCard(bar) {
     const id = `bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+    
+    // Handle booking badge for bars (if they have booking requirements)
+    let bookingBadge = '';
+    if (bar.booking_required === true || bar.booking_required === 'Essential' || bar.booking_required === 'Essential, months ahead') {
+        bookingBadge = '<div class="booking-badge essential">Booking Essential</div>';
+    } else if (bar.booking_required === 'Recommended' || bar.booking_required === 'Required') {
+        bookingBadge = '<div class="booking-badge recommended">Booking Recommended</div>';
+    }
+    
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="bars" data-price="${bar.price_range || '$$'}">
+            ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${bar.name}</h3>
                 <div class="venue-actions">
@@ -438,8 +455,14 @@ function highlightOnMap(venueId) {
 // Trip Planning
 function addToTrip(venueName, venueType) {
     const existingItem = myTrip.find(item => item.name === venueName);
-    if (existingItem) return;
     
+    if (existingItem) {
+        // If item already exists, remove it (toggle off)
+        removeFromTrip(venueName);
+        return;
+    }
+    
+    // If item doesn't exist, add it (toggle on)
     myTrip.push({ name: venueName, type: venueType });
     updateTripDisplay();
     
