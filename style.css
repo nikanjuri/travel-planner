@@ -961,7 +961,7 @@ select.form-control {
 
 .booking-badge {
   position: absolute;
-  bottom: var(--space-8);
+  bottom: var(--space-16);
   right: var(--space-12);
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-sm);
@@ -1263,7 +1263,24 @@ select.form-control {
   color: #000 !important;
 }
 
-/* Force all popup content text to black */
+/* Fix map popup text color - make all text black for readability */
 .leaflet-popup-content {
   color: #000 !important;
+}
+
+.leaflet-popup-content * {
+  color: #000 !important;
+}
+
+.leaflet-popup-content h4 {
+  color: #000 !important;
+  font-weight: bold;
+}
+
+.leaflet-popup-content p {
+  color: #000 !important;
+}
+
+.leaflet-popup-content a {
+  color: #0066cc !important;  /* Keep links blue for visibility */
 }
