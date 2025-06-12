@@ -253,7 +253,6 @@
             "lat": 55.6821,
             "lng": 12.5999
           },
-          "multiple": false,
           "neighborhood": "Refshaleøen",
           "website": "https://amassrestaurant.com",
           "tags": [
@@ -458,1351 +457,1379 @@
           "cuisine": "Danish",
           "description": "Expertly crafted smørrebrød using traditional techniques and high-quality ingredients.",
           "opening_hours": "11:00–16:00 (daily)",
-          "price_range": "$$$", "booking_required": false, "location": { "lat": 55.6810, "lng": 12.5801 }, "neighborhood": "City Center", "website": "https: //aamanns.dk", "tags": ["Danish", "smørrebrød", "traditional"], "rating": 4.4, "google_maps_url": "https://goo.gl/maps/aamanns" },
-          {
-            "name": "Restaurant Schønnemann",
-            "cuisine": "Danish",
-            "description": "Historic eatery famous for its open-face sandwiches and classic Danish fare since 1877.",
-            "opening_hours": "11:00–22:00 (daily)",
-            "price_range": "$$",
-            "booking_required": false,
-            "location": {
-              "lat": 55.6812,
-              "lng": 12.5833
-            },
-            "neighborhood": "City Center",
-            "website": "https://schoennemann.dk",
-            "tags": [
-              "Danish",
-              "historic",
-              "casual"
-            ],
-            "rating": 4.2,
-            "google_maps_url": "https://goo.gl/maps/schonman"
+          "price_range": "$$$",
+          "booking_required": false,
+          "location": {
+            "lat": 55.6810,
+            "lng": 12.5801
           },
-          {
-            "name": "Bæst",
-            "cuisine": "Italian",
-            "description": "Artisanal pizza and charcuterie crafted with locally milled flour and organic ingredients.",
-            "opening_hours": "12:00–22:00 (daily)",
-            "price_range": "$$$",
-            "booking_required": true,
-            "location": {
-              "lat": 55.6850,
-              "lng": 12.5720
-            },
-            "neighborhood": "City Center",
-            "website": "https://baest.dk",
-            "tags": [
-              "pizza",
-              "Italian",
-              "artisan"
-            ],
-            "rating": 4.5,
-            "google_maps_url": "https://goo.gl/maps/baestpizza"
-          }
-        ],
-        "bars": [
-          {
-            "name": "Ruby",
-            "type": "Cocktail Bar",
-            "description": "Meticulously crafted cocktails in a cozy townhouse setting.",
-            "opening_hours": "16:00–02:00 (daily)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6740,
-              "lng": 12.5690
-            },
-            "neighborhood": "City Center",
-            "website": "https://rby.dk",
-            "tags": [
-              "cocktails",
-              "upscale",
-              "cozy"
-            ],
-            "rating": 4.7,
-            "google_maps_url": "https://goo.gl/maps/rubybar"
+          "neighborhood": "City Center",
+          "website": "https://aamanns.dk",
+          "tags": [
+            "Danish",
+            "smørrebrød",
+            "traditional"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/aamanns"
+        },
+        {
+          "name": "Restaurant Schønnemann",
+          "cuisine": "Danish",
+          "description": "Historic eatery famous for its open-face sandwiches and classic Danish fare since 1877.",
+          "opening_hours": "11:00–22:00 (daily)",
+          "price_range": "$$",
+          "booking_required": false,
+          "location": {
+            "lat": 55.6812,
+            "lng": 12.5833
           },
-          {
-            "name": "The Jane",
-            "type": "Speakeasy/Nightclub",
-            "description": "Mid-century lounge by evening, lively nightclub by midnight with vintage decor.",
-            "opening_hours": "18:00–05:00 (Wed–Sat)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6765,
-              "lng": 12.5715
-            },
-            "neighborhood": "City Center",
-            "website": "http://www.thejane.dk",
-            "tags": [
-              "speakeasy",
-              "nightclub",
-              "vintage"
-            ],
-            "rating": 4.5,
-            "google_maps_url": "https://goo.gl/maps/thejane"
+          "neighborhood": "City Center",
+          "website": "https://schoennemann.dk",
+          "tags": [
+            "Danish",
+            "historic",
+            "casual"
+          ],
+          "rating": 4.2,
+          "google_maps_url": "https://goo.gl/maps/schonman"
+        },
+        {
+          "name": "Bæst",
+          "cuisine": "Italian",
+          "description": "Artisanal pizza and charcuterie crafted with locally milled flour and organic ingredients.",
+          "opening_hours": "12:00–22:00 (daily)",
+          "price_range": "$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 55.6850,
+            "lng": 12.5720
           },
-          {
-            "name": "Brønnum",
-            "type": "Cocktail Bar",
-            "description": "Six uniquely designed rooms serving diverse cocktails in a historic building.",
-            "opening_hours": "16:00–02:00 (Tue–Sat)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6745,
-              "lng": 12.5685
-            },
-            "neighborhood": "City Center",
-            "website": "https://bronnumcph.dk",
-            "tags": [
-              "cocktails",
-              "historic",
-              "elegant"
-            ],
-            "rating": 4.4,
-            "google_maps_url": "https://goo.gl/maps/bronnum"
+          "neighborhood": "City Center",
+          "website": "https://baest.dk",
+          "tags": [
+            "pizza",
+            "Italian",
+            "artisan"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/baestpizza"
+        }
+      ],
+      "bars": [
+        {
+          "name": "Ruby",
+          "type": "Cocktail Bar",
+          "description": "Meticulously crafted cocktails in a cozy townhouse setting.",
+          "opening_hours": "16:00–02:00 (daily)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6740,
+            "lng": 12.5690
           },
-          {
-            "name": "Mikkeller Bar",
-            "type": "Craft Beer Bar",
-            "description": "Rotating selection of innovative brews from Copenhagen’s craft pioneer.",
-            "opening_hours": "14:00–00:00 (daily)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6831,
-              "lng": 12.5724
-            },
-            "neighborhood": "City Center",
-            "website": "http://mikkeller.dk",
-            "tags": [
-              "craft beer",
-              "innovative",
-              "casual"
-            ],
-            "rating": 4.6,
-            "google_maps_url": "https://goo.gl/maps/mikkeller"
+          "neighborhood": "City Center",
+          "website": "https://rby.dk",
+          "tags": [
+            "cocktails",
+            "upscale",
+            "cozy"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/rubybar"
+        },
+        {
+          "name": "The Jane",
+          "type": "Speakeasy/Nightclub",
+          "description": "Mid-century lounge by evening, lively nightclub by midnight with vintage decor.",
+          "opening_hours": "18:00–05:00 (Wed–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6765,
+            "lng": 12.5715
           },
-          {
-            "name": "Lidkoeb",
-            "type": "Whisky Bar",
-            "description": "Three floors of whisky selections in a former pharmacy setting.",
-            "opening_hours": "16:00–02:00 (Tue–Sat)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6735,
-              "lng": 12.5721
-            },
-            "neighborhood": "City Center",
-            "website": "https://lidkoeb.dk",
-            "tags": [
-              "whisky",
-              "historic",
-              "lounge"
-            ],
-            "rating": 4.5,
-            "google_maps_url": "https://goo.gl/maps/lidkoeb"
+          "neighborhood": "City Center",
+          "website": "http://www.thejane.dk",
+          "tags": [
+            "speakeasy",
+            "nightclub",
+            "vintage"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/thejane"
+        },
+        {
+          "name": "Brønnum",
+          "type": "Cocktail Bar",
+          "description": "Six uniquely designed rooms serving diverse cocktails in a historic building.",
+          "opening_hours": "16:00–02:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6745,
+            "lng": 12.5685
           },
-          {
-            "name": "Curfew",
-            "type": "Speakeasy",
-            "description": "1920s-inspired ambiance with a focus on classic cocktails and attentive service.",
-            "opening_hours": "17:00–02:00 (Wed–Sat)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6750,
-              "lng": 12.5719
-            },
-            "neighborhood": "City Center",
-            "website": "https://www.curfew.dk",
-            "tags": [
-              "speakeasy",
-              "classic",
-              "intimate"
-            ],
-            "rating": 4.4,
-            "google_maps_url": "https://goo.gl/maps/curfew"
+          "neighborhood": "City Center",
+          "website": "https://bronnumcph.dk",
+          "tags": [
+            "cocktails",
+            "historic",
+            "elegant"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/bronnum"
+        },
+        {
+          "name": "Mikkeller Bar",
+          "type": "Craft Beer Bar",
+          "description": "Rotating selection of innovative brews from Copenhagen’s craft pioneer.",
+          "opening_hours": "14:00–00:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6831,
+            "lng": 12.5724
           },
-          {
-            "name": "Taphouse",
-            "type": "Beer Bar",
-            "description": "Featuring one of Europe’s largest tap selections with 61 rotating brews.",
-            "opening_hours": "12:00–00:00 (daily)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6684,
-              "lng": 12.5419
-            },
-            "neighborhood": "Frederiksberg",
-            "website": "https://taphouse.dk",
-            "tags": [
-              "beer",
-              "casual",
-              "diverse"
-            ],
-            "rating": 4.3,
-            "google_maps_url": "https://goo.gl/maps/taphouse"
+          "neighborhood": "City Center",
+          "website": "http://mikkeller.dk",
+          "tags": [
+            "craft beer",
+            "innovative",
+            "casual"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/mikkeller"
+        },
+        {
+          "name": "Lidkoeb",
+          "type": "Whisky Bar",
+          "description": "Three floors of whisky selections in a former pharmacy setting.",
+          "opening_hours": "16:00–02:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6735,
+            "lng": 12.5721
           },
-          {
-            "name": "La Fontaine",
-            "type": "Jazz Bar",
-            "description": "Copenhagen’s oldest jazz bar offering nightly live performances.",
-            "opening_hours": "20:00–03:00 (daily)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6760,
-              "lng": 12.5760
-            },
-            "neighborhood": "City Center",
-            "website": "https://www.lafontaine.dk",
-            "tags": [
-              "jazz",
-              "live music",
-              "historic"
-            ],
-            "rating": 4.5,
-            "google_maps_url": "https://goo.gl/maps/lafontaine"
+          "neighborhood": "City Center",
+          "website": "https://lidkoeb.dk",
+          "tags": [
+            "whisky",
+            "historic",
+            "lounge"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/lidkoeb"
+        },
+        {
+          "name": "Curfew",
+          "type": "Speakeasy",
+          "description": "1920s-inspired ambiance with a focus on classic cocktails and attentive service.",
+          "opening_hours": "17:00–02:00 (Wed–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6750,
+            "lng": 12.5719
           },
-          {
-            "name": "Mojo Blues Bar",
-            "type": "Blues Bar",
-            "description": "Nightly live blues performances in an intimate setting.",
-            "opening_hours": "20:00–05:00 (daily)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6772,
-              "lng": 12.5698
-            },
-            "neighborhood": "City Center",
-            "website": "https://www.mojo.dk",
-            "tags": [
-              "blues",
-              "live music",
-              "intimate"
-            ],
-            "rating": 4.4,
-            "google_maps_url": "https://goo.gl/maps/mojobar"
+          "neighborhood": "City Center",
+          "website": "https://www.curfew.dk",
+          "tags": [
+            "speakeasy",
+            "classic",
+            "intimate"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/curfew"
+        },
+        {
+          "name": "Taphouse",
+          "type": "Beer Bar",
+          "description": "Featuring one of Europe’s largest tap selections with 61 rotating brews.",
+          "opening_hours": "12:00–00:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6684,
+            "lng": 12.5419
           },
-          {
-            "name": "Warpigs Brewpub",
-            "type": "Brewpub",
-            "description": "American-style BBQ paired with house-brewed craft beers in the Meatpacking District.",
-            "opening_hours": "12:00–00:00 (daily)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6779,
-              "lng": 12.5654
-            },
-            "neighborhood": "Vesterbro",
-            "website": "https://warpigs.dk",
-            "tags": [
-              "brewpub",
-              "BBQ",
-              "casual"
-            ],
-            "rating": 4.6,
-            "google_maps_url": "https://goo.gl/maps/warpigs"
+          "neighborhood": "Frederiksberg",
+          "website": "https://taphouse.dk",
+          "tags": [
+            "beer",
+            "casual",
+            "diverse"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/taphouse"
+        },
+        {
+          "name": "La Fontaine",
+          "type": "Jazz Bar",
+          "description": "Copenhagen’s oldest jazz bar offering nightly live performances.",
+          "opening_hours": "20:00–03:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6760,
+            "lng": 12.5760
           },
-          {
-            "name": "Jolene Bar",
-            "type": "Cocktail Bar",
-            "description": "Eclectic cocktails in a bohemian setting popular with the creative crowd.",
-            "opening_hours": "17:00–02:00 (Tue–Sat)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6730,
-              "lng": 12.5520
-            },
-            "neighborhood": "Nørrebro",
-            "website": "",
-            "tags": [
-              "cocktails",
-              "bohemian",
-              "trendy"
-            ]
+          "neighborhood": "City Center",
+          "website": "https://www.lafontaine.dk",
+          "tags": [
+            "jazz",
+            "live music",
+            "historic"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/lafontaine"
+        },
+        {
+          "name": "Mojo Blues Bar",
+          "type": "Blues Bar",
+          "description": "Nightly live blues performances in an intimate setting.",
+          "opening_hours": "20:00–05:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6772,
+            "lng": 12.5698
           },
-          {
-            "name": "Bakken",
-            "type": "Open-air Club",
-            "description": "Seasonal outdoor techno and dance events beneath a viaduct.",
-            "opening_hours": "18:00–06:00 (Thu–Sun, May–Sept)",
-            "price_range": "$$",
-            "location": {
-              "lat": 55.6700,
-              "lng": 12.5350
-            },
-            "neighborhood": "Refshaleøen",
-            "website": "https://bakken.dk",
-            "tags": [
-              "club",
-              "techno",
-              "seasonal"
-            ]
+          "neighborhood": "City Center",
+          "website": "https://www.mojo.dk",
+          "tags": [
+            "blues",
+            "live music",
+            "intimate"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/mojobar"
+        },
+        {
+          "name": "Warpigs Brewpub",
+          "type": "Brewpub",
+          "description": "American-style BBQ paired with house-brewed craft beers in the Meatpacking District.",
+          "opening_hours": "12:00–00:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6779,
+            "lng": 12.5654
           },
-          {
-            "name": "SoHo",
-            "type": "Lounge",
-            "description": "Chic lounge bar offering cocktails and small plates in a stylish setting.",
-            "opening_hours": "17:00–02:00 (daily)",
-            "price_range": "$$$",
-            "location": {
-              "lat": 55.6840,
-              "lng": 12.5670
-            },
-            "neighborhood": "City Center",
-            "website": "",
-            "tags": [
-              "lounge",
-              "stylish",
-              "upscale"
-            ]
+          "neighborhood": "Vesterbro",
+          "website": "https://warpigs.dk",
+          "tags": [
+            "brewpub",
+            "BBQ",
+            "casual"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/warpigs"
+        },
+        {
+          "name": "Jolene Bar",
+          "type": "Cocktail Bar",
+          "description": "Eclectic cocktails in a bohemian setting popular with the creative crowd.",
+          "opening_hours": "17:00–02:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6730,
+            "lng": 12.5520
           },
-          {
-            "name": "Ved Stranden 10",
-            "type": "Wine Bar",
-            "description": "Intimate wine bar with a curated selection of natural wines and small bites.",
-            "opening_hours": "16:00–23:00 (Tue–Sat)",
-            "price_range": "$$$", 
-            "location": { "lat": 55.6810, "lng": 12.5870 }, 
-            "neighborhood": "City Center", "website": "", "tags": ["wine", "intimate", "natural"]},{
-              "name": "The Barking Dog",
-              "type": "Cocktail Bar",
-              "description": "Quirky cocktails inspired by canine themes in a playful atmosphere.",
-              "opening_hours": "17:00–02:00 (Tue–Sat)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.6765,
-                "lng": 12.5695
-              },
-              "neighborhood": "City Center",
-              "website": "",
-              "tags": [
-                "cocktails",
-                "quirky",
-                "playful"
-              ]
-            },
-            {
-              "name": "Studio 61",
-              "type": "Creative Bar",
-              "description": "Artistic cocktail bar with rotating menu and local art displays.",
-              "opening_hours": "18:00–02:00 (Wed–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 55.6825,
-                "lng": 12.5750
-              },
-              "neighborhood": "Østerbro",
-              "website": "",
-              "tags": [
-                "cocktails",
-                "artistic",
-                "creative"
-              ]
-            },
-            {
-              "name": "Zoo Bar",
-              "type": "Classic Bar",
-              "description": "Vintage ambiance offering classic cocktails and live piano music.",
-              "opening_hours": "17:00–01:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.6790,
-                "lng": 12.5700
-              },
-              "neighborhood": "City Center",
-              "website": "",
-              "tags": [
-                "classic",
-                "cocktails",
-                "live music"
-              ]
-            },
-            {
-              "name": "H11",
-              "type": "Sports Bar",
-              "description": "Casual bar with multiple screens broadcasting sports and casual fare.",
-              "opening_hours": "12:00–02:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.6845,
-                "lng": 12.5675
-              },
-              "neighborhood": "City Center",
-              "website": "",
-              "tags": [
-                "sports",
-                "casual",
-                "family-friendly"
-              ]
-            },
-            {
-              "name": "K-Bar",
-              "type": "LGBTQ+ Bar",
-              "description": "Welcoming LGBTQ+ venue with drag shows and themed nights.",
-              "opening_hours": "18:00–03:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.6815,
-                "lng": 12.5560
-              },
-              "neighborhood": "Vesterbro",
-              "website": "",
-              "tags": [
-                "LGBTQ+",
-                "entertainment",
-                "themed"
-              ]
-            },
-            {
-              "name": "Fermentoren",
-              "type": "Craft Beer Bar",
-              "description": "Industrial-chic bar focusing on local and international craft beers.",
-              "opening_hours": "12:00–00:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.6795,
-                "lng": 12.5545
-              },
-              "neighborhood": "Nørrebro",
-              "website": "",
-              "tags": [
-                "craft beer",
-                "industrial",
-                "casual"
-              ]
-            },
-            {
-              "name": "Bryggeri Skovlyst",
-              "type": "Brewery",
-              "description": "Forest-set microbrewery producing organic ales and lagers.",
-              "opening_hours": "14:00–22:00 (Wed–Sun)",
-              "price_range": "$$",
-              "location": {
-                "lat": 55.7000,
-                "lng": 12.5500
-              },
-              "neighborhood": "Gentofte",
-              "website": "",
-              "tags": [
-                "brewery",
-                "organic",
-                "outdoors"
-              ]
-            },
-            {
-              "name": "Kedelhuset",
-              "type": "Bar",
-              "description": "Hidden bar beneath a boiler house featuring inventive cocktails.",
-              "opening_hours": "18:00–02:00 (Thu–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 55.6720,
-                "lng": 12.5650
-              },
-              "neighborhood": "City Center",
-              "website": "",
-              "tags": [
-                "hidden",
-                "cocktails",
-                "industrial"
-              ]
-            }
+          "neighborhood": "Nørrebro",
+          "website": "",
+          "tags": [
+            "cocktails",
+            "bohemian",
+            "trendy"
           ]
         },
         {
-          "name": "Stockholm",
-          "country": "Sweden",
-          "center": {
-            "lat": 59.3293,
-            "lng": 18.0686
+          "name": "Bakken",
+          "type": "Open-air Club",
+          "description": "Seasonal outdoor techno and dance events beneath a viaduct.",
+          "opening_hours": "18:00–06:00 (Thu–Sun, May–Sept)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6700,
+            "lng": 12.5350
           },
-          "attractions": [
-            {
-              "name": "Gamla Stan",
-              "description": "Stockholm’s old town with cobblestone streets, colorful buildings, and the Royal Palace.",
-              "opening_hours": "Open 24/7",
-              "entry_fee": "Free",
-              "location": {
-                "lat": 59.3251,
-                "lng": 18.0708
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://www.visitstockholm.com/gamla-stan",
-              "tags": [
-                "historic",
-                "old town",
-                "cultural"
-              ],
-              "rating": 4.7,
-              "google_maps_url": "https://goo.gl/maps/gamlast"
-            },
-            {
-              "name": "Vasa Museum",
-              "description": "Home to the 17th-century warship Vasa, which sank on its maiden voyage and was salvaged centuries later.",
-              "opening_hours": "10:00–17:00 (daily)",
-              "entry_fee": "SEK 170",
-              "location": {
-                "lat": 59.3280,
-                "lng": 18.0916
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://www.vasamuseet.se",
-              "tags": [
-                "museum",
-                "maritime",
-                "historic"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/vasamuseet"
-            },
-            {
-              "name": "Skansen",
-              "description": "World’s first open-air museum showcasing Swedish history with live demonstrations and Nordic wildlife.",
-              "opening_hours": "10:00–16:00 (daily)",
-              "entry_fee": "SEK 195",
-              "location": {
-                "lat": 59.3255,
-                "lng": 18.1034
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://www.skansen.se",
-              "tags": [
-                "open-air",
-                "family-friendly",
-                "cultural"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/skansen"
-            },
-            {
-              "name": "Royal Palace",
-              "description": "One of Europe’s largest palaces with over 600 rooms and a daily guard ceremony.",
-              "opening_hours": "10:00–16:00 (daily)",
-              "entry_fee": "SEK 160",
-              "location": {
-                "lat": 59.3267,
-                "lng": 18.0717
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://www.kungligaplatset.se",
-              "tags": [
-                "royal",
-                "museum",
-                "ceremony"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/royalpal"
-            },
-            {
-              "name": "Fotografiska",
-              "description": "Contemporary photography museum with rotating exhibitions and waterfront views.",
-              "opening_hours": "09:00–23:00 (daily)",
-              "entry_fee": "SEK 165",
-              "location": {
-                "lat": 59.3177,
-                "lng": 18.0870
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://www.fotografiska.com/sto",
-              "tags": [
-                "photography",
-                "museum",
-                "modern"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/fotografiska"
-            },
-            {
-              "name": "Moderna Museet",
-              "description": "Sweden’s national museum of modern and contemporary art.",
-              "opening_hours": "10:00–18:00 (Tue–Sun)",
-              "entry_fee": "Free permanent collection",
-              "location": {
-                "lat": 59.3598,
-                "lng": 18.0828
-              },
-              "neighborhood": "Skeppsholmen",
-              "website": "https://www.modernamuseet.se",
-              "tags": [
-                "art",
-                "museum",
-                "modern"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/moderna"
-            },
-            {
-              "name": "ABBA The Museum",
-              "description": "Interactive exhibits celebrating ABBA’s music and legacy.",
-              "opening_hours": "10:00–18:00 (daily)",
-              "entry_fee": "SEK 250",
-              "location": {
-                "lat": 59.3265,
-                "lng": 18.0893
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://abbathemuseum.com",
-              "tags": [
-                "music",
-                "interactive",
-                "family-friendly"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/abba"
-            },
-            {
-              "name": "City Hall",
-              "description": "Iconic building where the Nobel Prize banquet is held; offers guided tours and tower views.",
-              "opening_hours": "08:30–16:00 (daily)",
-              "entry_fee": "SEK 120",
-              "location": {
-                "lat": 59.3275,
-                "lng": 18.0542
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://www.visitstockholm.com/cityhall",
-              "tags": [
-                "architecture",
-                "history",
-                "views"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/cityhall"
-            },
-            {
-              "name": "Drottningholm Palace",
-              "description": "UNESCO World Heritage site and best-preserved royal palace in Sweden.",
-              "opening_hours": "10:00–17:00 (daily)",
-              "entry_fee": "SEK 130",
-              "location": {
-                "lat": 59.3209,
-                "lng": 17.8860
-              },
-              "neighborhood": "Ekerö",
-              "website": "https://www.kungligeslotten.se",
-              "tags": [
-                "royal",
-                "heritage",
-                "garden"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/drottpal"
-            },
-            {
-              "name": "Junibacken",
-              "description": "Children’s museum celebrating Swedish storybook characters, especially Pippi Longstocking.",
-              "opening_hours": "10:00–17:00 (Tue–Sun)",
-              "entry_fee": "SEK 195",
-              "location": {
-                "lat": 59.3268,
-                "lng": 18.0939
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://www.junibacken.se",
-              "tags": [
-                "family-friendly",
-                "children",
-                "interactive"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/junibacken"
-            }
-          ],
-          "restaurants": [
-            {
-              "name": "Frantzén",
-              "cuisine": "Contemporary",
-              "description": "Sweden’s first three-Michelin-star restaurant offering a multi-sensory tasting menu.",
-              "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
-              "price_range": "$$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3332,
-                "lng": 18.0580
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://restaurantfrantzen.com",
-              "tags": [
-                "Michelin",
-                "tasting menu",
-                "fine dining"
-              ],
-              "rating": 4.9,
-              "google_maps_url": "https://goo.gl/maps/frantzen"
-            },
-            {
-              "name": "AIRA",
-              "cuisine": "Nordic",
-              "description": "Seasonal Nordic flavours on Djurgården island with sweeping sea views.",
-              "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
-              "price_range": "$$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3247,
-                "lng": 18.0952
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://aira.nu",
-              "tags": [
-                "Michelin",
-                "Nordic",
-                "sea views"
-              ],
-              "rating": 4.7,
-              "google_maps_url": "https://goo.gl/maps/aira123"
-            },
-            {
-              "name": "Ekstedt",
-              "cuisine": "Scandinavian",
-              "description": "Michelin-starred restaurant using only open fire, wood, and smoke.",
-              "opening_hours": "Dinner: Tue–Sat 17:30–23:00",
-              "price_range": "$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3339,
-                "lng": 18.0632
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://ekstedt.nu",
-              "tags": [
-                "Michelin",
-                "wood-fired",
-                "innovative"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/ekstedt"
-            },
-            {
-              "name": "Meatballs for the People",
-              "cuisine": "Swedish",
-              "description": "Casual spot specializing in traditional and gourmet Swedish meatballs.",
-              "opening_hours": "11:00–21:00 (daily)",
-              "price_range": "$$",
-              "booking_required": false,
-              "location": {
-                "lat": 59.3165,
-                "lng": 18.0711
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://meatball.se",
-              "tags": [
-                "Swedish",
-                "casual",
-                "family-friendly"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/meatballs"
-            },
-            {
-              "name": "Gastrologik",
-              "cuisine": "Contemporary Nordic",
-              "description": "Chef-driven tasting menus emphasizing local, seasonal produce.",
-              "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
-              "price_range": "$$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3356,
-                "lng": 18.0695
-              },
-              "neighborhood": "Östermalm",
-              "website": "https://gastrologik.se",
-              "tags": [
-                "fine dining",
-                "seasonal",
-                "chef-driven"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/gastro"
-            },
-            {
-              "name": "Oaxen Slip",
-              "cuisine": "Nordic",
-              "description": "Rustic bistro offshoot of Oaxen Krog, serving classic dishes in a casual setting.",
-              "opening_hours": "11:00–22:00 (daily)",
-              "price_range": "$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3240,
-                "lng": 18.0911
-              },
-              "neighborhood": "Djurgården",
-              "website": "https://oaxen.com/slip",
-              "tags": [
-                "bistro",
-                "Nordic",
-                "casual"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/oaxenslip"
-            },
-            {
-              "name": "Operakällaren",
-              "cuisine": "Classic Swedish",
-              "description": "Elegant dining under the Royal Swedish Opera with centuries-old traditions.",
-              "opening_hours": "17:00–23:00 (Tue–Sat)",
-              "price_range": "$$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3287,
-                "lng": 18.0703
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://operakallaren.se",
-              "tags": [
-                "historic",
-                "fine dining",
-                "classic"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/operakall"
-            },
-            {
-              "name": "Pelikan",
-              "cuisine": "Swedish Beer Hall",
-              "description": "Historic beer hall serving traditional Swedish fare and local brews since 1733.",
-              "opening_hours": "11:30–01:00 (daily)",
-              "price_range": "$$",
-              "booking_required": false,
-              "location": {
-                "lat": 59.3299,
-                "lng": 18.0730
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://pelikan.nu",
-              "tags": [
-                "beer hall",
-                "historic",
-                "casual"
-              ],
-              "rating": 4.3,
-              "google_maps_url": "https://goo.gl/maps/pelikan"
-            },
-            {
-              "name": "Matbaren",
-              "cuisine": "Nordic",
-              "description": "Michelin-starred counter dining from chef Mathias Dahlgren focusing on seasonal tasting plates.",
-              "opening_hours": "18:00–22:00 (Tue–Sat)",
-              "price_range": "$$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3322,
-                "lng": 18.0578
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://mathiasdahlgren.com/matbaren",
-              "tags": [
-                "Michelin",
-                "tasting menu",
-                "innovative"
-              ],
-              "rating": 4.7,
-              "google_maps_url": "https://goo.gl/maps/matbaren"
-            },
-            {
-              "name": "Rolfs Kök",
-              "cuisine": "Swedish",
-              "description": "Bright, airy brasserie offering modern Swedish dishes in a relaxed space.",
-              "opening_hours": "11:30–22:00 (daily)",
-              "price_range": "$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3328,
-                "lng": 18.0641
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://rolfskok.se",
-              "tags": [
-                "brasserie",
-                "Swedish",
-                "casual"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/rolfskok"
-            },
-            {
-              "name": "Wedholms Fisk",
-              "cuisine": "Seafood",
-              "description": "Renowned for fresh fish dishes and classic Swedish seafood recipes.",
-              "opening_hours": "17:30–23:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "booking_required": true,
-              "location": {
-                "lat": 59.3320,
-                "lng": 18.0742
-              },
-              "neighborhood": "Stadshagen",
-              "website": "https://wedholm.se",
-              "tags": [
-                "seafood",
-                "fine dining",
-                "classic"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/wedholm"
-            },
-            {
-              "name": "Fem Små Hus",
-              "cuisine": "Swedish",
-              "description": "Five historic cellar vaults serving traditional Swedish cuisine since the 17th century.",
-              "opening_hours": "12:00–23:00 (daily)",
-              "price_range": "$$$",
-              "booking_required": false,
-              "location": {
-                "lat": 59.3260,
-                "lng": 18.0715
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://femsmahushus.se",
-              "tags": [
-                "historic",
-                "cellar",
-                "traditional"
-              ],
-              "rating": 4.3,
-              "google_maps_url": "https://goo.gl/maps/femsmahus"
-            }
-          ],
-          "bars": [
-            {
-              "name": "Röda Huset",
-              "type": "Cocktail Bar",
-              "description": "Innovative cocktails highlighting Swedish ingredients in a stylish setting.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3401,
-                "lng": 18.0800
-              },
-              "neighborhood": "Östermalm",
-              "website": "https://rodahuset.com",
-              "tags": [
-                "cocktails",
-                "upscale",
-                "stylish"
-              ],
-              "rating": 4.7,
-              "google_maps_url": "https://goo.gl/maps/rodahuset"
-            },
-            {
-              "name": "A Bar Called Gemma",
-              "type": "Cocktail Bar",
-              "description": "Creative mixology in a warm, welcoming atmosphere.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3344,
-                "lng": 18.0612
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://gemmabar.se",
-              "tags": [
-                "cocktails",
-                "creative",
-                "cozy"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/gemma"
-            },
-            {
-              "name": "Häktet",
-              "type": "Cocktail & Beer Bar",
-              "description": "Set in a former prison, offering inventive cocktails and local craft beers.",
-              "opening_hours": "17:00–02:00 (Tue–Sat)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3380,
-                "lng": 18.0570
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://haktet.se",
-              "tags": [
-                "cocktails",
-                "beer",
-                "historic"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/haktet"
-            },
-            {
-              "name": "Omnipollos Hatt",
-              "type": "Craft Beer Bar",
-              "description": "Renowned brewery bar with inventive beers and gourmet pizzas.",
-              "opening_hours": "12:00–00:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3172,
-                "lng": 18.0710
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://omnipollo.com",
-              "tags": [
-                "beer",
-                "pizza",
-                "casual"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/omni"
-            },
-            {
-              "name": "Paradiso",
-              "type": "Rum Bar",
-              "description": "Tropical-inspired rum cocktails in a laid-back setting.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3360,
-                "lng": 18.0625
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://paradiso.se",
-              "tags": [
-                "rum",
-                "tropical",
-                "relaxed"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/paradiso"
-            },
-            {
-              "name": "Himlen",
-              "type": "Rooftop Bar",
-              "description": "Panoramic city views 104m up with refined cocktails and wines.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3339,
-                "lng": 18.0623
-              },
-              "neighborhood": "Vasastan",
-              "website": "https://restauranghimlen.se",
-              "tags": [
-                "rooftop",
-                "views",
-                "upscale"
-              ],
-              "rating": 4.7,
-              "google_maps_url": "https://goo.gl/maps/himlen"
-            },
-            {
-              "name": "Le Hibou",
-              "type": "Rooftop Bar",
-              "description": "Year-round rooftop with Parisian-inspired cocktails.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3293,
-                "lng": 18.0711
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://bankhotel.se",
-              "tags": [
-                "rooftop",
-                "Parisian",
-                "elegant"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/hibou"
-            },
-            {
-              "name": "Morfar Ginko",
-              "type": "Cocktail Bar",
-              "description": "Eclectic décor and vibrant crowd in Mariatorget.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3167,
-                "lng": 18.0679
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://morfar-ginko.se",
-              "tags": [
-                "cocktails",
-                "eclectic",
-                "trendy"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/ginko"
-            },
-            {
-              "name": "Kvarnen",
-              "type": "Historic Beer Hall",
-              "description": "Established 1908, serving classic Swedish beers and fare.",
-              "opening_hours": "11:00–01:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3325,
-                "lng": 18.0642
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://kvarnen.com",
-              "tags": [
-                "beer hall",
-                "historic",
-                "casual"
-              ],
-              "rating": 4.3,
-              "google_maps_url": "https://goo.gl/maps/kvarnen"
-            },
-            {
-              "name": "Tjoget",
-              "type": "Cocktail & Wine Bar",
-              "description": "Innovative cocktails, Mediterranean-inspired small plates, and a wine bodega.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3330,
-                "lng": 18.0630
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://tjoget.com",
-              "tags": [
-                "cocktails",
-                "wine",
-                "mediterranean"
-              ],
-              "rating": 4.8,
-              "google_maps_url": "https://goo.gl/maps/tjoget"
-            },
-            {
-              "name": "Pharmarium",
-              "type": "Apothecary-themed Bar",
-              "description": "Herbaceous cocktails in a historic Gamla Stan apothecary setting.",
-              "opening_hours": "16:00–01:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3245,
-                "lng": 18.0714
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://pharmarium.se",
-              "tags": [
-                "themed",
-                "historic",
-                "botanical"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/pharma"
-            },
-            {
-              "name": "Tak Bar",
-              "type": "Rooftop Bar",
-              "description": "Stylish rooftop lounge with DJs and panoramic city views.",
-              "opening_hours": "16:00–01:00 (Wed–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3337,
-                "lng": 18.0644
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://tak.se",
-              "tags": [
-                "rooftop",
-                "music",
-                "upscale"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/takbar"
-            },
-            {
-              "name": "The Lobby",
-              "type": "Casual Bar",
-              "description": "Affordable local beers and relaxed vibe.",
-              "opening_hours": "16:00–01:00 (Tue–Sun)",
-              "price_range": "$",
-              "location": {
-                "lat": 59.3320,
-                "lng": 18.0649
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://thelobby.se",
-              "tags": [
-                "casual",
-                "beer",
-                "relaxed"
-              ],
-              "rating": 4.2,
-              "google_maps_url": "https://goo.gl/maps/lobby"
-            },
-            {
-              "name": "Mosebacke Etablissement",
-              "type": "Rooftop Bar & Venue",
-              "description": "Summer rooftop with a stage for live music and theatre.",
-              "opening_hours": "16:00–23:00 (May–Sept)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3228,
-                "lng": 18.0660
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://mosebacke.se",
-              "tags": [
-                "rooftop",
-                "live music",
-                "seasonal"
-              ],
-              "rating": 4.3,
-              "google_maps_url": "https://goo.gl/maps/mosebacke"
-            },
-            {
-              "name": "Ström Terrassen",
-              "type": "Seasonal Bar",
-              "description": "Floating bar on the water, open in summer months.",
-              "opening_hours": "12:00–22:00 (Jun–Aug)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3290,
-                "lng": 18.0710
-              },
-              "neighborhood": "Norrmalm",
-              "website": "",
-              "tags": [
-                "seasonal",
-                "floating",
-                "casual"
-              ],
-              "rating": 4.1,
-              "google_maps_url": "https://goo.gl/maps/strom"
-            },
-            {
-              "name": "Icebar Stockholm",
-              "type": "Theme Bar",
-              "description": "World’s first permanent bar made of ice—everyone gets thermal capes.",
-              "opening_hours": "12:00–23:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3270,
-                "lng": 18.0630
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://icebarstockholm.com",
-              "tags": [
-                "themed",
-                "ice",
-                "tourist"
-              ],
-              "rating": 4.2,
-              "google_maps_url": "https://goo.gl/maps/icebar"
-            },
-            {
-              "name": "Marie Laveau",
-              "type": "Bar & Club",
-              "description": "Two-story bar with cocktails downstairs and club upstairs.",
-              "opening_hours": "16:00–03:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3235,
-                "lng": 18.0750
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://marielaveau.se",
-              "tags": [
-                "cocktails",
-                "club",
-                "two-story"
-              ],
-              "rating": 4.3,
-              "google_maps_url": "https://goo.gl/maps/marielav"
-            },
-            {
-              "name": "Morfar Ginko",
-              "type": "Cocktail Bar",
-              "description": "Eclectic décor and vibrant crowd in Mariatorget.",
-              "opening_hours": "17:00–01:00 (Tue–Sat)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3167,
-                "lng": 18.0679
-              },
-              "neighborhood": "Södermalm",
-              "website": "https://morfar-ginko.se",
-              "tags": [
-                "cocktails",
-                "eclectic",
-                "trendy"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/ginko"
-            },
-            {
-              "name": "Akkurat",
-              "type": "Beer Bar",
-              "description": "One of Europe’s best beer bars with 30+ taps and extensive bottled selection.",
-              "opening_hours": "17:00–01:00 (daily)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3292,
-                "lng": 18.0682
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://akkurat.se",
-              "tags": [
-                "beer",
-                "casual",
-                "award-winning"
-              ],
-              "rating": 4.6,
-              "google_maps_url": "https://goo.gl/maps/akkurat"
-            },
-            {
-              "name": "Oliver Twist",
-              "type": "Whisky Bar",
-              "description": "Intimate bar with 500+ whiskies and a cozy atmosphere.",
-              "opening_hours": "16:00–01:00 (daily)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3300,
-                "lng": 18.0715
-              },
-              "neighborhood": "Gamla Stan",
-              "website": "https://olivertwist.se",
-              "tags": [
-                "whisky",
-                "intimate",
-                "cozy"
-              ],
-              "rating": 4.5,
-              "google_maps_url": "https://goo.gl/maps/otwist"
-            },
-            {
-              "name": "Mälarpaviljongen",
-              "type": "Seasonal Bar & Restaurant",
-              "description": "Open-air summer bar on the waterfront serving drinks and casual bites.",
-              "opening_hours": "11:00–22:00 (May–Sept)",
-              "price_range": "$$",
-              "location": {
-                "lat": 59.3260,
-                "lng": 18.0470
-              },
-              "neighborhood": "Kungsholmen",
-              "website": "https://malarpaviljongen.se",
-              "tags": [
-                "seasonal",
-                "waterfront",
-                "casual"
-              ],
-              "rating": 4.2,
-              "google_maps_url": "https://goo.gl/maps/malar"
-            },
-            {
-              "name": "Ling Long",
-              "type": "Cocktail Bar",
-              "description": "Asian-inspired cocktails and small plates in a vibrant setting.",
-              "opening_hours": "17:00–00:00 (Tue–Sat)",
-              "price_range": "$$$",
-              "location": {
-                "lat": 59.3331,
-                "lng": 18.0583
-              },
-              "neighborhood": "Norrmalm",
-              "website": "https://linglong.bar",
-              "tags": [
-                "cocktails",
-                "Asian",
-                "modern"
-              ],
-              "rating": 4.4,
-              "google_maps_url": "https://goo.gl/maps/linglong"
-            }
+          "neighborhood": "Refshaleøen",
+          "website": "https://bakken.dk",
+          "tags": [
+            "club",
+            "techno",
+            "seasonal"
+          ]
+        },
+        {
+          "name": "SoHo",
+          "type": "Lounge",
+          "description": "Chic lounge bar offering cocktails and small plates in a stylish setting.",
+          "opening_hours": "17:00–02:00 (daily)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6840,
+            "lng": 12.5670
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "lounge",
+            "stylish",
+            "upscale"
+          ]
+        },
+        {
+          "name": "Ved Stranden 10",
+          "type": "Wine Bar",
+          "description": "Intimate wine bar with a curated selection of natural wines and small bites.",
+          "opening_hours": "16:00–23:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6810,
+            "lng": 12.5870
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "wine",
+            "intimate",
+            "natural"
+          ]
+        },
+        {
+          "name": "The Barking Dog",
+          "type": "Cocktail Bar",
+          "description": "Quirky cocktails inspired by canine themes in a playful atmosphere.",
+          "opening_hours": "17:00–02:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6765,
+            "lng": 12.5695
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "cocktails",
+            "quirky",
+            "playful"
+          ]
+        },
+        {
+          "name": "Studio 61",
+          "type": "Creative Bar",
+          "description": "Artistic cocktail bar with rotating menu and local art displays.",
+          "opening_hours": "18:00–02:00 (Wed–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6825,
+            "lng": 12.5750
+          },
+          "neighborhood": "Østerbro",
+          "website": "",
+          "tags": [
+            "cocktails",
+            "artistic",
+            "creative"
+          ]
+        },
+        {
+          "name": "Zoo Bar",
+          "type": "Classic Bar",
+          "description": "Vintage ambiance offering classic cocktails and live piano music.",
+          "opening_hours": "17:00–01:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6790,
+            "lng": 12.5700
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "classic",
+            "cocktails",
+            "live music"
+          ]
+        },
+        {
+          "name": "H11",
+          "type": "Sports Bar",
+          "description": "Casual bar with multiple screens broadcasting sports and casual fare.",
+          "opening_hours": "12:00–02:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6845,
+            "lng": 12.5675
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "sports",
+            "casual",
+            "family-friendly"
+          ]
+        },
+        {
+          "name": "K-Bar",
+          "type": "LGBTQ+ Bar",
+          "description": "Welcoming LGBTQ+ venue with drag shows and themed nights.",
+          "opening_hours": "18:00–03:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6815,
+            "lng": 12.5560
+          },
+          "neighborhood": "Vesterbro",
+          "website": "",
+          "tags": [
+            "LGBTQ+",
+            "entertainment",
+            "themed"
+          ]
+        },
+        {
+          "name": "Fermentoren",
+          "type": "Craft Beer Bar",
+          "description": "Industrial-chic bar focusing on local and international craft beers.",
+          "opening_hours": "12:00–00:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.6795,
+            "lng": 12.5545
+          },
+          "neighborhood": "Nørrebro",
+          "website": "",
+          "tags": [
+            "craft beer",
+            "industrial",
+            "casual"
+          ]
+        },
+        {
+          "name": "Bryggeri Skovlyst",
+          "type": "Brewery",
+          "description": "Forest-set microbrewery producing organic ales and lagers.",
+          "opening_hours": "14:00–22:00 (Wed–Sun)",
+          "price_range": "$$",
+          "location": {
+            "lat": 55.7000,
+            "lng": 12.5500
+          },
+          "neighborhood": "Gentofte",
+          "website": "",
+          "tags": [
+            "brewery",
+            "organic",
+            "outdoors"
+          ]
+        },
+        {
+          "name": "Kedelhuset",
+          "type": "Bar",
+          "description": "Hidden bar beneath a boiler house featuring inventive cocktails.",
+          "opening_hours": "18:00–02:00 (Thu–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 55.6720,
+            "lng": 12.5650
+          },
+          "neighborhood": "City Center",
+          "website": "",
+          "tags": [
+            "hidden",
+            "cocktails",
+            "industrial"
           ]
         }
+      ]
+    },
+    {
+      "name": "Stockholm",
+      "country": "Sweden",
+      "center": {
+        "lat": 59.3293,
+        "lng": 18.0686
+      },
+      "attractions": [
+        {
+          "name": "Gamla Stan",
+          "description": "Stockholm’s old town with cobblestone streets, colorful buildings, and the Royal Palace.",
+          "opening_hours": "Open 24/7",
+          "entry_fee": "Free",
+          "location": {
+            "lat": 59.3251,
+            "lng": 18.0708
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://www.visitstockholm.com/gamla-stan",
+          "tags": [
+            "historic",
+            "old town",
+            "cultural"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/gamlast"
+        },
+        {
+          "name": "Vasa Museum",
+          "description": "Home to the 17th-century warship Vasa, which sank on its maiden voyage and was salvaged centuries later.",
+          "opening_hours": "10:00–17:00 (daily)",
+          "entry_fee": "SEK 170",
+          "location": {
+            "lat": 59.3280,
+            "lng": 18.0916
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://www.vasamuseet.se",
+          "tags": [
+            "museum",
+            "maritime",
+            "historic"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/vasamuseet"
+        },
+        {
+          "name": "Skansen",
+          "description": "World’s first open-air museum showcasing Swedish history with live demonstrations and Nordic wildlife.",
+          "opening_hours": "10:00–16:00 (daily)",
+          "entry_fee": "SEK 195",
+          "location": {
+            "lat": 59.3255,
+            "lng": 18.1034
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://www.skansen.se",
+          "tags": [
+            "open-air",
+            "family-friendly",
+            "cultural"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/skansen"
+        },
+        {
+          "name": "Royal Palace",
+          "description": "One of Europe’s largest palaces with over 600 rooms and a daily guard ceremony.",
+          "opening_hours": "10:00–16:00 (daily)",
+          "entry_fee": "SEK 160",
+          "location": {
+            "lat": 59.3267,
+            "lng": 18.0717
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://www.kungligaplatset.se",
+          "tags": [
+            "royal",
+            "museum",
+            "ceremony"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/royalpal"
+        },
+        {
+          "name": "Fotografiska",
+          "description": "Contemporary photography museum with rotating exhibitions and waterfront views.",
+          "opening_hours": "09:00–23:00 (daily)",
+          "entry_fee": "SEK 165",
+          "location": {
+            "lat": 59.3177,
+            "lng": 18.0870
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://www.fotografiska.com/sto",
+          "tags": [
+            "photography",
+            "museum",
+            "modern"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/fotografiska"
+        },
+        {
+          "name": "Moderna Museet",
+          "description": "Sweden’s national museum of modern and contemporary art.",
+          "opening_hours": "10:00–18:00 (Tue–Sun)",
+          "entry_fee": "Free permanent collection",
+          "location": {
+            "lat": 59.3598,
+            "lng": 18.0828
+          },
+          "neighborhood": "Skeppsholmen",
+          "website": "https://www.modernamuseet.se",
+          "tags": [
+            "art",
+            "museum",
+            "modern"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/moderna"
+        },
+        {
+          "name": "ABBA The Museum",
+          "description": "Interactive exhibits celebrating ABBA’s music and legacy.",
+          "opening_hours": "10:00–18:00 (daily)",
+          "entry_fee": "SEK 250",
+          "location": {
+            "lat": 59.3265,
+            "lng": 18.0893
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://abbathemuseum.com",
+          "tags": [
+            "music",
+            "interactive",
+            "family-friendly"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/abba"
+        },
+        {
+          "name": "City Hall",
+          "description": "Iconic building where the Nobel Prize banquet is held; offers guided tours and tower views.",
+          "opening_hours": "08:30–16:00 (daily)",
+          "entry_fee": "SEK 120",
+          "location": {
+            "lat": 59.3275,
+            "lng": 18.0542
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://www.visitstockholm.com/cityhall",
+          "tags": [
+            "architecture",
+            "history",
+            "views"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/cityhall"
+        },
+        {
+          "name": "Drottningholm Palace",
+          "description": "UNESCO World Heritage site and best-preserved royal palace in Sweden.",
+          "opening_hours": "10:00–17:00 (daily)",
+          "entry_fee": "SEK 130",
+          "location": {
+            "lat": 59.3209,
+            "lng": 17.8860
+          },
+          "neighborhood": "Ekerö",
+          "website": "https://www.kungligeslotten.se",
+          "tags": [
+            "royal",
+            "heritage",
+            "garden"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/drottpal"
+        },
+        {
+          "name": "Junibacken",
+          "description": "Children’s museum celebrating Swedish storybook characters, especially Pippi Longstocking.",
+          "opening_hours": "10:00–17:00 (Tue–Sun)",
+          "entry_fee": "SEK 195",
+          "location": {
+            "lat": 59.3268,
+            "lng": 18.0939
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://www.junibacken.se",
+          "tags": [
+            "family-friendly",
+            "children",
+            "interactive"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/junibacken"
+        }
+      ],
+      "restaurants": [
+        {
+          "name": "Frantzén",
+          "cuisine": "Contemporary",
+          "description": "Sweden’s first three-Michelin-star restaurant offering a multi-sensory tasting menu.",
+          "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
+          "price_range": "$$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3332,
+            "lng": 18.0580
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://restaurantfrantzen.com",
+          "tags": [
+            "Michelin",
+            "tasting menu",
+            "fine dining"
+          ],
+          "rating": 4.9,
+          "google_maps_url": "https://goo.gl/maps/frantzen"
+        },
+        {
+          "name": "AIRA",
+          "cuisine": "Nordic",
+          "description": "Seasonal Nordic flavours on Djurgården island with sweeping sea views.",
+          "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
+          "price_range": "$$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3247,
+            "lng": 18.0952
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://aira.nu",
+          "tags": [
+            "Michelin",
+            "Nordic",
+            "sea views"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/aira123"
+        },
+        {
+          "name": "Ekstedt",
+          "cuisine": "Scandinavian",
+          "description": "Michelin-starred restaurant using only open fire, wood, and smoke.",
+          "opening_hours": "Dinner: Tue–Sat 17:30–23:00",
+          "price_range": "$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3339,
+            "lng": 18.0632
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://ekstedt.nu",
+          "tags": [
+            "Michelin",
+            "wood-fired",
+            "innovative"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/ekstedt"
+        },
+        {
+          "name": "Meatballs for the People",
+          "cuisine": "Swedish",
+          "description": "Casual spot specializing in traditional and gourmet Swedish meatballs.",
+          "opening_hours": "11:00–21:00 (daily)",
+          "price_range": "$$",
+          "booking_required": false,
+          "location": {
+            "lat": 59.3165,
+            "lng": 18.0711
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://meatball.se",
+          "tags": [
+            "Swedish",
+            "casual",
+            "family-friendly"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/meatballs"
+        },
+        {
+          "name": "Gastrologik",
+          "cuisine": "Contemporary Nordic",
+          "description": "Chef-driven tasting menus emphasizing local, seasonal produce.",
+          "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
+          "price_range": "$$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3356,
+            "lng": 18.0695
+          },
+          "neighborhood": "Östermalm",
+          "website": "https://gastrologik.se",
+          "tags": [
+            "fine dining",
+            "seasonal",
+            "chef-driven"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/gastro"
+        },
+        {
+          "name": "Oaxen Slip",
+          "cuisine": "Nordic",
+          "description": "Rustic bistro offshoot of Oaxen Krog, serving classic dishes in a casual setting.",
+          "opening_hours": "11:00–22:00 (daily)",
+          "price_range": "$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3240,
+            "lng": 18.0911
+          },
+          "neighborhood": "Djurgården",
+          "website": "https://oaxen.com/slip",
+          "tags": [
+            "bistro",
+            "Nordic",
+            "casual"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/oaxenslip"
+        },
+        {
+          "name": "Operakällaren",
+          "cuisine": "Classic Swedish",
+          "description": "Elegant dining under the Royal Swedish Opera with centuries-old traditions.",
+          "opening_hours": "17:00–23:00 (Tue–Sat)",
+          "price_range": "$$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3287,
+            "lng": 18.0703
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://operakallaren.se",
+          "tags": [
+            "historic",
+            "fine dining",
+            "classic"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/operakall"
+        },
+        {
+          "name": "Pelikan",
+          "cuisine": "Swedish Beer Hall",
+          "description": "Historic beer hall serving traditional Swedish fare and local brews since 1733.",
+          "opening_hours": "11:30–01:00 (daily)",
+          "price_range": "$$",
+          "booking_required": false,
+          "location": {
+            "lat": 59.3299,
+            "lng": 18.0730
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://pelikan.nu",
+          "tags": [
+            "beer hall",
+            "historic",
+            "casual"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/pelikan"
+        },
+        {
+          "name": "Matbaren",
+          "cuisine": "Nordic",
+          "description": "Michelin-starred counter dining from chef Mathias Dahlgren focusing on seasonal tasting plates.",
+          "opening_hours": "18:00–22:00 (Tue–Sat)",
+          "price_range": "$$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3322,
+            "lng": 18.0578
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://mathiasdahlgren.com/matbaren",
+          "tags": [
+            "Michelin",
+            "tasting menu",
+            "innovative"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/matbaren"
+        },
+        {
+          "name": "Rolfs Kök",
+          "cuisine": "Swedish",
+          "description": "Bright, airy brasserie offering modern Swedish dishes in a relaxed space.",
+          "opening_hours": "11:30–22:00 (daily)",
+          "price_range": "$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3328,
+            "lng": 18.0641
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://rolfskok.se",
+          "tags": [
+            "brasserie",
+            "Swedish",
+            "casual"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/rolfskok"
+        },
+        {
+          "name": "Wedholms Fisk",
+          "cuisine": "Seafood",
+          "description": "Renowned for fresh fish dishes and classic Swedish seafood recipes.",
+          "opening_hours": "17:30–23:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "booking_required": true,
+          "location": {
+            "lat": 59.3320,
+            "lng": 18.0742
+          },
+          "neighborhood": "Stadshagen",
+          "website": "https://wedholm.se",
+          "tags": [
+            "seafood",
+            "fine dining",
+            "classic"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/wedholm"
+        },
+        {
+          "name": "Fem Små Hus",
+          "cuisine": "Swedish",
+          "description": "Five historic cellar vaults serving traditional Swedish cuisine since the 17th century.",
+          "opening_hours": "12:00–23:00 (daily)",
+          "price_range": "$$$",
+          "booking_required": false,
+          "location": {
+            "lat": 59.3260,
+            "lng": 18.0715
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://femsmahushus.se",
+          "tags": [
+            "historic",
+            "cellar",
+            "traditional"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/femsmahus"
+        }
+      ],
+      "bars": [
+        {
+          "name": "Röda Huset",
+          "type": "Cocktail Bar",
+          "description": "Innovative cocktails highlighting Swedish ingredients in a stylish setting.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3401,
+            "lng": 18.0800
+          },
+          "neighborhood": "Östermalm",
+          "website": "https://rodahuset.com",
+          "tags": [
+            "cocktails",
+            "upscale",
+            "stylish"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/rodahuset"
+        },
+        {
+          "name": "A Bar Called Gemma",
+          "type": "Cocktail Bar",
+          "description": "Creative mixology in a warm, welcoming atmosphere.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3344,
+            "lng": 18.0612
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://gemmabar.se",
+          "tags": [
+            "cocktails",
+            "creative",
+            "cozy"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/gemma"
+        },
+        {
+          "name": "Häktet",
+          "type": "Cocktail & Beer Bar",
+          "description": "Set in a former prison, offering inventive cocktails and local craft beers.",
+          "opening_hours": "17:00–02:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3380,
+            "lng": 18.0570
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://haktet.se",
+          "tags": [
+            "cocktails",
+            "beer",
+            "historic"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/haktet"
+        },
+        {
+          "name": "Omnipollos Hatt",
+          "type": "Craft Beer Bar",
+          "description": "Renowned brewery bar with inventive beers and gourmet pizzas.",
+          "opening_hours": "12:00–00:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3172,
+            "lng": 18.0710
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://omnipollo.com",
+          "tags": [
+            "beer",
+            "pizza",
+            "casual"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/omni"
+        },
+        {
+          "name": "Paradiso",
+          "type": "Rum Bar",
+          "description": "Tropical-inspired rum cocktails in a laid-back setting.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3360,
+            "lng": 18.0625
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://paradiso.se",
+          "tags": [
+            "rum",
+            "tropical",
+            "relaxed"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/paradiso"
+        },
+        {
+          "name": "Himlen",
+          "type": "Rooftop Bar",
+          "description": "Panoramic city views 104m up with refined cocktails and wines.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3339,
+            "lng": 18.0623
+          },
+          "neighborhood": "Vasastan",
+          "website": "https://restauranghimlen.se",
+          "tags": [
+            "rooftop",
+            "views",
+            "upscale"
+          ],
+          "rating": 4.7,
+          "google_maps_url": "https://goo.gl/maps/himlen"
+        },
+        {
+          "name": "Le Hibou",
+          "type": "Rooftop Bar",
+          "description": "Year-round rooftop with Parisian-inspired cocktails.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3293,
+            "lng": 18.0711
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://bankhotel.se",
+          "tags": [
+            "rooftop",
+            "Parisian",
+            "elegant"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/hibou"
+        },
+        {
+          "name": "Morfar Ginko",
+          "type": "Cocktail Bar",
+          "description": "Eclectic décor and vibrant crowd in Mariatorget.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3167,
+            "lng": 18.0679
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://morfar-ginko.se",
+          "tags": [
+            "cocktails",
+            "eclectic",
+            "trendy"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/ginko"
+        },
+        {
+          "name": "Kvarnen",
+          "type": "Historic Beer Hall",
+          "description": "Established 1908, serving classic Swedish beers and fare.",
+          "opening_hours": "11:00–01:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3325,
+            "lng": 18.0642
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://kvarnen.com",
+          "tags": [
+            "beer hall",
+            "historic",
+            "casual"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/kvarnen"
+        },
+        {
+          "name": "Tjoget",
+          "type": "Cocktail & Wine Bar",
+          "description": "Innovative cocktails, Mediterranean-inspired small plates, and a wine bodega.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3330,
+            "lng": 18.0630
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://tjoget.com",
+          "tags": [
+            "cocktails",
+            "wine",
+            "mediterranean"
+          ],
+          "rating": 4.8,
+          "google_maps_url": "https://goo.gl/maps/tjoget"
+        },
+        {
+          "name": "Pharmarium",
+          "type": "Apothecary-themed Bar",
+          "description": "Herbaceous cocktails in a historic Gamla Stan apothecary setting.",
+          "opening_hours": "16:00–01:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3245,
+            "lng": 18.0714
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://pharmarium.se",
+          "tags": [
+            "themed",
+            "historic",
+            "botanical"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/pharma"
+        },
+        {
+          "name": "Tak Bar",
+          "type": "Rooftop Bar",
+          "description": "Stylish rooftop lounge with DJs and panoramic city views.",
+          "opening_hours": "16:00–01:00 (Wed–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3337,
+            "lng": 18.0644
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://tak.se",
+          "tags": [
+            "rooftop",
+            "music",
+            "upscale"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/takbar"
+        },
+        {
+          "name": "The Lobby",
+          "type": "Casual Bar",
+          "description": "Affordable local beers and relaxed vibe.",
+          "opening_hours": "16:00–01:00 (Tue–Sun)",
+          "price_range": "$",
+          "location": {
+            "lat": 59.3320,
+            "lng": 18.0649
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://thelobby.se",
+          "tags": [
+            "casual",
+            "beer",
+            "relaxed"
+          ],
+          "rating": 4.2,
+          "google_maps_url": "https://goo.gl/maps/lobby"
+        },
+        {
+          "name": "Mosebacke Etablissement",
+          "type": "Rooftop Bar & Venue",
+          "description": "Summer rooftop with a stage for live music and theatre.",
+          "opening_hours": "16:00–23:00 (May–Sept)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3228,
+            "lng": 18.0660
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://mosebacke.se",
+          "tags": [
+            "rooftop",
+            "live music",
+            "seasonal"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/mosebacke"
+        },
+        {
+          "name": "Ström Terrassen",
+          "type": "Seasonal Bar",
+          "description": "Floating bar on the water, open in summer months.",
+          "opening_hours": "12:00–22:00 (Jun–Aug)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3290,
+            "lng": 18.0710
+          },
+          "neighborhood": "Norrmalm",
+          "website": "",
+          "tags": [
+            "seasonal",
+            "floating",
+            "casual"
+          ],
+          "rating": 4.1,
+          "google_maps_url": "https://goo.gl/maps/strom"
+        },
+        {
+          "name": "Icebar Stockholm",
+          "type": "Theme Bar",
+          "description": "World’s first permanent bar made of ice—everyone gets thermal capes.",
+          "opening_hours": "12:00–23:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3270,
+            "lng": 18.0630
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://icebarstockholm.com",
+          "tags": [
+            "themed",
+            "ice",
+            "tourist"
+          ],
+          "rating": 4.2,
+          "google_maps_url": "https://goo.gl/maps/icebar"
+        },
+        {
+          "name": "Marie Laveau",
+          "type": "Bar & Club",
+          "description": "Two-story bar with cocktails downstairs and club upstairs.",
+          "opening_hours": "16:00–03:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3235,
+            "lng": 18.0750
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://marielaveau.se",
+          "tags": [
+            "cocktails",
+            "club",
+            "two-story"
+          ],
+          "rating": 4.3,
+          "google_maps_url": "https://goo.gl/maps/marielav"
+        },
+        {
+          "name": "Morfar Ginko",
+          "type": "Cocktail Bar",
+          "description": "Eclectic décor and vibrant crowd in Mariatorget.",
+          "opening_hours": "17:00–01:00 (Tue–Sat)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3167,
+            "lng": 18.0679
+          },
+          "neighborhood": "Södermalm",
+          "website": "https://morfar-ginko.se",
+          "tags": [
+            "cocktails",
+            "eclectic",
+            "trendy"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/ginko"
+        },
+        {
+          "name": "Akkurat",
+          "type": "Beer Bar",
+          "description": "One of Europe’s best beer bars with 30+ taps and extensive bottled selection.",
+          "opening_hours": "17:00–01:00 (daily)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3292,
+            "lng": 18.0682
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://akkurat.se",
+          "tags": [
+            "beer",
+            "casual",
+            "award-winning"
+          ],
+          "rating": 4.6,
+          "google_maps_url": "https://goo.gl/maps/akkurat"
+        },
+        {
+          "name": "Oliver Twist",
+          "type": "Whisky Bar",
+          "description": "Intimate bar with 500+ whiskies and a cozy atmosphere.",
+          "opening_hours": "16:00–01:00 (daily)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3300,
+            "lng": 18.0715
+          },
+          "neighborhood": "Gamla Stan",
+          "website": "https://olivertwist.se",
+          "tags": [
+            "whisky",
+            "intimate",
+            "cozy"
+          ],
+          "rating": 4.5,
+          "google_maps_url": "https://goo.gl/maps/otwist"
+        },
+        {
+          "name": "Mälarpaviljongen",
+          "type": "Seasonal Bar & Restaurant",
+          "description": "Open-air summer bar on the waterfront serving drinks and casual bites.",
+          "opening_hours": "11:00–22:00 (May–Sept)",
+          "price_range": "$$",
+          "location": {
+            "lat": 59.3260,
+            "lng": 18.0470
+          },
+          "neighborhood": "Kungsholmen",
+          "website": "https://malarpaviljongen.se",
+          "tags": [
+            "seasonal",
+            "waterfront",
+            "casual"
+          ],
+          "rating": 4.2,
+          "google_maps_url": "https://goo.gl/maps/malar"
+        },
+        {
+          "name": "Ling Long",
+          "type": "Cocktail Bar",
+          "description": "Asian-inspired cocktails and small plates in a vibrant setting.",
+          "opening_hours": "17:00–00:00 (Tue–Sat)",
+          "price_range": "$$$",
+          "location": {
+            "lat": 59.3331,
+            "lng": 18.0583
+          },
+          "neighborhood": "Norrmalm",
+          "website": "https://linglong.bar",
+          "tags": [
+            "cocktails",
+            "Asian",
+            "modern"
+          ],
+          "rating": 4.4,
+          "google_maps_url": "https://goo.gl/maps/linglong"
+        }
+      ]
+    }
+  ]
+}
