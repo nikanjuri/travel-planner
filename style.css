@@ -677,7 +677,7 @@ select.form-control {
 
 .dashboard-header h1 {
   color: var(--color-primary);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-3xl);
   margin: 0;
   line-height: 1.4;
   padding: 0;
@@ -1224,7 +1224,7 @@ select.form-control {
 }
 
 .city-dropdown label {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
   white-space: nowrap;
