@@ -136,12 +136,11 @@ function createCustomIcon(color) {
         blue: '#3498db',
         green: '#27ae60'
     };
-    
     return L.divIcon({
         className: 'custom-marker',
-        html: `<span style="background:${colorMap[color]};" class="marker-dot"></span>`,
-        iconSize: [16, 16],
-        iconAnchor: [8, 8]
+        html: `<div style="background-color: ${colorMap[color]}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
     });
 }
 
@@ -204,43 +203,138 @@ function loadLocalTips(cityName) {
 }
 
 function createAttractionCard(attraction) {
+    const id = `attraction-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+    const priceCategory = attraction.entry_fee === 'Free' || attraction.entry_fee === 'Free to explore' ? 'free' : 
+                         (attraction.entry_fee && (attraction.entry_fee.includes('€') || attraction.entry_fee.includes('SEK'))) ? '$$' : '$';
+
     return `
-        <div class="venue-card" data-category="attractions" data-price="${attraction.entry_fee || ''}" data-venue-id="attraction-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}">
-            <h3>${attraction.name}</h3>
-            <div class="venue-desc">${attraction.description || ''}</div>
-            <div class="venue-meta">
-                <span class="venue-rating">Rating: ${attraction.rating ? attraction.rating : 'N/A'}</span>
-                ${attraction.website ? `<a href="${attraction.website}" target="_blank">Website</a>` : ''}
+        <div class="venue-card" data-venue-id="${id}" data-category="attractions" data-price="${priceCategory}">
+            <div class="venue-header">
+                <h3 class="venue-name">${attraction.name}</h3>
+                <div class="venue-actions">
+                    <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <button class="action-btn" onclick="addToTrip('${attraction.name}', 'attraction')" title="Add to trip">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
             </div>
-            <button class="action-btn" onclick="addToTrip('${attraction.name}', 'attraction')"><i class="fas fa-heart"></i></button>
+            <p class="venue-description">${attraction.description || ''}</p>
+            <div class="venue-details">
+                ${attraction.opening_hours ? `
+                <div class="detail-item">
+                    <span class="detail-label">Hours:</span>
+                    <span class="detail-value">${attraction.opening_hours}</span>
+                </div>` : ''}
+                ${attraction.entry_fee ? `
+                <div class="detail-item">
+                    <span class="detail-label">Fee:</span>
+                    <span class="detail-value">${attraction.entry_fee}</span>
+                </div>` : ''}
+                ${attraction.duration ? `
+                <div class="detail-item">
+                    <span class="detail-label">Duration:</span>
+                    <span class="detail-value">${attraction.duration}</span>
+                </div>` : ''}
+            </div>
+            <div class="venue-tags">
+                ${(attraction.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
         </div>
     `;
 }
 
 function createRestaurantCard(restaurant) {
+    const id = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+    // You may need to adapt the Michelin stars and booking fields to your new JSON structure
+    const stars = restaurant.michelinStars ? '⭐'.repeat(restaurant.michelinStars) : '';
     return `
-        <div class="venue-card" data-category="restaurants" data-price="${restaurant.price_range || ''}" data-venue-id="restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}">
-            <h3>${restaurant.name}</h3>
-            <div class="venue-desc">${restaurant.description || ''}</div>
-            <div class="venue-meta">
-                <span class="venue-rating">Rating: ${restaurant.rating ? restaurant.rating : 'N/A'}</span>
-                ${restaurant.website ? `<a href="${restaurant.website}" target="_blank">Website</a>` : ''}
+        <div class="venue-card" data-venue-id="${id}" data-category="restaurants" data-price="${restaurant.price_range || ''}">
+            ${(restaurant.booking_required === 'Essential' || restaurant.booking_required === 'Essential, months ahead') ? '<div class="booking-badge essential">Booking Essential</div>' : ''}
+            ${(restaurant.booking_required === 'Recommended' || restaurant.booking_required === 'Required') ? '<div class="booking-badge recommended">Booking Recommended</div>' : ''}
+            <div class="venue-header">
+                <h3 class="venue-name">${restaurant.name}</h3>
+                <div class="venue-actions">
+                    <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <button class="action-btn" onclick="addToTrip('${restaurant.name}', 'restaurant')" title="Add to trip">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
             </div>
-            <button class="action-btn" onclick="addToTrip('${restaurant.name}', 'restaurant')"><i class="fas fa-heart"></i></button>
+            <p class="venue-description">${restaurant.description || ''}</p>
+            <div class="venue-details">
+                ${restaurant.cuisine ? `
+                <div class="detail-item">
+                    <span class="detail-label">Cuisine:</span>
+                    <span class="detail-value">${restaurant.cuisine}</span>
+                </div>` : ''}
+                ${restaurant.price_range ? `
+                <div class="detail-item">
+                    <span class="detail-label">Price:</span>
+                    <span class="detail-value">${restaurant.price_range}</span>
+                </div>` : ''}
+                ${restaurant.opening_hours ? `
+                <div class="detail-item">
+                    <span class="detail-label">Hours:</span>
+                    <span class="detail-value">${restaurant.opening_hours}</span>
+                </div>` : ''}
+                ${restaurant.michelinStars ? `
+                <div class="detail-item">
+                    <span class="detail-label">Michelin:</span>
+                    <span class="detail-value michelin-stars">${stars}</span>
+                </div>` : ''}
+            </div>
+            <div class="venue-tags">
+                ${(restaurant.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
         </div>
     `;
 }
 
 function createBarCard(bar) {
+    const id = `bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
     return `
-        <div class="venue-card" data-category="bars" data-price="${bar.price_range || ''}" data-venue-id="bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}">
-            <h3>${bar.name}</h3>
-            <div class="venue-desc">${bar.description || ''}</div>
-            <div class="venue-meta">
-                <span class="venue-rating">Rating: ${bar.rating ? bar.rating : 'N/A'}</span>
-                ${bar.website ? `<a href="${bar.website}" target="_blank">Website</a>` : ''}
+        <div class="venue-card" data-venue-id="${id}" data-category="bars" data-price="${bar.price_range || '$$'}">
+            <div class="venue-header">
+                <h3 class="venue-name">${bar.name}</h3>
+                <div class="venue-actions">
+                    <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                    <button class="action-btn" onclick="addToTrip('${bar.name}', 'bar')" title="Add to trip">
+                        <i class="fas fa-heart"></i>
+                    </button>
+                </div>
             </div>
-            <button class="action-btn" onclick="addToTrip('${bar.name}', 'bar')"><i class="fas fa-heart"></i></button>
+            <p class="venue-description">${bar.description || ''}</p>
+            <div class="venue-details">
+                ${bar.type ? `
+                <div class="detail-item">
+                    <span class="detail-label">Type:</span>
+                    <span class="detail-value">${bar.type}</span>
+                </div>` : ''}
+                ${bar.opening_hours ? `
+                <div class="detail-item">
+                    <span class="detail-label">Hours:</span>
+                    <span class="detail-value">${bar.opening_hours}</span>
+                </div>` : ''}
+                ${bar.dressCode ? `
+                <div class="detail-item">
+                    <span class="detail-label">Dress Code:</span>
+                    <span class="detail-value">${bar.dressCode}</span>
+                </div>` : ''}
+                ${bar.price_range ? `
+                <div class="detail-item">
+                    <span class="detail-label">Price:</span>
+                    <span class="detail-value">${bar.price_range}</span>
+                </div>` : ''}
+            </div>
+            <div class="venue-tags">
+                ${(bar.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
         </div>
     `;
 }
