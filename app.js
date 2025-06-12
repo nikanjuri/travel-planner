@@ -128,7 +128,6 @@ function loadCity(cityName) {
     loadAttractions(cityData.attractions);
     loadRestaurants(cityData.restaurants);
     loadBars(cityData.bars);
-    loadItinerary(cityData.itinerary);
     loadLocalTips(cityName);
     
     // Clear search and price filters
@@ -250,12 +249,6 @@ function loadBars(bars) {
     }
 }
 
-function loadItinerary(itinerary) {
-    const content = document.getElementById('itinerary-content');
-    if (content) {
-        content.innerHTML = itinerary.map(day => createItineraryDay(day)).join('');
-    }
-}
 
 function loadLocalTips(cityName) {
     const content = document.getElementById('tips-content');
@@ -439,22 +432,6 @@ function createBarCard(bar) {
     `;
 }
 
-function createItineraryDay(day) {
-    return `
-        <div class="itinerary-day">
-            <h3 class="day-title">${day.day}</h3>
-            <div class="activities-timeline">
-                ${day.activities.map(activity => `
-                    <div class="activity-item">
-                        <div class="activity-time">${activity.time}</div>
-                        <div class="activity-name">${activity.activity}</div>
-                        <div class="activity-duration">${activity.duration}</div>
-                    </div>
-                `).join('')}
-            </div>
-        </div>
-    `;
-}
 
 // Category Management
 function switchCategory(category) {
