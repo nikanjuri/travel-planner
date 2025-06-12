@@ -936,9 +936,21 @@
       ],
       "itinerary": [],
       "local_tips": { 
-        "transportation": "",
-        "culture": "",
-        "emergency": ""
+        "transportation": [
+          "Copenhagen Card: Unlimited public transport plus free entry to 80+ attractions",
+          "DOT Tickets App: Primary mobile ticketing for metro, bus, and trains",
+          "Zones: City divided into fare zones; 3-zone ticket covers airport to city center (DKK 36)"
+        ],
+        "culture": [
+          "Tipping: Service included; round up for exceptional service",
+          "Fika Culture: Coffee and pastry breaks are important social time",
+          "Hygge: Embrace cozy, comfortable social atmosphere"
+        ],
+        "emergency": [
+          "Emergency: 112",
+          "Police: 114",
+          "Currency: Danish Krone (DKK)"
+        ]
       }
     },
     {
