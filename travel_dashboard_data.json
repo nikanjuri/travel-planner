@@ -1838,9 +1838,21 @@
       ],
       "itinerary": [],
       "local_tips": { 
-        "transportation": "",
-        "culture": "",
-        "emergency": ""
+        "transportation": [
+          "SL App: Official Stockholm public transport app for journey planning and mobile tickets",
+          "Contactless Payment: Works on buses and trains for tourists without Swedish cards",
+          "Public Transport: Comprehensive metro, bus, and boat connections"
+        ],
+        "culture": [
+          "Fika: Coffee and cake culture essential to Swedish social life",
+          "Alcohol: Systembolaget state monopoly for alcohol over 3.5%; restaurants and bars more expensive",
+          "Tipping: Not expected; round up for good service"
+        ],
+        "emergency": [
+          "Emergency: 112",
+          "Currency: Swedish Krona (SEK)",
+          "Language: English widely spoken"
+        ]
       }
     }
   ]
