@@ -854,6 +854,9 @@ select.form-control {
   transition: all var(--duration-normal) var(--ease-standard);
   cursor: pointer;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
 }
 
 .venue-card:hover {
@@ -909,13 +912,14 @@ select.form-control {
   color: var(--color-text-secondary);
   margin-bottom: var(--space-16);
   line-height: var(--line-height-normal);
+  flex-grow: 0;
 }
 
 .venue-details {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: var(--space-12);
-  margin-bottom: var(--space-16);
+  margin-bottom: auto;
 }
 
 .detail-item {
@@ -936,7 +940,9 @@ select.form-control {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-6);
-  margin-top: var(--space-12);
+  margin-top: var(--space-16);
+  margin-bottom: 0;
+  padding-bottom: var(--space-2);
 }
 
 .tag {
@@ -955,13 +961,14 @@ select.form-control {
 
 .booking-badge {
   position: absolute;
-  bottom: var(--space-12);
+  bottom: var(--space-8);
   right: var(--space-12);
   padding: var(--space-4) var(--space-8);
   border-radius: var(--radius-sm);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   z-index: 10;
+  max-width: 120px;
 }
 
 .booking-badge.essential {
