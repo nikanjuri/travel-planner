@@ -1209,7 +1209,6 @@ select.form-control {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  margin-bottom: var(--space-16);
 }
 
 .city-dropdown label {
