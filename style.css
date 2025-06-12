@@ -1255,3 +1255,8 @@ select.form-control {
 .leaflet-popup-content .map-popup h4 {
   color: #000 !important;
 }
+
+/* Force all popup content text to black */
+.leaflet-popup-content {
+  color: #000 !important;
+}
