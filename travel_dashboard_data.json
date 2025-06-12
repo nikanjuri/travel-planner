@@ -933,7 +933,13 @@
             "industrial"
           ]
         }
-      ]
+      ],
+      "itinerary": [],
+      "local_tips": { 
+        "transportation": "",
+        "culture": "",
+        "emergency": ""
+      }
     },
     {
       "name": "Stockholm",
@@ -1829,7 +1835,13 @@
           "rating": 4.4,
           "google_maps_url": "https://goo.gl/maps/linglong"
         }
-      ]
+      ],
+      "itinerary": [],
+      "local_tips": { 
+        "transportation": "",
+        "culture": "",
+        "emergency": ""
+      }
     }
   ]
 }
