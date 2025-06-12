@@ -1207,16 +1207,19 @@ select.form-control {
 
 .city-dropdown {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-8);
 }
 
 .city-dropdown label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
+  white-space: nowrap;
 }
 
 #city-select {
-  min-width: 150px;
+  width: auto;
+  max-width: 200px;
 }
