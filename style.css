@@ -1252,6 +1252,6 @@ select.form-control {
 }
 
 /* Map popup title override */
-.map-popup h4 {
+.leaflet-popup-content .map-popup h4 {
   color: #000 !important;
 }
