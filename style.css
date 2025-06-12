@@ -1246,6 +1246,12 @@ select.form-control {
 }
 
 /* Alternative: Hide attribution if it's still problematic */
+
 .leaflet-control-attribution {
   display: none !important;
+}
+
+/* Map popup title override */
+.map-popup h4 {
+  color: #000 !important;
 }
