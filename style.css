@@ -1327,27 +1327,30 @@ select.form-control {
   cursor: pointer;
   transition: all var(--duration-normal) var(--ease-standard);
   box-shadow: var(--shadow-sm);
+  color: var(--color-text);
+  font-size: 14px;
 }
 
 .location-btn:hover {
   background: var(--color-background);
   box-shadow: var(--shadow-md);
+  color: var(--color-text);
 }
 
 .location-btn.loading {
   background: var(--color-primary);
-  color: white;
+  color: white !important;
 }
 
 .location-btn.active {
   background: var(--color-primary);
-  color: white;
+  color: white !important;
   border-color: var(--color-primary);
 }
 
 .location-btn.error {
   background: var(--color-error);
-  color: white;
+  color: white !important;
   animation: shake 0.5s ease-in-out;
 }
 
@@ -1355,6 +1358,12 @@ select.form-control {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-2px); }
   75% { transform: translateX(2px); }
+}
+
+/* Ensure FontAwesome icons are properly styled in the button */
+.location-btn i {
+  font-size: 14px;
+  line-height: 1;
 }
 
 /* Current Location Marker */
