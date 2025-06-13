@@ -1318,6 +1318,8 @@ select.form-control {
 .location-btn {
   width: 30px;
   height: 30px;
+  min-width: 30px;
+  min-height: 30px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
@@ -1329,6 +1331,8 @@ select.form-control {
   box-shadow: var(--shadow-sm);
   color: var(--color-text);
   font-size: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .location-btn:hover {
@@ -1360,10 +1364,15 @@ select.form-control {
   75% { transform: translateX(2px); }
 }
 
-/* Ensure FontAwesome icons are properly styled in the button */
+/* Ensure FontAwesome icons are properly sized and centered */
 .location-btn i {
   font-size: 14px;
   line-height: 1;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Current Location Marker */
