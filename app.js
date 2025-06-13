@@ -3,6 +3,11 @@ let currentCategory = 'all';
 let map = null;
 let markers = {};
 let myTrip = [];
+let currentLocationMarker = null;
+let accuracyCircle = null;
+let isShowingCurrentLocation = false;
+let watchId = null;
+let currentCityCenter = null;
 
 // Utility: List of city JSON files (add more as needed)
 const cityFiles = [
@@ -19,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Load the first city by default
     loadCityFromFile(cityFiles[0].file);
+
+    initializeCurrentLocation();
 });
 
 // Map Initialization
@@ -184,7 +191,7 @@ function loadBars(bars) {
 function loadLocalTips(cityName) {
     const tipsSection = document.getElementById('tips-content');
     if (!tipsSection) return;
-    const tips = window.cityData.local_tips;
+    const tips = window.cityData.localTips;
     if (!tips) {
         tipsSection.innerHTML = '<div class="empty-state">No local tips available.</div>';
         return;
@@ -558,32 +565,242 @@ function loadCityFromFile(filename) {
 }
 
 function updateDashboardWithCity(cityData) {
-    // Update map center
-    map.setView([cityData.center.lat, cityData.center.lng], 12);
-
+    // Update map center and store it
+    currentCityCenter = [cityData.center.lat, cityData.center.lng];
+    map.setView(currentCityCenter, 12);
+    
     // Clear existing markers
     Object.values(markers).forEach(layer => layer.clearLayers());
-
+    
     // Add new markers
     addMarkersToMap(cityData);
-
-    // Load content sections
+    
+    // Load content
     loadAttractions(cityData.attractions);
     loadRestaurants(cityData.restaurants);
     loadBars(cityData.bars);
     loadLocalTips(cityData.name.toLowerCase());
-
-    // Clear search and price filters
-    const searchInput = document.getElementById('search-input');
-    const priceFilter = document.getElementById('price-filter');
-    if (searchInput) searchInput.value = '';
-    if (priceFilter) priceFilter.value = 'all';
-
-    // Show appropriate sections based on current category
+    
+    // Reset current location if active
+    if (isShowingCurrentLocation) {
+        returnToCityCenter();
+    }
+    
+    // Reset filters and show content
     showContentSections();
+    applyFilters();
+}
 
-    // Apply current filters
+// Current Location Functions
+function initializeCurrentLocation() {
+    const locationBtn = document.getElementById('current-location-btn');
+    if (locationBtn) {
+        locationBtn.addEventListener('click', toggleCurrentLocation);
+    }
+}
+
+function toggleCurrentLocation() {
+    const locationBtn = document.getElementById('current-location-btn');
+    
+    if (isShowingCurrentLocation) {
+        // Return to city center
+        returnToCityCenter();
+    } else {
+        // Get current location
+        getCurrentLocation();
+    }
+}
+
+function getCurrentLocation() {
+    const locationBtn = document.getElementById('current-location-btn');
+    
+    if (!navigator.geolocation) {
+        showToast('Geolocation is not supported by this browser.', 'error');
+        return;
+    }
+    
+    // Show loading state
+    locationBtn.classList.add('loading');
+    locationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    
+    // Get current position
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const { latitude, longitude, accuracy } = position.coords;
+            showCurrentLocationOnMap(latitude, longitude, accuracy);
+            startLocationTracking();
+            
+            // Update button state
+            locationBtn.classList.remove('loading');
+            locationBtn.classList.add('active');
+            locationBtn.innerHTML = '<i class="fas fa-times"></i>';
+            
+            isShowingCurrentLocation = true;
+            showToast('Current location found!', 'success');
+        },
+        (error) => {
+            handleGeolocationError(error);
+            locationBtn.classList.remove('loading');
+            locationBtn.classList.add('error');
+            locationBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i>';
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                locationBtn.classList.remove('error');
+                locationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+            }, 2000);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 60000
+        }
+    );
+}
+
+function showCurrentLocationOnMap(lat, lng, accuracy) {
+    // Store current city center if not already stored
+    if (!currentCityCenter) {
+        currentCityCenter = map.getCenter();
+    }
+    
+    // Remove existing markers
+    if (currentLocationMarker) {
+        map.removeLayer(currentLocationMarker);
+    }
+    if (accuracyCircle) {
+        map.removeLayer(accuracyCircle);
+    }
+    
+    // Create accuracy circle
+    accuracyCircle = L.circle([lat, lng], {
+        radius: accuracy,
+        className: 'accuracy-circle',
+        fillOpacity: 0.2,
+        weight: 1
+    }).addTo(map);
+    
+    // Create current location marker
+    const currentLocationIcon = L.divIcon({
+        className: 'current-location-marker',
+        html: '<div class="current-location-marker"></div>',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    });
+    
+    currentLocationMarker = L.marker([lat, lng], { 
+        icon: currentLocationIcon,
+        zIndexOffset: 1000
+    }).addTo(map);
+    
+    // Pan to current location
+    map.setView([lat, lng], 16, { animate: true, duration: 1 });
+}
+
+function startLocationTracking() {
+    if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+    }
+    
+    watchId = navigator.geolocation.watchPosition(
+        (position) => {
+            const { latitude, longitude, accuracy } = position.coords;
+            updateCurrentLocationMarker(latitude, longitude, accuracy);
+        },
+        (error) => {
+            console.warn('Location tracking error:', error);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 30000,
+            maximumAge: 30000
+        }
+    );
+}
+
+function updateCurrentLocationMarker(lat, lng, accuracy) {
+    if (!isShowingCurrentLocation) return;
+    
+    // Update accuracy circle
+    if (accuracyCircle) {
+        accuracyCircle.setLatLng([lat, lng]);
+        accuracyCircle.setRadius(accuracy);
+    }
+    
+    // Update marker position
+    if (currentLocationMarker) {
+        currentLocationMarker.setLatLng([lat, lng]);
+    }
+}
+
+function returnToCityCenter() {
+    const locationBtn = document.getElementById('current-location-btn');
+    
+    // Stop location tracking
+    if (watchId) {
+        navigator.geolocation.clearWatch(watchId);
+        watchId = null;
+    }
+    
+    // Return to city center
+    if (currentCityCenter) {
+        map.setView(currentCityCenter, 12, { animate: true, duration: 1 });
+    }
+    
+    // Update button state
+    locationBtn.classList.remove('active');
+    locationBtn.innerHTML = '<i class="fas fa-location-arrow"></i>';
+    
+    isShowingCurrentLocation = false;
+}
+
+function handleGeolocationError(error) {
+    let message = '';
+    
+    switch(error.code) {
+        case error.PERMISSION_DENIED:
+            message = 'Location access denied. Please enable location permissions.';
+            break;
+        case error.POSITION_UNAVAILABLE:
+            message = 'Location information is unavailable.';
+            break;
+        case error.TIMEOUT:
+            message = 'Location request timed out. Please try again.';
+            break;
+        default:
+            message = 'An unknown error occurred while retrieving location.';
+            break;
+    }
+    
+    showToast(message, 'error');
+}
+
+function showToast(message, type = 'success') {
+    // Remove existing toast
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create new toast
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+    
+    document.body.appendChild(toast);
+    
+    // Show toast
     setTimeout(() => {
-        applyFilters();
+        toast.classList.add('show');
     }, 100);
+    
+    // Hide and remove toast
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }, 3000);
 }

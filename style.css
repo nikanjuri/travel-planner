@@ -163,7 +163,7 @@
   --color-info: rgba(167, 169, 169, 1);
   --color-focus-ring: rgba(50, 184, 198, 0.4);
   --color-btn-primary-text: rgba(19, 52, 59, 1);
-  --color-card-border: rgba(119, 124, 124, 0.15);
+  --color-card-border: rgba(119, 124, 124, 0.2);
   --color-card-border-inner: rgba(119, 124, 124, 0.15);
   --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1),
     inset 0 -1px 0 rgba(0, 0, 0, 0.15);
@@ -1305,4 +1305,104 @@ select.form-control {
 /* Remove any conflicting styles */
 .leaflet-popup-content * {
   color: inherit !important;
+}
+
+/* Current Location Control */
+.location-control {
+  position: absolute;
+  bottom: var(--space-16);
+  left: var(--space-16);
+  z-index: 1000;
+}
+
+.location-btn {
+  width: 30px;
+  height: 30px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+}
+
+.location-btn:hover {
+  background: var(--color-background);
+  box-shadow: var(--shadow-md);
+}
+
+.location-btn.loading {
+  background: var(--color-primary);
+  color: white;
+}
+
+.location-btn.active {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.location-btn.error {
+  background: var(--color-error);
+  color: white;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* Current Location Marker */
+.current-location-marker {
+  width: 20px;
+  height: 20px;
+  background: #4285f4;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1001;
+}
+
+.accuracy-circle {
+  background: rgba(66, 133, 244, 0.2);
+  border: 1px solid rgba(66, 133, 244, 0.5);
+  border-radius: 50%;
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  top: calc(var(--space-16) + 60px);
+  right: var(--space-16);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-12) var(--space-16);
+  box-shadow: var(--shadow-lg);
+  z-index: 2000;
+  transform: translateX(100%);
+  transition: transform var(--duration-normal) var(--ease-standard);
+  max-width: 300px;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast.error {
+  border-color: var(--color-error);
+  background: var(--color-error);
+  color: white;
+}
+
+.toast.success {
+  border-color: var(--color-success);
+  background: var(--color-success);
+  color: white;
 }

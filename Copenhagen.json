@@ -46,7 +46,7 @@
         },
         {
           "name": "Rosenborg Castle",
-          "description": "Renaissance-era castle housing the Danish crown jewels and royal regalia, surrounded by King’s Garden.",
+          "description": "Renaissance-era castle housing the Danish crown jewels and royal regalia, surrounded by King's Garden.",
           "opening_hours": "April–September: 10:00–17:00; October–March: 11:00–16:00",
           "entry_fee": "DKK 115",
           "location": {
@@ -65,7 +65,7 @@
         },
         {
           "name": "Amalienborg Palace",
-          "description": "The Danish royal family’s winter residence; watch the changing of the guard at noon.",
+          "description": "The Danish royal family's winter residence; watch the changing of the guard at noon.",
           "opening_hours": "Guard ceremony: daily at 12:00; Museum: 10:00–16:00",
           "entry_fee": "DKK 100",
           "location": {
@@ -84,7 +84,7 @@
         },
         {
           "name": "The Little Mermaid",
-          "description": "Iconic bronze statue inspired by Hans Christian Andersen’s fairy tale on the Langelinie promenade.",
+          "description": "Iconic bronze statue inspired by Hans Christian Andersen's fairy tale on the Langelinie promenade.",
           "opening_hours": "Open 24/7",
           "entry_fee": "Free",
           "location": {
@@ -122,7 +122,7 @@
         },
         {
           "name": "Christiansborg Palace",
-          "description": "Former royal residence, now housing the Danish Parliament, Supreme Court, and Prime Minister’s Office.",
+          "description": "Former royal residence, now housing the Danish Parliament, Supreme Court, and Prime Minister's Office.",
           "opening_hours": "10:00–17:00 (daily)",
           "entry_fee": "DKK 160",
           "location": {
@@ -390,7 +390,7 @@
         {
           "name": "Restaurant Radio",
           "cuisine": "Scandinavian",
-          "description": "Chef Christian Puglisi’s restaurant focusing on seasonal, locally sourced produce.",
+          "description": "Chef Christian Puglisi's restaurant focusing on seasonal, locally sourced produce.",
           "opening_hours": "17:30–22:00 (Tue–Sat)",
           "price_range": "$$$$",
           "booking_required": true,
@@ -578,7 +578,7 @@
         {
           "name": "Mikkeller Bar",
           "type": "Craft Beer Bar",
-          "description": "Rotating selection of innovative brews from Copenhagen’s craft pioneer.",
+          "description": "Rotating selection of innovative brews from Copenhagen's craft pioneer.",
           "opening_hours": "14:00–00:00 (daily)",
           "price_range": "$$",
           "location": {
@@ -638,7 +638,7 @@
         {
           "name": "Taphouse",
           "type": "Beer Bar",
-          "description": "Featuring one of Europe’s largest tap selections with 61 rotating brews.",
+          "description": "Featuring one of Europe's largest tap selections with 61 rotating brews.",
           "opening_hours": "12:00–00:00 (daily)",
           "price_range": "$$",
           "location": {
@@ -658,7 +658,7 @@
         {
           "name": "La Fontaine",
           "type": "Jazz Bar",
-          "description": "Copenhagen’s oldest jazz bar offering nightly live performances.",
+          "description": "Copenhagen's oldest jazz bar offering nightly live performances.",
           "opening_hours": "20:00–03:00 (daily)",
           "price_range": "$$",
           "location": {
@@ -933,7 +933,7 @@
         }
       ],
       "itinerary": [],
-      "local_tips": { 
+      "localTips": { 
         "transportation": [
           "Copenhagen Card: Unlimited public transport plus free entry to 80+ attractions",
           "DOT Tickets App: Primary mobile ticketing for metro, bus, and trains",

@@ -8,7 +8,7 @@
     "attractions": [
         {
             "name": "Gamla Stan",
-            "description": "Stockholm’s old town with cobblestone streets, colorful buildings, and the Royal Palace.",
+            "description": "Stockholm's old town with cobblestone streets, colorful buildings, and the Royal Palace.",
             "opening_hours": "Open 24/7",
             "entry_fee": "Free",
             "location": {
@@ -46,7 +46,7 @@
         },
         {
             "name": "Skansen",
-            "description": "World’s first open-air museum showcasing Swedish history with live demonstrations and Nordic wildlife.",
+            "description": "World's first open-air museum showcasing Swedish history with live demonstrations and Nordic wildlife.",
             "opening_hours": "10:00–16:00 (daily)",
             "entry_fee": "SEK 195",
             "location": {
@@ -65,7 +65,7 @@
         },
         {
             "name": "Royal Palace",
-            "description": "One of Europe’s largest palaces with over 600 rooms and a daily guard ceremony.",
+            "description": "One of Europe's largest palaces with over 600 rooms and a daily guard ceremony.",
             "opening_hours": "10:00–16:00 (daily)",
             "entry_fee": "SEK 160",
             "location": {
@@ -103,7 +103,7 @@
         },
         {
             "name": "Moderna Museet",
-            "description": "Sweden’s national museum of modern and contemporary art.",
+            "description": "Sweden's national museum of modern and contemporary art.",
             "opening_hours": "10:00–18:00 (Tue–Sun)",
             "entry_fee": "Free permanent collection",
             "location": {
@@ -122,7 +122,7 @@
         },
         {
             "name": "ABBA The Museum",
-            "description": "Interactive exhibits celebrating ABBA’s music and legacy.",
+            "description": "Interactive exhibits celebrating ABBA's music and legacy.",
             "opening_hours": "10:00–18:00 (daily)",
             "entry_fee": "SEK 250",
             "location": {
@@ -179,7 +179,7 @@
         },
         {
             "name": "Junibacken",
-            "description": "Children’s museum celebrating Swedish storybook characters, especially Pippi Longstocking.",
+            "description": "Children's museum celebrating Swedish storybook characters, especially Pippi Longstocking.",
             "opening_hours": "10:00–17:00 (Tue–Sun)",
             "entry_fee": "SEK 195",
             "location": {
@@ -201,7 +201,7 @@
         {
             "name": "Frantzén",
             "cuisine": "Contemporary",
-            "description": "Sweden’s first three-Michelin-star restaurant offering a multi-sensory tasting menu.",
+            "description": "Sweden's first three-Michelin-star restaurant offering a multi-sensory tasting menu.",
             "opening_hours": "Dinner: Tue–Sat 18:00–22:00",
             "price_range": "$$$$",
             "booking_required": true,
@@ -755,7 +755,7 @@
         {
             "name": "Icebar Stockholm",
             "type": "Theme Bar",
-            "description": "World’s first permanent bar made of ice—everyone gets thermal capes.",
+            "description": "World's first permanent bar made of ice—everyone gets thermal capes.",
             "opening_hours": "12:00–23:00 (daily)",
             "price_range": "$$",
             "location": {
@@ -815,7 +815,7 @@
         {
             "name": "Akkurat",
             "type": "Beer Bar",
-            "description": "One of Europe’s best beer bars with 30+ taps and extensive bottled selection.",
+            "description": "One of Europe's best beer bars with 30+ taps and extensive bottled selection.",
             "opening_hours": "17:00–01:00 (daily)",
             "price_range": "$$",
             "location": {
@@ -894,7 +894,7 @@
         }
     ],
     "itinerary": [],
-    "local_tips": {
+    "localTips": {
         "transportation": [
             "SL App: Official Stockholm public transport app for journey planning and mobile tickets",
             "Contactless Payment: Works on buses and trains for tourists without Swedish cards",
