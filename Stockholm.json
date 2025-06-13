@@ -5,7 +5,7 @@
         "lat": 59.3293,
         "lng": 18.0686
     },
-    "attractions": [
+    "sightseeing": [
         {
             "name": "Gamla Stan",
             "description": "Stockholm's old town with cobblestone streets, colorful buildings, and the Royal Palace.",
@@ -197,7 +197,7 @@
             "google_maps_url": "https://goo.gl/maps/junibacken"
         }
     ],
-    "restaurants": [
+    "food": [
         {
             "name": "Frantzén",
             "cuisine": "Contemporary",
@@ -451,7 +451,7 @@
             "google_maps_url": "https://goo.gl/maps/femsmahus"
         }
     ],
-    "bars": [
+    "drinks": [
         {
             "name": "Röda Huset",
             "type": "Cocktail Bar",

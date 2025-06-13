@@ -19,13 +19,11 @@ const cityFiles = [
 document.addEventListener('DOMContentLoaded', function() {
     initializeMap();
     initializeEventListeners();
+    initializeCurrentLocation();
 
     populateCityDropdown();
-
     // Load the first city by default
     loadCityFromFile(cityFiles[0].file);
-
-    initializeCurrentLocation();
 });
 
 // Map Initialization
@@ -37,9 +35,9 @@ function initializeMap() {
     }).addTo(map);
     
     markers = {
-        attractions: L.layerGroup().addTo(map),
-        restaurants: L.layerGroup().addTo(map),
-        bars: L.layerGroup().addTo(map)
+        sightseeing: L.layerGroup().addTo(map),
+        food: L.layerGroup().addTo(map),
+        drinks: L.layerGroup().addTo(map)
     };
 }
 
@@ -68,7 +66,7 @@ function initializeEventListeners() {
     }
     
     // Map layer controls
-    const layerControls = ['attractions-layer', 'restaurants-layer', 'bars-layer'];
+    const layerControls = ['sightseeing-layer', 'food-layer', 'drinks-layer'];
     layerControls.forEach(controlId => {
         const control = document.getElementById(controlId);
         if (control) {
@@ -83,7 +81,6 @@ function initializeEventListeners() {
     }
 }
 
-// Show/Hide Content Sections
 function showContentSections() {
     // First hide all sections
     document.querySelectorAll('.content-section').forEach(section => {
@@ -93,50 +90,49 @@ function showContentSections() {
     // Show sections based on current category
     if (currentCategory === 'all') {
         // Show all venue sections
-        document.getElementById('attractions-section').classList.add('active');
-        document.getElementById('restaurants-section').classList.add('active');
-        document.getElementById('bars-section').classList.add('active');
-    } else if (currentCategory === 'itinerary') {
-        // For itinerary tab, don't show the "Suggested Itineraries" section
-        // The "My Trip" section is always visible, so do nothing here
+        document.getElementById('sightseeing-section').classList.add('active');
+        document.getElementById('food-section').classList.add('active');
+        document.getElementById('drinks-section').classList.add('active');
+    } else if (currentCategory === 'daily-planner') {
+        // For daily planner tab, don't show the "Suggested Itineraries" section
+        // Just show the trip planner (which is always visible)
+    } else if (currentCategory === 'tips') {
+        document.getElementById('tips-section').classList.add('active');
     } else {
-        // Show specific section
-        const sectionId = currentCategory === 'tips' ? 'tips-section' : `${currentCategory}-section`;
-        const section = document.getElementById(sectionId);
-        if (section) section.classList.add('active');
+        // Show specific category section
+        document.getElementById(`${currentCategory}-section`).classList.add('active');
     }
 }
 
-// Map Markers
 function addMarkersToMap(cityData) {
-    // Attractions (red markers)
-    cityData.attractions.forEach(attraction => {
+    // Sightseeing (red markers)
+    cityData.sightseeing.forEach(attraction => {
         const marker = L.marker([attraction.location.lat, attraction.location.lng], {
             icon: createCustomIcon('red')
-        }).bindPopup(createPopupContent(attraction, 'attraction'));
+        }).bindPopup(createPopupContent(attraction, 'sightseeing'));
         
-        marker.venueId = `attraction-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.attractions.addLayer(marker);
+        marker.venueId = `sightseeing-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+        markers.sightseeing.addLayer(marker);
     });
     
-    // Restaurants (purple markers)
-    cityData.restaurants.forEach(restaurant => {
+    // Food (purple markers)
+    cityData.food.forEach(restaurant => {
         const marker = L.marker([restaurant.location.lat, restaurant.location.lng], {
             icon: createCustomIcon('purple')
-        }).bindPopup(createPopupContent(restaurant, 'restaurant'));
+        }).bindPopup(createPopupContent(restaurant, 'food'));
         
-        marker.venueId = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.restaurants.addLayer(marker);
+        marker.venueId = `food-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+        markers.food.addLayer(marker);
     });
     
-    // Bars (green markers)
-    cityData.bars.forEach(bar => {
+    // Drinks (green markers)
+    cityData.drinks.forEach(bar => {
         const marker = L.marker([bar.location.lat, bar.location.lng], {
             icon: createCustomIcon('green')
-        }).bindPopup(createPopupContent(bar, 'bar'));
+        }).bindPopup(createPopupContent(bar, 'drinks'));
         
-        marker.venueId = `bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.bars.addLayer(marker);
+        marker.venueId = `drinks-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+        markers.drinks.addLayer(marker);
     });
 }
 
@@ -156,7 +152,7 @@ function createCustomIcon(color) {
 
 function createPopupContent(venue, type) {
     let price = '';
-    if (type === 'restaurant' || type === 'bar') {
+    if (type === 'food' || type === 'drinks') {
         price = venue.price_range ? `<div class="popup-price">${venue.price_range}</div>` : '';
     }
     return `
@@ -170,22 +166,22 @@ function createPopupContent(venue, type) {
     `;
 }
 
-function loadAttractions(attractions) {
-    const grid = document.getElementById('attractions-grid');
+function loadSightseeing(sightseeing) {
+    const grid = document.getElementById('sightseeing-grid');
     if (!grid) return;
-    grid.innerHTML = attractions.map(createAttractionCard).join('');
+    grid.innerHTML = sightseeing.map(createSightseeingCard).join('');
 }
 
-function loadRestaurants(restaurants) {
-    const grid = document.getElementById('restaurants-grid');
+function loadFood(food) {
+    const grid = document.getElementById('food-grid');
     if (!grid) return;
-    grid.innerHTML = restaurants.map(createRestaurantCard).join('');
+    grid.innerHTML = food.map(createFoodCard).join('');
 }
 
-function loadBars(bars) {
-    const grid = document.getElementById('bars-grid');
+function loadDrinks(drinks) {
+    const grid = document.getElementById('drinks-grid');
     if (!grid) return;
-    grid.innerHTML = bars.map(createBarCard).join('');
+    grid.innerHTML = drinks.map(createDrinksCard).join('');
 }
 
 function loadLocalTips(cityName) {
@@ -212,20 +208,20 @@ function loadLocalTips(cityName) {
     `;
 }
 
-function createAttractionCard(attraction) {
-    const id = `attraction-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+function createSightseeingCard(attraction) {
+    const id = `sightseeing-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
     const priceCategory = attraction.entry_fee === 'Free' || attraction.entry_fee === 'Free to explore' ? 'free' : 
                          (attraction.entry_fee && (attraction.entry_fee.includes('€') || attraction.entry_fee.includes('SEK'))) ? '$$' : '$';
 
     return `
-        <div class="venue-card" data-venue-id="${id}" data-category="attractions" data-price="${priceCategory}">
+        <div class="venue-card" data-venue-id="${id}" data-category="sightseeing" data-price="${priceCategory}">
             <div class="venue-header">
                 <h3 class="venue-name">${attraction.name}</h3>
                 <div class="venue-actions">
                     <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
                         <i class="fas fa-map-marker-alt"></i>
                     </button>
-                    <button class="action-btn" onclick="addToTrip('${attraction.name}', 'attraction')" title="Add to trip">
+                    <button class="action-btn" onclick="addToTrip('${attraction.name}', 'sightseeing')" title="Add to trip">
                         <i class="fas fa-heart"></i>
                     </button>
                 </div>
@@ -255,8 +251,8 @@ function createAttractionCard(attraction) {
     `;
 }
 
-function createRestaurantCard(restaurant) {
-    const id = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+function createFoodCard(restaurant) {
+    const id = `food-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
     const stars = restaurant.michelinStars ? '⭐'.repeat(restaurant.michelinStars) : '';
     
     // Handle booking badge - check for both boolean and string values
@@ -268,7 +264,7 @@ function createRestaurantCard(restaurant) {
     }
     
     return `
-        <div class="venue-card" data-venue-id="${id}" data-category="restaurants" data-price="${restaurant.price_range || ''}">
+        <div class="venue-card" data-venue-id="${id}" data-category="food" data-price="${restaurant.price_range || ''}">
             ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${restaurant.name}</h3>
@@ -276,7 +272,7 @@ function createRestaurantCard(restaurant) {
                     <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
                         <i class="fas fa-map-marker-alt"></i>
                     </button>
-                    <button class="action-btn" onclick="addToTrip('${restaurant.name}', 'restaurant')" title="Add to trip">
+                    <button class="action-btn" onclick="addToTrip('${restaurant.name}', 'food')" title="Add to trip">
                         <i class="fas fa-heart"></i>
                     </button>
                 </div>
@@ -311,8 +307,8 @@ function createRestaurantCard(restaurant) {
     `;
 }
 
-function createBarCard(bar) {
-    const id = `bar-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
+function createDrinksCard(bar) {
+    const id = `drinks-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
     
     // Handle booking badge for bars (if they have booking requirements)
     let bookingBadge = '';
@@ -323,7 +319,7 @@ function createBarCard(bar) {
     }
     
     return `
-        <div class="venue-card" data-venue-id="${id}" data-category="bars" data-price="${bar.price_range || '$$'}">
+        <div class="venue-card" data-venue-id="${id}" data-category="drinks" data-price="${bar.price_range || '$$'}">
             ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${bar.name}</h3>
@@ -331,7 +327,7 @@ function createBarCard(bar) {
                     <button class="action-btn" onclick="highlightOnMap('${id}')" title="Show on map">
                         <i class="fas fa-map-marker-alt"></i>
                     </button>
-                    <button class="action-btn" onclick="addToTrip('${bar.name}', 'bar')" title="Add to trip">
+                    <button class="action-btn" onclick="addToTrip('${bar.name}', 'drinks')" title="Add to trip">
                         <i class="fas fa-heart"></i>
                     </button>
                 </div>
@@ -455,8 +451,8 @@ function highlightOnMap(venueId) {
     Object.values(markers).forEach(layerGroup => {
         layerGroup.eachLayer(marker => {
             if (marker.venueId === venueId) {
-                map.setView(marker.getLatLng(), 15);
                 marker.openPopup();
+                map.setView(marker.getLatLng(), Math.max(map.getZoom(), 15));
             }
         });
     });
@@ -476,12 +472,10 @@ function addToTrip(venueName, venueType) {
     myTrip.push({ name: venueName, type: venueType });
     updateTripDisplay();
     
-    // Update button state - find all buttons with this venue name
-    document.querySelectorAll('.action-btn').forEach(btn => {
-        const onclickValue = btn.getAttribute('onclick');
-        if (onclickValue && onclickValue.includes(`addToTrip('${venueName}'`)) {
+    // Update button state - find all buttons for this venue
+    document.querySelectorAll(`[onclick*="${venueName}"]`).forEach(btn => {
+        if (btn.title === 'Add to trip') {
             btn.classList.add('added');
-            btn.innerHTML = '<i class="fas fa-check"></i>';
         }
     });
 }
@@ -490,12 +484,10 @@ function removeFromTrip(venueName) {
     myTrip = myTrip.filter(item => item.name !== venueName);
     updateTripDisplay();
     
-    // Update button state
-    document.querySelectorAll('.action-btn').forEach(btn => {
-        const onclickValue = btn.getAttribute('onclick');
-        if (onclickValue && onclickValue.includes(`addToTrip('${venueName}'`)) {
+    // Update button state - find all buttons for this venue
+    document.querySelectorAll(`[onclick*="${venueName}"]`).forEach(btn => {
+        if (btn.title === 'Add to trip') {
             btn.classList.remove('added');
-            btn.innerHTML = '<i class="fas fa-heart"></i>';
         }
     });
 }
@@ -504,27 +496,22 @@ function clearTrip() {
     myTrip = [];
     updateTripDisplay();
     
-    // Reset all buttons
-    document.querySelectorAll('.action-btn').forEach(btn => {
-        const onclickValue = btn.getAttribute('onclick');
-        if (onclickValue && onclickValue.includes('addToTrip')) {
-            btn.classList.remove('added');
-            btn.innerHTML = '<i class="fas fa-heart"></i>';
-        }
+    // Remove all added states
+    document.querySelectorAll('.action-btn.added').forEach(btn => {
+        btn.classList.remove('added');
     });
 }
 
 function updateTripDisplay() {
-    const container = document.getElementById('trip-items');
-    
-    if (!container) return;
+    const tripItems = document.getElementById('trip-items');
+    if (!tripItems) return;
     
     if (myTrip.length === 0) {
-        container.innerHTML = '<div class="empty-state">No items in your trip yet</div>';
+        tripItems.innerHTML = '<div class="empty-state">No items in your trip yet. Click the heart icon on venues to add them!</div>';
         return;
     }
     
-    container.innerHTML = myTrip.map(item => `
+    tripItems.innerHTML = myTrip.map(item => `
         <div class="trip-item">
             <span class="trip-item-name">${item.name}</span>
             <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
@@ -534,33 +521,32 @@ function updateTripDisplay() {
     `).join('');
 }
 
-// City Dropdown Logic
+// City Management
 function populateCityDropdown() {
-    const select = document.getElementById('city-select');
-    select.innerHTML = '';
+    const citySelect = document.getElementById('city-select');
+    if (!citySelect) return;
+    
     cityFiles.forEach(city => {
         const option = document.createElement('option');
         option.value = city.file;
         option.textContent = city.label;
-        select.appendChild(option);
+        citySelect.appendChild(option);
     });
-    // Set default selection to the first city
-    select.value = cityFiles[0].file;
-    select.addEventListener('change', function() {
-        loadCityFromFile(this.value);
+    
+    citySelect.addEventListener('change', (e) => {
+        loadCityFromFile(e.target.value);
     });
 }
 
 function loadCityFromFile(filename) {
     fetch(filename)
         .then(response => response.json())
-        .then(cityData => {
-            window.cityData = cityData;
-            updateDashboardWithCity(cityData);
+        .then(data => {
+            window.cityData = data;
+            updateDashboardWithCity(data);
         })
-        .catch(err => {
-            console.error('❌ Failed to fetch city data:', err);
-            alert('Could not load city data.');
+        .catch(error => {
+            console.error('Error loading city data:', error);
         });
 }
 
@@ -576,9 +562,9 @@ function updateDashboardWithCity(cityData) {
     addMarkersToMap(cityData);
     
     // Load content
-    loadAttractions(cityData.attractions);
-    loadRestaurants(cityData.restaurants);
-    loadBars(cityData.bars);
+    loadSightseeing(cityData.sightseeing);
+    loadFood(cityData.food);
+    loadDrinks(cityData.drinks);
     loadLocalTips(cityData.name.toLowerCase());
     
     // Reset current location if active

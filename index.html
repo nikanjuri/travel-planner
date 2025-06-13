@@ -27,12 +27,12 @@
             <div id="map"></div>
             <div class="map-controls">
                 <div class="layer-controls">
-                    <label><input type="checkbox" id="attractions-layer" checked> <span class="marker-icon red"></span> Attractions</label>
-                    <label><input type="checkbox" id="restaurants-layer" checked> <span class="marker-icon purple"></span> Restaurants</label>
-                    <label><input type="checkbox" id="bars-layer" checked> <span class="marker-icon green"></span> Bars</label>
+                    <label><input type="checkbox" id="sightseeing-layer" checked> <span class="marker-icon red"></span> Sightseeing</label>
+                    <label><input type="checkbox" id="food-layer" checked> <span class="marker-icon purple"></span> Food</label>
+                    <label><input type="checkbox" id="drinks-layer" checked> <span class="marker-icon green"></span> Drinks</label>
                 </div>
             </div>
-            <!-- Add Current Location Button -->
+            <!-- Current Location Button -->
             <div class="location-control">
                 <button id="current-location-btn" class="location-btn" title="Show current location">
                     <i class="fas fa-location-arrow"></i>
@@ -47,10 +47,10 @@
                 <div class="filters-section">
                     <div class="category-filters">
                         <button class="filter-btn active" data-category="all">All</button>
-                        <button class="filter-btn" data-category="attractions">Attractions</button>
-                        <button class="filter-btn" data-category="restaurants">Restaurants</button>
-                        <button class="filter-btn" data-category="bars">Bars</button>
-                        <button class="filter-btn" data-category="itinerary">Itinerary</button>
+                        <button class="filter-btn" data-category="sightseeing">Sightseeing</button>
+                        <button class="filter-btn" data-category="food">Food</button>
+                        <button class="filter-btn" data-category="drinks">Drinks</button>
+                        <button class="filter-btn" data-category="daily-planner">Daily Planner</button>
                         <button class="filter-btn" data-category="tips">Local Tips</button>
                     </div>
                     
@@ -75,28 +75,28 @@
 
                 <!-- Content Sections -->
                 <div class="content-sections">
-                    <!-- Attractions Section -->
-                    <section id="attractions-section" class="content-section active">
-                        <h2>Attractions</h2>
-                        <div id="attractions-grid" class="venues-grid"></div>
+                    <!-- Sightseeing Section -->
+                    <section id="sightseeing-section" class="content-section active">
+                        <h2>Sightseeing</h2>
+                        <div id="sightseeing-grid" class="venues-grid"></div>
                     </section>
 
-                    <!-- Restaurants Section -->
-                    <section id="restaurants-section" class="content-section">
-                        <h2>Restaurants</h2>
-                        <div id="restaurants-grid" class="venues-grid"></div>
+                    <!-- Food Section -->
+                    <section id="food-section" class="content-section">
+                        <h2>Food</h2>
+                        <div id="food-grid" class="venues-grid"></div>
                     </section>
 
-                    <!-- Bars Section -->
-                    <section id="bars-section" class="content-section">
-                        <h2>Bars & Nightlife</h2>
-                        <div id="bars-grid" class="venues-grid"></div>
+                    <!-- Drinks Section -->
+                    <section id="drinks-section" class="content-section">
+                        <h2>Drinks</h2>
+                        <div id="drinks-grid" class="venues-grid"></div>
                     </section>
 
-                    <!-- Itinerary Section -->
-                    <section id="itinerary-section" class="content-section">
-                        <h2>Suggested Itineraries</h2>
-                        <div id="itinerary-content"></div>
+                    <!-- Daily Planner Section -->
+                    <section id="daily-planner-section" class="content-section">
+                        <h2>Daily Planner</h2>
+                        <div id="daily-planner-content"></div>
                     </section>
 
                     <!-- Local Tips Section -->

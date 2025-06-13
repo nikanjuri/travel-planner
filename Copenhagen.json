@@ -5,7 +5,7 @@
         "lat": 55.6761,
         "lng": 12.5683
       },
-      "attractions": [
+      "sightseeing": [
         {
           "name": "Tivoli Gardens",
           "description": "Historic amusement park in the city center, featuring rides, concerts, and themed gardens.",
@@ -197,7 +197,7 @@
           "google_maps_url": "https://goo.gl/maps/torvhal"
         }
       ],
-      "restaurants": [
+      "food": [
         {
           "name": "Noma",
           "cuisine": "New Nordic",
@@ -514,7 +514,7 @@
           "google_maps_url": "https://goo.gl/maps/baestpizza"
         }
       ],
-      "bars": [
+      "drinks": [
         {
           "name": "Ruby",
           "type": "Cocktail Bar",
