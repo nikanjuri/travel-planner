@@ -119,10 +119,10 @@ function addMarkersToMap(cityData) {
         markers.attractions.addLayer(marker);
     });
     
-    // Restaurants (blue markers)
+    // Restaurants (purple markers)
     cityData.restaurants.forEach(restaurant => {
         const marker = L.marker([restaurant.location.lat, restaurant.location.lng], {
-            icon: createCustomIcon('blue')
+            icon: createCustomIcon('purple')
         }).bindPopup(createPopupContent(restaurant, 'restaurant'));
         
         marker.venueId = `restaurant-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
@@ -143,7 +143,7 @@ function addMarkersToMap(cityData) {
 function createCustomIcon(color) {
     const colorMap = {
         red: '#e74c3c',
-        blue: '#3498db',
+        purple: '#9b59b6',
         green: '#27ae60'
     };
     return L.divIcon({
