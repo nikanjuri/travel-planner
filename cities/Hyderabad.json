@@ -9,8 +9,8 @@
     {
       "name": "Charminar",
       "description": "Iconic 16th-century mosque with four grand arches and bustling bazaars.",
-      "opening_hours": "09:30\u201305:30 (daily)",
-      "entry_fee": "\u20b920 (Indians), \u20b9250 (foreigners)",
+      "opening_hours": "09:30-05:30 (daily)",
+      "entry_fee": "₹20 (Indians), ₹250 (foreigners)",
       "location": {
         "lat": 17.3616,
         "lng": 78.4747
@@ -28,8 +28,8 @@
     {
       "name": "Golconda Fort",
       "description": "Majestic fortress with acoustic marvels and panoramic views.",
-      "opening_hours": "09:00\u201317:30 (daily)",
-      "entry_fee": "\u20b925 (Indians), \u20b9300 (foreigners)",
+      "opening_hours": "09:00-17:30 (daily)",
+      "entry_fee": "₹25 (Indians), ₹300 (foreigners)",
       "location": {
         "lat": 17.3833,
         "lng": 78.4011
@@ -47,8 +47,8 @@
     {
       "name": "Qutb Shahi Tombs",
       "description": "Elegant domed mausoleums in Indo-Islamic style surrounded by gardens.",
-      "opening_hours": "09:30\u201317:30 (daily)",
-      "entry_fee": "\u20b920 (Indians), \u20b9100 (foreigners)",
+      "opening_hours": "09:30-17:30 (daily)",
+      "entry_fee": "₹20 (Indians), ₹100 (foreigners)",
       "location": {
         "lat": 17.3916,
         "lng": 78.3986
@@ -66,8 +66,8 @@
     {
       "name": "Salar Jung Museum",
       "description": "World-renowned museum with global art, manuscripts, and curiosities.",
-      "opening_hours": "10:00\u201317:00 (closed Fridays)",
-      "entry_fee": "\u20b920 (Indians), \u20b9500 (foreigners)",
+      "opening_hours": "10:00-17:00 (closed Fridays)",
+      "entry_fee": "₹20 (Indians), ₹500 (foreigners)",
       "location": {
         "lat": 17.3713,
         "lng": 78.4804
@@ -104,7 +104,7 @@
     {
       "name": "Birla Mandir",
       "description": "White marble Hindu temple on a hill overlooking the city.",
-      "opening_hours": "07:00\u201312:00, 15:00\u201321:00",
+      "opening_hours": "07:00-12:00, 15:00-21:00",
       "entry_fee": "Free",
       "location": {
         "lat": 17.4062,
@@ -122,9 +122,9 @@
     },
     {
       "name": "Ramoji Film City",
-      "description": "World\u2019s largest integrated film studio complex with thematic shows and sets.",
-      "opening_hours": "09:00\u201317:30 (daily)",
-      "entry_fee": "\u20b91350 (adults), \u20b91150 (children)",
+      "description": "World's largest integrated film studio complex with thematic shows and sets.",
+      "opening_hours": "09:00-17:30 (daily)",
+      "entry_fee": "₹1350 (adults), ₹1150 (children)",
       "location": {
         "lat": 17.2543,
         "lng": 78.6826
@@ -142,8 +142,8 @@
     {
       "name": "Shilparamam",
       "description": "Cultural village showcasing Indian arts, crafts, and performances.",
-      "opening_hours": "10:30\u201320:00 (daily)",
-      "entry_fee": "\u20b960 (adults), \u20b920 (children)",
+      "opening_hours": "10:30-20:00 (daily)",
+      "entry_fee": "₹60 (adults), ₹20 (children)",
       "location": {
         "lat": 17.4435,
         "lng": 78.3772
@@ -161,8 +161,8 @@
     {
       "name": "Nehru Zoological Park",
       "description": "Expansive zoo with safari rides, birds, reptiles, and large mammals.",
-      "opening_hours": "08:30\u201317:30 (closed Mondays)",
-      "entry_fee": "\u20b960 (adults), \u20b940 (children)",
+      "opening_hours": "08:30-17:30 (closed Mondays)",
+      "entry_fee": "₹60 (adults), ₹40 (children)",
       "location": {
         "lat": 17.3506,
         "lng": 78.4511
@@ -180,8 +180,8 @@
     {
       "name": "Chowmahalla Palace",
       "description": "Nizam's former seat with opulent halls, courtyards, and vintage cars.",
-      "opening_hours": "10:00\u201317:00 (Sat\u2013Thu)",
-      "entry_fee": "\u20b980 (Indians), \u20b9200 (foreigners)",
+      "opening_hours": "10:00-17:00 (Sat-Thu)",
+      "entry_fee": "₹80 (Indians), ₹200 (foreigners)",
       "location": {
         "lat": 17.3578,
         "lng": 78.4713
