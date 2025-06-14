@@ -6,7 +6,7 @@ To-be Implemented
   - Route optimizer - distance + time calculator
   - Current Location pin ✅
   - Geolocation "Near me"
-  - Authentication
+  - Authentication - remember offline sync implementation. 
   - Offline caching
   - Reservation on website
   - Fix tags ⏳
