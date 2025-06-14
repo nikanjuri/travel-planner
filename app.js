@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeCurrentLocation();
 
     populateCityDropdown();
+    loadTripFromStorage(); // Load saved trip data
+    
     // Load the first city by default
     loadCityFromFile(cityFiles[0].file);
 });
@@ -469,37 +471,56 @@ function addToTrip(venueName, venueType) {
     }
     
     // If item doesn't exist, add it (toggle on)
-    myTrip.push({ name: venueName, type: venueType });
+    myTrip.push({ 
+        name: venueName, 
+        type: venueType,
+        addedAt: new Date().toISOString(),
+        city: window.cityData?.name || 'Unknown'
+    });
+    
+    saveTripToStorage(); // Save to localStorage
     updateTripDisplay();
     
-    // Update button state - find all buttons for this venue
+    // Update button state
     document.querySelectorAll(`[onclick*="${venueName}"]`).forEach(btn => {
         if (btn.title === 'Add to trip') {
             btn.classList.add('added');
         }
     });
+    
+    showToast(`${venueName} added to trip!`, 'success');
 }
 
 function removeFromTrip(venueName) {
     myTrip = myTrip.filter(item => item.name !== venueName);
+    saveTripToStorage(); // Save to localStorage
     updateTripDisplay();
     
-    // Update button state - find all buttons for this venue
+    // Update button state
     document.querySelectorAll(`[onclick*="${venueName}"]`).forEach(btn => {
         if (btn.title === 'Add to trip') {
             btn.classList.remove('added');
         }
     });
+    
+    showToast(`${venueName} removed from trip`, 'info');
 }
 
 function clearTrip() {
-    myTrip = [];
-    updateTripDisplay();
+    if (myTrip.length === 0) return;
     
-    // Remove all added states
-    document.querySelectorAll('.action-btn.added').forEach(btn => {
-        btn.classList.remove('added');
-    });
+    if (confirm('Are you sure you want to clear your entire trip?')) {
+        myTrip = [];
+        saveTripToStorage(); // Save to localStorage
+        updateTripDisplay();
+        
+        // Remove all added states
+        document.querySelectorAll('.action-btn.added').forEach(btn => {
+            btn.classList.remove('added');
+        });
+        
+        showToast('Trip cleared', 'info');
+    }
 }
 
 function updateTripDisplay() {
@@ -511,14 +532,66 @@ function updateTripDisplay() {
         return;
     }
     
-    tripItems.innerHTML = myTrip.map(item => `
-        <div class="trip-item">
-            <span class="trip-item-name">${item.name}</span>
-            <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-    `).join('');
+    // Group by city for better organization
+    const tripByCity = myTrip.reduce((acc, item) => {
+        const city = item.city || 'Unknown';
+        if (!acc[city]) acc[city] = [];
+        acc[city].push(item);
+        return acc;
+    }, {});
+    
+    let html = '';
+    Object.entries(tripByCity).forEach(([city, items]) => {
+        html += `<div class="trip-city-group">`;
+        if (Object.keys(tripByCity).length > 1) {
+            html += `<h4 class="trip-city-title">${city}</h4>`;
+        }
+        
+        items.forEach(item => {
+            const typeIcon = getTypeIcon(item.type);
+            html += `
+                <div class="trip-item">
+                    <div class="trip-item-info">
+                        <span class="trip-item-icon">${typeIcon}</span>
+                        <span class="trip-item-name">${item.name}</span>
+                        <span class="trip-item-type">${item.type}</span>
+                    </div>
+                    <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+        });
+        html += `</div>`;
+    });
+    
+    tripItems.innerHTML = html;
+}
+
+function getTypeIcon(type) {
+    const icons = {
+        'sightseeing': '🏛️',
+        'food': '🍽️',
+        'drinks': '🍹'
+    };
+    return icons[type] || '📍';
+}
+
+// Update button states based on saved trip
+function updateButtonStates() {
+    // Remove all added states first
+    document.querySelectorAll('.action-btn.added').forEach(btn => {
+        btn.classList.remove('added');
+    });
+    
+    // Add states for items in trip
+    myTrip.forEach(item => {
+        document.querySelectorAll(`[onclick*="${item.name}"]`).forEach(btn => {
+            if (btn.title === 'Add to trip') {
+                btn.classList.add('added');
+            }
+        });
+    });
 }
 
 // City Management
@@ -575,6 +648,11 @@ function updateDashboardWithCity(cityData) {
     // Reset filters and show content
     showContentSections();
     applyFilters();
+    
+    // After loading content, restore button states
+    setTimeout(() => {
+        updateButtonStates();
+    }, 100); // Small delay to ensure DOM is updated
 }
 
 // Current Location Functions
@@ -781,6 +859,7 @@ function showToast(message, type = 'success') {
     }, 100);
     
     // Hide and remove toast
+    const duration = type === 'info' ? 5000 : 3000; // Info messages stay longer
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => {
@@ -788,5 +867,117 @@ function showToast(message, type = 'success') {
                 toast.parentNode.removeChild(toast);
             }
         }, 300);
-    }, 3000);
+    }, duration);
 }
+
+// Load trip data from localStorage on app start
+function loadTripFromStorage() {
+    try {
+        const savedTrip = localStorage.getItem('travel-planner-trip');
+        if (savedTrip) {
+            myTrip = JSON.parse(savedTrip);
+            updateTripDisplay();
+            updateButtonStates();
+        }
+    } catch (error) {
+        console.error('Error loading trip from storage:', error);
+        myTrip = [];
+    }
+}
+
+// Save trip data to localStorage
+function saveTripToStorage() {
+    try {
+        localStorage.setItem('travel-planner-trip', JSON.stringify(myTrip));
+    } catch (error) {
+        console.error('Error saving trip to storage:', error);
+        showToast('Unable to save trip data', 'error');
+    }
+}
+
+// Export trip as JSON
+function exportTrip() {
+    if (myTrip.length === 0) {
+        showToast('No trip data to export', 'warning');
+        return;
+    }
+    
+    const tripData = {
+        trip: myTrip,
+        exportedAt: new Date().toISOString(),
+        version: '1.0'
+    };
+    
+    const dataStr = JSON.stringify(tripData, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `my-trip-${new Date().toISOString().split('T')[0]}.json`;
+    link.click();
+    
+    showToast('Trip exported successfully!', 'success');
+}
+
+// Import trip from JSON
+function importTrip(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const tripData = JSON.parse(e.target.result);
+            if (tripData.trip && Array.isArray(tripData.trip)) {
+                myTrip = tripData.trip;
+                saveTripToStorage();
+                updateTripDisplay();
+                updateButtonStates();
+                showToast('Trip imported successfully!', 'success');
+            } else {
+                showToast('Invalid trip file format', 'error');
+            }
+        } catch (error) {
+            showToast('Error reading trip file', 'error');
+        }
+    };
+    reader.readAsText(file);
+}
+
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+        
+        // Check for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New content available, show update notification
+              showUpdateNotification();
+            }
+          });
+        });
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  });
+}
+
+// Show update notification
+function showUpdateNotification() {
+  showToast('New version available! Refresh to update.', 'info');
+}
+
+// Add offline/online status indicators
+window.addEventListener('online', () => {
+  showToast('Back online!', 'success');
+});
+
+window.addEventListener('offline', () => {
+  showToast('You are offline. Cached content will be used.', 'warning');
+});
