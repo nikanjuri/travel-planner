@@ -1,10 +1,15 @@
 To-be Implemented
-  - Marker Clustering - later
-  - JSON key sync for local tips - done 
-  - Advanced filter - with tags & ratings
+  - Marker Clustering ⏳
+  - JSON key sync for local tips ✅ 
+  - Advanced filter - with tags & ratings ⏳
   - Day-planner
   - Route optimizer - distance + time calculator
-  - Current Location pin - current
+  - Current Location pin ✅
   - Geolocation "Near me"
-  - Authentication
+  - Authentication - remember offline sync implementation. 
   - Offline caching
+  - Reservation on website
+  - Fix tags ⏳
+  - Sub-tabs by tags ⏳
+  - Automatically get all locations from web scraping and update/generate JSONs
+  - Check Progressive webapp status.
