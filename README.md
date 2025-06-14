@@ -7,7 +7,7 @@ To-be Implemented
   - Current Location pin ✅
   - Geolocation "Near me"
   - Authentication - remember offline sync implementation. 
-  - Offline caching
+  - Offline caching ✅
   - Reservation on website
   - Fix tags ⏳
   - Sub-tabs by tags ⏳

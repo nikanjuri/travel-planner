@@ -1497,3 +1497,75 @@ select.form-control {
   padding: var(--space-2) var(--space-6);
   border-radius: var(--radius-sm);
 }
+
+/* Near Me Section */
+.nearby-status {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-16);
+  margin-bottom: var(--space-24);
+  text-align: center;
+}
+
+.nearby-status.loading {
+  color: var(--color-text-secondary);
+}
+
+.nearby-status.success {
+  color: var(--color-success);
+  border-color: var(--color-success);
+  background: rgba(var(--color-success-rgb), 0.1);
+}
+
+.nearby-status.error {
+  color: var(--color-error);
+  border-color: var(--color-error);
+  background: rgba(var(--color-error-rgb), 0.1);
+}
+
+.nearby-status.warning {
+  color: var(--color-warning);
+  border-color: var(--color-warning);
+  background: rgba(var(--color-warning-rgb), 0.1);
+}
+
+.nearby-status.empty {
+  color: var(--color-text-secondary);
+}
+
+/* Venue distance display */
+.venue-distance {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.venue-distance i {
+  font-size: var(--font-size-xs);
+}
+
+.distance-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.distance-km {
+  font-weight: var(--font-weight-medium);
+}
+
+.walking-time {
+  color: var(--color-text-tertiary);
+}
+
+/* Radius circle on map */
+.nearby-radius-circle {
+  fill: rgba(66, 133, 244, 0.1);
+  stroke: rgba(66, 133, 244, 0.5);
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+}

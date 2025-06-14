@@ -12,6 +12,15 @@ let currentCityCenter = null;
 // Auto-discovery: No more manual cityFiles array!
 let cityFiles = []; // Will be populated automatically
 
+// Near Me functionality variables
+let nearbyMode = false;
+let userLocation = null;
+let nearbyWatchId = null;
+let nearbyRadiusCircle = null;
+const NEARBY_RADIUS_KM = 5;
+const CITY_MAX_DISTANCE_KM = 50;
+const LOCATION_UPDATE_THRESHOLD_M = 200;
+
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', async function() {
     initializeMap();
@@ -104,6 +113,8 @@ function showContentSections() {
         // Just show the trip planner (which is always visible)
     } else if (currentCategory === 'tips') {
         document.getElementById('tips-section').classList.add('active');
+    } else if (currentCategory === 'nearby') {
+        document.getElementById('nearby-section').classList.add('active');
     } else {
         // Show specific category section
         document.getElementById(`${currentCategory}-section`).classList.add('active');
@@ -219,6 +230,20 @@ function createSightseeingCard(attraction) {
     const priceCategory = attraction.entry_fee === 'Free' || attraction.entry_fee === 'Free to explore' ? 'free' : 
                          (attraction.entry_fee && (attraction.entry_fee.includes('€') || attraction.entry_fee.includes('SEK'))) ? '$$' : '$';
 
+    let distanceHtml = '';
+    if (attraction.distance !== undefined) {
+        const walkingTime = calculateWalkingTime(attraction.distance);
+        distanceHtml = `
+            <div class="venue-distance">
+                <i class="fas fa-location-dot"></i>
+                <div class="distance-info">
+                    <span class="distance-km">${attraction.distance.toFixed(1)}km away</span>
+                    <span class="walking-time">${walkingTime}</span>
+                </div>
+            </div>
+        `;
+    }
+
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="sightseeing" data-price="${priceCategory}">
             <div class="venue-header">
@@ -233,6 +258,7 @@ function createSightseeingCard(attraction) {
                 </div>
             </div>
             <p class="venue-description">${attraction.description || ''}</p>
+            ${distanceHtml}
             <div class="venue-details">
                 ${attraction.opening_hours ? `
                 <div class="detail-item">
@@ -269,6 +295,20 @@ function createFoodCard(restaurant) {
         bookingBadge = '<div class="booking-badge recommended">Booking Recommended</div>';
     }
     
+    let distanceHtml = '';
+    if (restaurant.distance !== undefined) {
+        const walkingTime = calculateWalkingTime(restaurant.distance);
+        distanceHtml = `
+            <div class="venue-distance">
+                <i class="fas fa-location-dot"></i>
+                <div class="distance-info">
+                    <span class="distance-km">${restaurant.distance.toFixed(1)}km away</span>
+                    <span class="walking-time">${walkingTime}</span>
+                </div>
+            </div>
+        `;
+    }
+
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="food" data-price="${restaurant.price_range || ''}">
             ${bookingBadge}
@@ -284,6 +324,7 @@ function createFoodCard(restaurant) {
                 </div>
             </div>
             <p class="venue-description">${restaurant.description || ''}</p>
+            ${distanceHtml}
             <div class="venue-details">
                 ${restaurant.cuisine ? `
                 <div class="detail-item">
@@ -324,6 +365,20 @@ function createDrinksCard(bar) {
         bookingBadge = '<div class="booking-badge recommended">Booking Recommended</div>';
     }
     
+    let distanceHtml = '';
+    if (bar.distance !== undefined) {
+        const walkingTime = calculateWalkingTime(bar.distance);
+        distanceHtml = `
+            <div class="venue-distance">
+                <i class="fas fa-location-dot"></i>
+                <div class="distance-info">
+                    <span class="distance-km">${bar.distance.toFixed(1)}km away</span>
+                    <span class="walking-time">${walkingTime}</span>
+                </div>
+            </div>
+        `;
+    }
+    
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="drinks" data-price="${bar.price_range || '$$'}">
             ${bookingBadge}
@@ -339,6 +394,7 @@ function createDrinksCard(bar) {
                 </div>
             </div>
             <p class="venue-description">${bar.description || ''}</p>
+            ${distanceHtml}
             <div class="venue-details">
                 ${bar.type ? `
                 <div class="detail-item">
@@ -375,6 +431,13 @@ function switchCategory(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.category === category);
     });
+    
+    // Handle Near Me mode
+    if (category === 'nearby') {
+        startNearbyMode();
+    } else {
+        stopNearbyMode();
+    }
     
     showContentSections();
     applyFilters();
@@ -1148,4 +1211,268 @@ async function processCityFiles(jsonFiles) {
     }
     
     return cities.sort((a, b) => a.label.localeCompare(b.label));
+}
+
+// Near Me Mode Functions
+function startNearbyMode() {
+    if (nearbyMode) return; // Already in nearby mode
+    
+    nearbyMode = true;
+    updateNearbyStatus('loading', 'Finding venues near you...');
+    
+    // Request user location
+    if (!navigator.geolocation) {
+        updateNearbyStatus('error', 'Geolocation is not supported by this browser.');
+        return;
+    }
+    
+    // Get current position with high accuracy
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                accuracy: position.coords.accuracy
+            };
+            
+            handleLocationSuccess();
+            startNearbyLocationTracking();
+        },
+        (error) => {
+            handleLocationError(error);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 60000
+        }
+    );
+}
+
+function stopNearbyMode() {
+    if (!nearbyMode) return;
+    
+    nearbyMode = false;
+    userLocation = null;
+    
+    // Stop location tracking
+    if (nearbyWatchId) {
+        navigator.geolocation.clearWatch(nearbyWatchId);
+        nearbyWatchId = null;
+    }
+    
+    // Remove radius circle from map
+    if (nearbyRadiusCircle) {
+        map.removeLayer(nearbyRadiusCircle);
+        nearbyRadiusCircle = null;
+    }
+    
+    // Return to city center view
+    if (currentCityCenter) {
+        map.setView(currentCityCenter, 12, { animate: true, duration: 1 });
+    }
+}
+
+function startNearbyLocationTracking() {
+    if (nearbyWatchId) {
+        navigator.geolocation.clearWatch(nearbyWatchId);
+    }
+    
+    nearbyWatchId = navigator.geolocation.watchPosition(
+        (position) => {
+            const newLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+                accuracy: position.coords.accuracy
+            };
+            
+            // Only update if location changed significantly
+            if (userLocation && calculateDistance(
+                userLocation.lat, userLocation.lng,
+                newLocation.lat, newLocation.lng
+            ) * 1000 < LOCATION_UPDATE_THRESHOLD_M) {
+                return;
+            }
+            
+            userLocation = newLocation;
+            handleLocationSuccess();
+        },
+        (error) => {
+            console.warn('Location tracking error:', error);
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 30000,
+            maximumAge: 30000
+        }
+    );
+}
+
+function handleLocationSuccess() {
+    if (!userLocation || !window.cityData) return;
+    
+    // Check if user is within reasonable distance of city
+    const cityCenter = [window.cityData.center.lat, window.cityData.center.lng];
+    const distanceToCity = calculateDistance(
+        userLocation.lat, userLocation.lng,
+        cityCenter[0], cityCenter[1]
+    );
+    
+    if (distanceToCity > CITY_MAX_DISTANCE_KM) {
+        updateNearbyStatus('warning', 
+            `You're outside ${window.cityData.name} (${Math.round(distanceToCity)}km from city center)`
+        );
+        return;
+    }
+    
+    // Find nearby venues
+    const nearbyVenues = findNearbyVenues();
+    
+    if (nearbyVenues.length === 0) {
+        updateNearbyStatus('empty', 'No venues within 5km of your location');
+    } else {
+        updateNearbyStatus('success', 
+            `Found ${nearbyVenues.length} venues within 5km of your location`
+        );
+    }
+    
+    // Display nearby venues
+    displayNearbyVenues(nearbyVenues);
+    
+    // Update map
+    updateMapForNearbyMode(nearbyVenues);
+}
+
+function handleLocationError(error) {
+    let message = 'Unable to get your location.';
+    
+    switch (error.code) {
+        case error.PERMISSION_DENIED:
+            message = 'Location access denied. Enable location to use this feature.';
+            break;
+        case error.POSITION_UNAVAILABLE:
+            message = 'Location information unavailable.';
+            break;
+        case error.TIMEOUT:
+            message = 'Location request timed out. Please try again.';
+            break;
+    }
+    
+    updateNearbyStatus('error', message);
+}
+
+function findNearbyVenues() {
+    if (!userLocation || !window.cityData) return [];
+    
+    const allVenues = [
+        ...window.cityData.sightseeing.map(v => ({ ...v, type: 'sightseeing' })),
+        ...window.cityData.food.map(v => ({ ...v, type: 'food' })),
+        ...window.cityData.drinks.map(v => ({ ...v, type: 'drinks' }))
+    ];
+    
+    return allVenues
+        .map(venue => {
+            const distance = calculateDistance(
+                userLocation.lat, userLocation.lng,
+                venue.location.lat, venue.location.lng
+            );
+            return { ...venue, distance };
+        })
+        .filter(venue => venue.distance <= NEARBY_RADIUS_KM)
+        .sort((a, b) => a.distance - b.distance);
+}
+
+function displayNearbyVenues(venues) {
+    const grid = document.getElementById('nearby-grid');
+    if (!grid) return;
+    
+    if (venues.length === 0) {
+        grid.innerHTML = '<div class="empty-state">No venues found within 5km of your location.</div>';
+        return;
+    }
+    
+    grid.innerHTML = venues.map(venue => {
+        switch (venue.type) {
+            case 'sightseeing':
+                return createSightseeingCard(venue);
+            case 'food':
+                return createFoodCard(venue);
+            case 'drinks':
+                return createDrinksCard(venue);
+            default:
+                return '';
+        }
+    }).join('');
+    
+    // Update button states after rendering
+    setTimeout(() => {
+        updateButtonStates();
+    }, 100);
+}
+
+function updateMapForNearbyMode(venues) {
+    if (!userLocation) return;
+    
+    // Add radius circle
+    if (nearbyRadiusCircle) {
+        map.removeLayer(nearbyRadiusCircle);
+    }
+    
+    nearbyRadiusCircle = L.circle([userLocation.lat, userLocation.lng], {
+        radius: NEARBY_RADIUS_KM * 1000, // Convert km to meters
+        className: 'nearby-radius-circle',
+        fillOpacity: 0.1,
+        weight: 2,
+        dashArray: '5, 5'
+    }).addTo(map);
+    
+    // Auto-zoom to fit user location and nearby venues
+    if (venues.length > 0) {
+        const bounds = L.latLngBounds();
+        bounds.extend([userLocation.lat, userLocation.lng]);
+        venues.forEach(venue => {
+            bounds.extend([venue.location.lat, venue.location.lng]);
+        });
+        map.fitBounds(bounds, { padding: [20, 20], animate: true, duration: 1 });
+    } else {
+        // Just center on user with appropriate zoom
+        map.setView([userLocation.lat, userLocation.lng], 14, { animate: true, duration: 1 });
+    }
+}
+
+function updateNearbyStatus(type, message) {
+    const statusDiv = document.getElementById('nearby-status');
+    if (!statusDiv) return;
+    
+    statusDiv.className = `nearby-status ${type}`;
+    statusDiv.textContent = message;
+}
+
+// Distance calculation using Haversine formula
+function calculateDistance(lat1, lng1, lat2, lng2) {
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = toRadians(lat2 - lat1);
+    const dLng = toRadians(lng2 - lng1);
+    
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+              Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+              Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+}
+
+function toRadians(degrees) {
+    return degrees * (Math.PI / 180);
+}
+
+function calculateWalkingTime(distanceKm) {
+    // Average walking speed: 5 km/h
+    const walkingSpeedKmh = 5;
+    const timeHours = distanceKm / walkingSpeedKmh;
+    const timeMinutes = Math.round(timeHours * 60);
+    
+    if (timeMinutes < 1) return '< 1 min walk';
+    if (timeMinutes === 1) return '1 min walk';
+    return `${timeMinutes} min walk`;
 }
