@@ -612,14 +612,43 @@ function populateCityDropdown() {
 }
 
 function loadCityFromFile(filename) {
+    // Show loading indicator
+    const citySelect = document.getElementById('city-select');
+    const originalText = citySelect.options[citySelect.selectedIndex].text;
+    
     fetch(filename)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             window.cityData = data;
             updateDashboardWithCity(data);
+            showToast(`Loaded ${data.name} successfully!`, 'success');
         })
         .catch(error => {
             console.error('Error loading city data:', error);
+            
+            // Check if we're offline
+            if (!navigator.onLine) {
+                showToast('You are offline. City data may not be available.', 'warning');
+            } else {
+                showToast('Failed to load city data. Please try again.', 'error');
+            }
+            
+            // Reset dropdown to previous selection if load failed
+            // This prevents the dropdown from showing a city that didn't actually load
+            if (window.cityData) {
+                // Find the option that matches current loaded city
+                for (let i = 0; i < citySelect.options.length; i++) {
+                    if (citySelect.options[i].value.includes(window.cityData.name.toLowerCase())) {
+                        citySelect.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
         });
 }
 
