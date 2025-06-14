@@ -1,6 +1,7 @@
 {
   "cities": [
     { "file": "Copenhagen.json", "label": "Copenhagen" },
-    { "file": "Stockholm.json", "label": "Stockholm" }
+    { "file": "Stockholm.json", "label": "Stockholm" },
+    { "file": "Hyderabad.json", "label": "Hyderabad" }
   ]
 }

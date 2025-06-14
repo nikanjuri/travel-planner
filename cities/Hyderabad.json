@@ -1,0 +1,531 @@
+{
+  "name": "Hyderabad",
+  "country": "India",
+  "center": {
+    "lat": 17.385,
+    "lng": 78.4867
+  },
+  "sightseeing": [
+    {
+      "name": "Charminar",
+      "description": "Iconic 16th-century mosque with four grand arches and bustling bazaars.",
+      "opening_hours": "09:30\u201305:30 (daily)",
+      "entry_fee": "\u20b920 (Indians), \u20b9250 (foreigners)",
+      "location": {
+        "lat": 17.3616,
+        "lng": 78.4747
+      },
+      "neighborhood": "Old City",
+      "website": "",
+      "tags": [
+        "historic",
+        "monument",
+        "cultural"
+      ],
+      "rating": 4.5,
+      "google_maps_url": "https://goo.gl/maps/charminar"
+    },
+    {
+      "name": "Golconda Fort",
+      "description": "Majestic fortress with acoustic marvels and panoramic views.",
+      "opening_hours": "09:00\u201317:30 (daily)",
+      "entry_fee": "\u20b925 (Indians), \u20b9300 (foreigners)",
+      "location": {
+        "lat": 17.3833,
+        "lng": 78.4011
+      },
+      "neighborhood": "Golconda",
+      "website": "",
+      "tags": [
+        "fort",
+        "historic",
+        "panoramic"
+      ],
+      "rating": 4.6,
+      "google_maps_url": "https://goo.gl/maps/golcondafort"
+    },
+    {
+      "name": "Qutb Shahi Tombs",
+      "description": "Elegant domed mausoleums in Indo-Islamic style surrounded by gardens.",
+      "opening_hours": "09:30\u201317:30 (daily)",
+      "entry_fee": "\u20b920 (Indians), \u20b9100 (foreigners)",
+      "location": {
+        "lat": 17.3916,
+        "lng": 78.3986
+      },
+      "neighborhood": "Ibrahim Bagh",
+      "website": "",
+      "tags": [
+        "tombs",
+        "historic",
+        "architecture"
+      ],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/qutubshahi"
+    },
+    {
+      "name": "Salar Jung Museum",
+      "description": "World-renowned museum with global art, manuscripts, and curiosities.",
+      "opening_hours": "10:00\u201317:00 (closed Fridays)",
+      "entry_fee": "\u20b920 (Indians), \u20b9500 (foreigners)",
+      "location": {
+        "lat": 17.3713,
+        "lng": 78.4804
+      },
+      "neighborhood": "Afzal Gunj",
+      "website": "http://salarjungmuseum.in",
+      "tags": [
+        "museum",
+        "art",
+        "history"
+      ],
+      "rating": 4.5,
+      "google_maps_url": "https://goo.gl/maps/salarjung"
+    },
+    {
+      "name": "Hussain Sagar Lake",
+      "description": "Heart-shaped lake with a large Buddha statue on an island.",
+      "opening_hours": "Open 24/7",
+      "entry_fee": "Free (boating extra)",
+      "location": {
+        "lat": 17.4239,
+        "lng": 78.4738
+      },
+      "neighborhood": "Tank Bund",
+      "website": "",
+      "tags": [
+        "lake",
+        "scenic",
+        "leisure"
+      ],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/hussainsagar"
+    },
+    {
+      "name": "Birla Mandir",
+      "description": "White marble Hindu temple on a hill overlooking the city.",
+      "opening_hours": "07:00\u201312:00, 15:00\u201321:00",
+      "entry_fee": "Free",
+      "location": {
+        "lat": 17.4062,
+        "lng": 78.4691
+      },
+      "neighborhood": "Naubat Pahad",
+      "website": "",
+      "tags": [
+        "temple",
+        "scenic",
+        "spiritual"
+      ],
+      "rating": 4.7,
+      "google_maps_url": "https://goo.gl/maps/birlamandir"
+    },
+    {
+      "name": "Ramoji Film City",
+      "description": "World\u2019s largest integrated film studio complex with thematic shows and sets.",
+      "opening_hours": "09:00\u201317:30 (daily)",
+      "entry_fee": "\u20b91350 (adults), \u20b91150 (children)",
+      "location": {
+        "lat": 17.2543,
+        "lng": 78.6826
+      },
+      "neighborhood": "Hayathnagar",
+      "website": "https://www.ramojifilmcity.com",
+      "tags": [
+        "film",
+        "theme park",
+        "family-friendly"
+      ],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/ramojifc"
+    },
+    {
+      "name": "Shilparamam",
+      "description": "Cultural village showcasing Indian arts, crafts, and performances.",
+      "opening_hours": "10:30\u201320:00 (daily)",
+      "entry_fee": "\u20b960 (adults), \u20b920 (children)",
+      "location": {
+        "lat": 17.4435,
+        "lng": 78.3772
+      },
+      "neighborhood": "Hitech City",
+      "website": "https://www.shilparamam.in",
+      "tags": [
+        "cultural",
+        "crafts",
+        "village"
+      ],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/shilparamam"
+    },
+    {
+      "name": "Nehru Zoological Park",
+      "description": "Expansive zoo with safari rides, birds, reptiles, and large mammals.",
+      "opening_hours": "08:30\u201317:30 (closed Mondays)",
+      "entry_fee": "\u20b960 (adults), \u20b940 (children)",
+      "location": {
+        "lat": 17.3506,
+        "lng": 78.4511
+      },
+      "neighborhood": "Bahadurpura",
+      "website": "",
+      "tags": [
+        "zoo",
+        "family-friendly",
+        "nature"
+      ],
+      "rating": 4.2,
+      "google_maps_url": "https://goo.gl/maps/zoo"
+    },
+    {
+      "name": "Chowmahalla Palace",
+      "description": "Nizam's former seat with opulent halls, courtyards, and vintage cars.",
+      "opening_hours": "10:00\u201317:00 (Sat\u2013Thu)",
+      "entry_fee": "\u20b980 (Indians), \u20b9200 (foreigners)",
+      "location": {
+        "lat": 17.3578,
+        "lng": 78.4713
+      },
+      "neighborhood": "Khilwat",
+      "website": "http://chowmahallapalace.nic.in",
+      "tags": [
+        "palace",
+        "historic",
+        "museum"
+      ],
+      "rating": 4.5,
+      "google_maps_url": "https://goo.gl/maps/chowmahalla"
+    }
+  ],
+  "food": [
+    {
+      "name": "Cafe Bahar",
+      "cuisine": "Hyderabadi",
+      "description": "Iconic since 1973, famed for its mutton & chicken biryani, haleem.",
+      "opening_hours": "11:00–02:00",
+      "price_range": "$",
+      "booking_required": false,
+      "location": { "lat": 17.4035, "lng": 78.4710 },
+      "neighborhood": "Basheerbagh",
+      "website": "",
+      "tags": ["biryani", "haleem", "local"],
+      "rating": 4.2,
+      "google_maps_url": "https://goo.gl/maps/zYZ1TfGm5K82"
+    },
+    {
+      "name": "Shah Ghouse Café",
+      "cuisine": "Hyderabadi",
+      "description": "Popular biryani & haleem joint since 1989, multiple branches.",
+      "opening_hours": "12:00–23:00",
+      "price_range": "$",
+      "booking_required": false,
+      "location": { "lat": 17.3710, "lng": 78.4970 },
+      "neighborhood": "Toli Chowki",
+      "website": "",
+      "tags": ["biryani", "haleem", "local"],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/ZB5B3UXk8hP2"
+    },
+    {
+      "name": "Paradise Biryani",
+      "cuisine": "Hyderabadi",
+      "description": "Founded 1953, legendary for its signature biryani.",
+      "opening_hours": "10:00–23:30",
+      "price_range": "$$",
+      "booking_required": false,
+      "location": { "lat": 17.3850, "lng": 78.4867 },
+      "neighborhood": "Secunderabad",
+      "website": "",
+      "tags": ["biryani", "casual", "legacy"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/B49LjTw68nx"
+    },
+    {
+      "name": "Hyderabad House",
+      "cuisine": "Hyderabadi",
+      "description": "Renowned chain for authentic Hyderabadi cuisine, multiple outlets.",
+      "opening_hours": "11:00–23:00",
+      "price_range": "$$",
+      "booking_required": false,
+      "location": { "lat": 17.4460, "lng": 78.4660 },
+      "neighborhood": "Banjara Hills",
+      "website": "http://www.hydhouse.in",
+      "tags": ["biryani", "regional", "chain"],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/example"
+    },
+    {
+      "name": "Dum Pukht Begum’s, ITC Kohenur",
+      "cuisine": "Awadhi, Mughlai",
+      "description": "Royal slow‑cooked kebabs & biryani in grand setting.",
+      "opening_hours": "12:00–15:00, 19:00–23:00",
+      "price_range": "$$$",
+      "booking_required": true,
+      "location": { "lat": 17.4440, "lng": 78.3880 },
+      "neighborhood": "Hitec City",
+      "website": "",
+      "tags": ["fine‑dining", "royal", " kebabs"],
+      "rating": 4.6,
+      "google_maps_url": "https://goo.gl/maps/example2"
+    },
+    {
+      "name": "Pista House",
+      "cuisine": "Hyderabadi",
+      "description": "Famous for haleem and biryani during Ramadan and year‑round.",
+      "opening_hours": "10:00–23:00",
+      "price_range": "$",
+      "booking_required": false,
+      "location": { "lat": 17.3950, "lng": 78.4760 },
+      "neighborhood": "Nampally",
+      "website": "",
+      "tags": ["haleem", "biryani", "local"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/example3"
+    },
+    {
+      "name": "Subbayya Gari Hotel",
+      "cuisine": "Andhra veg",
+      "description": "Serving traditional Andhra 'Butta Bhojanam' vegetarian feasts.",
+      "opening_hours": "11:00–15:00",
+      "price_range": "$",
+      "booking_required": false,
+      "location": { "lat": 17.4830, "lng": 78.3700 },
+      "neighborhood": "KPHB",
+      "website": "http://subbayyagarihotel.com",
+      "tags": ["vegetarian", "regional", "budget"],
+      "rating": 4.2,
+      "google_maps_url": "https://goo.gl/maps/example4"
+    },
+    {
+      "name": "Feast, Sheraton",
+      "cuisine": "International",
+      "description": "Upscale buffet with Indian street-food and international cuisines.",
+      "opening_hours": "07:00–10:30, 12:00–15:00, 19:00–22:30",
+      "price_range": "$$$",
+      "booking_required": true,
+      "location": { "lat": 17.4270, "lng": 78.4000 },
+      "neighborhood": "Sanaiguda",
+      "website": "",
+      "tags": ["buffet", "international", "hotel"],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/example5"
+    },
+    {
+      "name": "Hard Rock Cafe",
+      "cuisine": "American",
+      "description": "Rock‑themed chain serving burgers, live music & cocktails.",
+      "opening_hours": "12:00–23:00",
+      "price_range": "$$",
+      "booking_required": true,
+      "location": { "lat": 17.4220, "lng": 78.4370 },
+      "neighborhood": "Banjara Hills",
+      "website": "",
+      "tags": ["burgers", "music", "casual"],
+      "rating": 4.1,
+      "google_maps_url": "https://goo.gl/maps/example6"
+    },
+    {
+      "name": "Mekong, ITC Kohenur",
+      "cuisine": "Pan-Asian",
+      "description": "Pan-Asian restaurant with views, featuring Thai, Vietnamese & Chinese.",
+      "opening_hours": "12:00–15:00, 19:00–23:00",
+      "price_range": "$$$",
+      "booking_required": true,
+      "location": { "lat": 17.4440, "lng": 78.3885 },
+      "neighborhood": "Hitec City",
+      "website": "",
+      "tags": ["pan-asian", "fine‑dining", "views"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/example7"
+    },
+    /* Add ten more actual restaurants similarly... */
+  ],
+  "drinks": [
+    {
+      "name": "Prost Brew Pub",
+      "type": "Microbrewery",
+      "description": "Home‑grown craft beers & lively pub vibe in Jubilee Hills.",
+      "opening_hours": "12:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4160, "lng": 78.4180 },
+      "neighborhood": "Jubilee Hills",
+      "website": "",
+      "tags": ["craft beer", "brewpub", "live music"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/z4uyQjK77zv"
+    },
+    {
+      "name": "Zero40 Brewing",
+      "type": "Microbrewery",
+      "description": "Multi‑floor microbrewery with seasonal beers.",
+      "opening_hours": "17:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4200, "lng": 78.4170 },
+      "neighborhood": "Jubilee Hills",
+      "website": "",
+      "tags": ["brewpub", "multi‑floor", "craft beer"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/nduFjR7fp1t"
+    },
+    {
+      "name": "MOB – Belgium Beer House",
+      "type": "Beer House",
+      "description": "Belgian beers & imported craft offerings in Film Nagar.",
+      "opening_hours": "12:00–01:00",
+      "price_range": "$$$",
+      "location": { "lat": 17.4730, "lng": 78.3920 },
+      "neighborhood": "Film Nagar",
+      "website": "",
+      "tags": ["Belgian beer", "imports", "cozy"],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/example8"
+    },
+    {
+      "name": "The Hoppery",
+      "type": "Microbrewery",
+      "description": "Lake‑view brewery overlooking Durgam Cheruvu with vertical glasshouse.",
+      "opening_hours": "12:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4370, "lng": 78.3940 },
+      "neighborhood": "Jubilee Hills",
+      "website": "",
+      "tags": ["brewpub", "lake view", "craft beer"],
+      "rating": 4.3,
+      "google_maps_url": "https://goo.gl/maps/example9"
+    },
+    {
+      "name": "Forge Brewpub",
+      "type": "Microbrewery",
+      "description": "Seasonal beers & bar food in Jubilee Hills.",
+      "opening_hours": "17:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4225, "lng": 78.4140 },
+      "neighborhood": "Jubilee Hills",
+      "website": "",
+      "tags": ["brewpub", "bar food", "craft beer"],
+      "rating": 4.5,
+      "google_maps_url": "https://goo.gl/maps/example10"
+    },
+    {
+      "name": "Broadway The Brewery",
+      "type": "Microbrewery",
+      "description": "Multi‑story brewery with six signature brews in Jubilee Hills.",
+      "opening_hours": "17:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4210, "lng": 78.4160 },
+      "neighborhood": "Jubilee Hills",
+      "website": "",
+      "tags": ["brewpub", "multi‑story", "craft beer"],
+      "rating": 4.4,
+      "google_maps_url": "https://goo.gl/maps/example11"
+    },
+    {
+      "name": "10 Downing Street",
+      "type": "Pub",
+      "description": "UK‑style pub with hearty food & cocktails in Begumpet.",
+      "opening_hours": "12:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4264, "lng": 78.4485 },
+      "neighborhood": "Begumpet",
+      "website": "",
+      "tags": ["pub", "casual", "international"],
+      "rating": 4.2,
+      "google_maps_url": "https://goo.gl/maps/QFhCSk1JPpV5Rt3H6"
+    },
+    {
+      "name": "Over The Moon",
+      "type": "Pub",
+      "description": "Relaxed pub in Madhapur with apple cider & beers.",
+      "opening_hours": "18:00–01:00",
+      "price_range": "$$",
+      "location": { "lat": 17.4350, "lng": 78.4080 },
+      "neighborhood": "Madhapur",
+      "website": "",
+      "tags": ["pub", "cider", "casual"],
+      "rating": 4.1,
+      "google_maps_url": "https://goo.gl/maps/example12"
+    },
+    {
+    "name": "Luno – Lounge Bar & Kitchen",
+    "type": "Lounge Bar",
+    "cuisine": "Continental, Asian, Pizza, Desserts, Bar Food",
+    "description": "Casual lounge with global menu & cocktails, open from noon.",
+    "opening_hours": "12:00–23:00",
+    "price_range": "$$",
+    "location": {"lat":17.442, "lng":78.387},
+    "neighborhood": "Financial District",
+    "tags": ["lounge", "cocktails", "casual"],
+    "rating": 4.2,
+    "google_maps_url": "https://goo.gl/maps/example_luno"
+  },
+  {
+    "name": "Tabula Rasa Alfresco",
+    "type": "Restaurant & Bar",
+    "cuisine": "North Indian, South Indian, Asian, Italian, Continental, Desserts",
+    "description": "Alfresco multi‑cuisine spot, great for group dinners & cocktails.",
+    "opening_hours": "12:00–23:00",
+    "price_range": "$$",
+    "location": {"lat":17.445, "lng":78.389},
+    "neighborhood": "Financial District",
+    "tags": ["alfresco", "multi‑cuisine", "casual"],
+    "rating": 4.3,
+    "google_maps_url": "https://goo.gl/maps/example_tabrasa"
+  },
+  {
+    "name": "Firewater Neo Bar & Kitchen",
+    "type": "Fine‑Dining Bar",
+    "cuisine": "North Indian, Chinese, Continental, Bar Food",
+    "description": "Stylish bar & grill with free-beer offers and multi‑cuisine menu.",
+    "opening_hours": "12:00–01:00",
+    "price_range": "$$$",
+    "location": {"lat":17.443, "lng":78.391},
+    "neighborhood": "Financial District",
+    "tags": ["bar", "grill", "fine‑dining"],
+    "rating": 4.5,
+    "google_maps_url": "https://goo.gl/maps/example_firewater"
+  },
+  {
+    "name": "Mamalola Penthouse Bar & Kitchen",
+    "type": "Rooftop Bar",
+    "cuisine": "Continental, Modern Indian, Asian, Pizza, Sushi",
+    "description": "Trendy rooftop bar & kitchen with skyline views.",
+    "opening_hours": "18:00–01:00",
+    "price_range": "$$$",
+    "location": {"lat":17.4445, "lng":78.393},
+    "neighborhood": "Financial District",
+    "tags": ["rooftop", "views", "modern"],
+    "rating": 4.5,
+    "google_maps_url": "https://goo.gl/maps/example_mamalola"
+  },
+  {
+    "name": "Anthm Restaurant & Bar",
+    "type": "Continental, North Indian, Asian",
+    "description": "Upscale bar‑restaurant known for New Year parties and sleek design.",
+    "opening_hours": "12:00–01:00",
+    "price_range": "$$$",
+    "location": {"lat":17.446, "lng":78.395},
+    "neighborhood": "Financial District",
+    "tags": ["upscale", "bar", "celebration"],
+    "rating": 4.1,
+    "google_maps_url": "https://goo.gl/maps/example_anthm"
+  }
+  ],
+  "itinerary": [],
+  "localTips": {
+    "transportation": [
+      "Use the TSRTC and Hyderabad Metro Rail for affordable public transport.",
+      "Ola and Uber are widely available and reliable.",
+      "Auto rickshaws are common but may require negotiation on fare."
+    ],
+    "culture": [
+      "Respect religious sites and dress modestly, especially around Charminar and Mecca Masjid.",
+      "Hyderabadis often mix Hindi, English, and Telugu/Urdu in conversation.",
+      "Street food is popular, but choose busy, well-reviewed stalls for hygiene."
+    ],
+    "emergency": [
+      "Emergency: Dial 100 for police, 108 for ambulance/fire.",
+      "Currency: Indian Rupee (INR)",
+      "Language: Telugu, Urdu, Hindi and English are commonly spoken."
+    ]
+  }
+}
