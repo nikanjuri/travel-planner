@@ -337,8 +337,7 @@
       "tags": ["pan-asian", "fine‑dining", "views"],
       "rating": 4.4,
       "google_maps_url": "https://goo.gl/maps/example7"
-    },
-    /* Add ten more actual restaurants similarly... */
+    }
   ],
   "drinks": [
     {
