@@ -12,3 +12,4 @@ To-be Implemented
   - Fix tags ⏳
   - Sub-tabs by tags ⏳
   - Automatically get all locations from web scraping and update/generate JSONs
+  - Check Progressive webapp status.
