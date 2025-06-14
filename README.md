@@ -8,3 +8,7 @@ To-be Implemented
   - Geolocation "Near me"
   - Authentication
   - Offline caching
+  - Reservation on website
+  - Fix tags
+  - Sub-tabs by tags
+  - Automatically get all locations from web scraping and update/generate JSONs
