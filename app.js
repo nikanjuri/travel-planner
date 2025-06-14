@@ -1278,6 +1278,18 @@ function stopNearbyMode() {
         nearbyRadiusCircle = null;
     }
     
+    // Clean up blue dot and accuracy circle (only if current location button is not active)
+    if (!isShowingCurrentLocation) {
+        if (currentLocationMarker) {
+            map.removeLayer(currentLocationMarker);
+            currentLocationMarker = null;
+        }
+        if (accuracyCircle) {
+            map.removeLayer(accuracyCircle);
+            accuracyCircle = null;
+        }
+    }
+    
     // Return to city center view
     if (currentCityCenter) {
         map.setView(currentCityCenter, 12, { animate: true, duration: 1 });
@@ -1352,6 +1364,9 @@ function handleLocationSuccess() {
     
     // Update map
     updateMapForNearbyMode(nearbyVenues);
+    
+    // Also show blue dot for familiarity (but don't activate button)
+    showCurrentLocationOnMap(userLocation.lat, userLocation.lng, userLocation.accuracy);
 }
 
 function handleLocationError(error) {
