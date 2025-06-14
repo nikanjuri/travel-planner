@@ -8,15 +8,13 @@ const CORE_ASSETS = [
   '/app.js',
   '/style.css',
   '/favicon.ico',
-  '/Copenhagen.json',
-  '/Stockholm.json',
   // External dependencies
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
   'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 
-// Install event - cache core assets
+// Install event - cache core assets and discover cities
 self.addEventListener('install', event => {
   console.log('Service Worker installing...');
   
@@ -27,11 +25,54 @@ self.addEventListener('install', event => {
         return cache.addAll(CORE_ASSETS);
       })
       .then(() => {
-        // Force the waiting service worker to become the active service worker
+        // Auto-discover and cache city files
+        return discoverAndCacheCities();
+      })
+      .then(() => {
         return self.skipWaiting();
       })
   );
 });
+
+// Auto-discover and cache city JSON files
+async function discoverAndCacheCities() {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    
+    // Try to discover cities directory
+    const response = await fetch('./cities/');
+    const html = await response.text();
+    
+    // Extract JSON files
+    const jsonFiles = [];
+    const regex = /href="([^"]*\.json)"/gi;
+    let match;
+    
+    while ((match = regex.exec(html)) !== null) {
+      const filename = match[1];
+      if (!filename.startsWith('.') && filename.endsWith('.json')) {
+        jsonFiles.push(`./cities/${filename}`);
+      }
+    }
+    
+    if (jsonFiles.length > 0) {
+      console.log('Auto-caching discovered cities:', jsonFiles);
+      await cache.addAll(jsonFiles);
+    } else {
+      // Fallback: try known cities in root
+      const knownCities = ['Copenhagen.json', 'Stockholm.json'];
+      for (const city of knownCities) {
+        try {
+          await cache.add(city);
+        } catch (error) {
+          console.warn(`Failed to cache ${city}:`, error);
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('Auto-discovery in service worker failed:', error);
+  }
+}
 
 // Activate event - clean up old caches
 self.addEventListener('activate', event => {

@@ -9,23 +9,27 @@ let isShowingCurrentLocation = false;
 let watchId = null;
 let currentCityCenter = null;
 
-// Utility: List of city JSON files (add more as needed)
-const cityFiles = [
-    { file: 'Copenhagen.json', label: 'Copenhagen' },
-    { file: 'Stockholm.json', label: 'Stockholm' }
-];
+// Auto-discovery: No more manual cityFiles array!
+let cityFiles = []; // Will be populated automatically
 
 // Initialize Dashboard
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     initializeMap();
     initializeEventListeners();
     initializeCurrentLocation();
 
+    // Auto-discover cities first
+    await discoverCities();
+    
     populateCityDropdown();
     loadTripFromStorage(); // Load saved trip data
     
-    // Load the first city by default
-    loadCityFromFile(cityFiles[0].file);
+    // Load the first city by default (if any cities found)
+    if (cityFiles.length > 0) {
+        loadCityFromFile(cityFiles[0].file);
+    } else {
+        showToast('No cities found. Please add city JSON files to the cities folder.', 'warning');
+    }
 });
 
 // Map Initialization
@@ -612,9 +616,8 @@ function populateCityDropdown() {
 }
 
 function loadCityFromFile(filename) {
-    // Show loading indicator
     const citySelect = document.getElementById('city-select');
-    const originalText = citySelect.options[citySelect.selectedIndex].text;
+    const previousValue = citySelect.dataset.currentCity || filename; // Track current city
     
     fetch(filename)
         .then(response => {
@@ -626,6 +629,10 @@ function loadCityFromFile(filename) {
         .then(data => {
             window.cityData = data;
             updateDashboardWithCity(data);
+            
+            // Store the successfully loaded city
+            citySelect.dataset.currentCity = filename;
+            
             showToast(`Loaded ${data.name} successfully!`, 'success');
         })
         .catch(error => {
@@ -638,18 +645,17 @@ function loadCityFromFile(filename) {
                 showToast('Failed to load city data. Please try again.', 'error');
             }
             
-            // Reset dropdown to previous selection if load failed
-            // This prevents the dropdown from showing a city that didn't actually load
-            if (window.cityData) {
-                // Find the option that matches current loaded city
-                for (let i = 0; i < citySelect.options.length; i++) {
-                    if (citySelect.options[i].value.includes(window.cityData.name.toLowerCase())) {
-                        citySelect.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
+            // Reset dropdown to the last successfully loaded city
+            citySelect.value = previousValue;
         });
+}
+
+// Helper function to get filename from city name
+function getCityFilename(cityName) {
+    const cityFile = cityFiles.find(city => 
+        city.label.toLowerCase() === cityName.toLowerCase()
+    );
+    return cityFile ? cityFile.file : null;
 }
 
 function updateDashboardWithCity(cityData) {
@@ -1010,3 +1016,136 @@ window.addEventListener('online', () => {
 window.addEventListener('offline', () => {
   showToast('You are offline. Cached content will be used.', 'warning');
 });
+
+// Auto-discover city JSON files
+async function discoverCities() {
+    try {
+        // Method 1: Try to fetch a cities index file (most reliable)
+        await tryIndexFile();
+        
+        if (cityFiles.length === 0) {
+            // Method 2: Try directory listing
+            await tryDirectoryListing();
+        }
+        
+        if (cityFiles.length === 0) {
+            // Method 3: Try known cities in cities folder
+            await tryKnownCitiesInFolder();
+        }
+        
+        console.log(`Discovered ${cityFiles.length} cities:`, cityFiles.map(c => c.label));
+        
+    } catch (error) {
+        console.warn('Auto-discovery failed:', error);
+        showToast('Failed to discover cities. Please check the cities folder.', 'error');
+    }
+}
+
+// Method 1: Try to load a cities index file
+async function tryIndexFile() {
+    try {
+        const response = await fetch('./cities/index.json');
+        if (response.ok) {
+            const citiesIndex = await response.json();
+            cityFiles = citiesIndex.cities.map(city => ({
+                file: `cities/${city.file}`,
+                label: city.label,
+                discovered: true
+            }));
+            console.log('Loaded cities from index file');
+        }
+    } catch (error) {
+        // Index file doesn't exist, continue to next method
+    }
+}
+
+// Method 2: Try directory listing (may not work on all servers)
+async function tryDirectoryListing() {
+    try {
+        const response = await fetch('./cities/');
+        const html = await response.text();
+        
+        const jsonFiles = extractJsonFilesFromHtml(html);
+        
+        if (jsonFiles.length > 0) {
+            cityFiles = await processCityFiles(jsonFiles);
+            console.log('Discovered cities via directory listing');
+        }
+    } catch (error) {
+        // Directory listing not available
+    }
+}
+
+// Method 3: Try known cities in cities folder
+async function tryKnownCitiesInFolder() {
+    const knownCities = ['Copenhagen', 'Stockholm', 'Paris', 'London', 'Tokyo', 'NewYork', 'Barcelona', 'Amsterdam', 'Berlin', 'Rome'];
+    const cities = [];
+    
+    for (const cityName of knownCities) {
+        try {
+            const filename = `cities/${cityName}.json`;
+            const response = await fetch(filename);
+            
+            if (response.ok) {
+                const cityData = await response.json();
+                cities.push({
+                    file: filename,
+                    label: cityData.name || cityName,
+                    discovered: true
+                });
+            }
+        } catch (error) {
+            // City file doesn't exist, skip
+        }
+    }
+    
+    cityFiles = cities.sort((a, b) => a.label.localeCompare(b.label));
+    if (cities.length > 0) {
+        console.log('Found cities using known cities method');
+    }
+}
+
+// Extract JSON files from directory listing HTML
+function extractJsonFilesFromHtml(html) {
+    const jsonFiles = [];
+    const regex = /href="([^"]*\.json)"/gi;
+    let match;
+    
+    while ((match = regex.exec(html)) !== null) {
+        const filename = match[1];
+        if (!filename.startsWith('.') && filename.endsWith('.json')) {
+            jsonFiles.push(filename);
+        }
+    }
+    
+    return jsonFiles;
+}
+
+// Process discovered city files
+async function processCityFiles(jsonFiles) {
+    const cities = [];
+    
+    for (const filename of jsonFiles) {
+        try {
+            // Try to load the file to get the city name
+            const response = await fetch(`./cities/${filename}`);
+            const cityData = await response.json();
+            
+            cities.push({
+                file: `cities/${filename}`,
+                label: cityData.name || filename.replace('.json', ''),
+                discovered: true
+            });
+        } catch (error) {
+            console.warn(`Failed to load ${filename}:`, error);
+            // Add with filename as fallback
+            cities.push({
+                file: `cities/${filename}`,
+                label: filename.replace('.json', '').replace(/[-_]/g, ' '),
+                discovered: false
+            });
+        }
+    }
+    
+    return cities.sort((a, b) => a.label.localeCompare(b.label));
+}
