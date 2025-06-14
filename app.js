@@ -1418,13 +1418,11 @@ function updateMapForNearbyMode(venues) {
         map.removeLayer(nearbyRadiusCircle);
     }
     
-    nearbyRadiusCircle = L.circle([userLocation.lat, userLocation.lng], {
-        radius: NEARBY_RADIUS_KM * 1000, // Convert km to meters
-        className: 'nearby-radius-circle',
-        fillOpacity: 0.1,
-        weight: 2,
-        dashArray: '5, 5'
-    }).addTo(map);
+    // Create a more accurate geodesic circle
+    nearbyRadiusCircle = createGeodesicCircle(
+        [userLocation.lat, userLocation.lng], 
+        NEARBY_RADIUS_KM * 1000
+    ).addTo(map);
     
     // Auto-zoom to fit user location and nearby venues
     if (venues.length > 0) {
@@ -1438,6 +1436,47 @@ function updateMapForNearbyMode(venues) {
         // Just center on user with appropriate zoom
         map.setView([userLocation.lat, userLocation.lng], 14, { animate: true, duration: 1 });
     }
+}
+
+// Create a geodesic circle for accurate distance representation
+function createGeodesicCircle(center, radiusMeters) {
+    const points = [];
+    const numPoints = 64; // Number of points to create the circle
+    
+    for (let i = 0; i < numPoints; i++) {
+        const angle = (i * 360) / numPoints;
+        const point = calculatePointAtDistance(center[0], center[1], radiusMeters, angle);
+        points.push([point.lat, point.lng]);
+    }
+    
+    return L.polygon(points, {
+        className: 'nearby-radius-circle',
+        fillOpacity: 0.1,
+        weight: 2,
+        dashArray: '5, 5',
+        color: '#007bff'
+    });
+}
+
+// Calculate a point at a given distance and bearing from a center point
+function calculatePointAtDistance(lat, lng, distanceMeters, bearingDegrees) {
+    const R = 6371000; // Earth's radius in meters
+    const φ1 = toRadians(lat);
+    const λ1 = toRadians(lng);
+    const δ = distanceMeters / R;
+    const θ = toRadians(bearingDegrees);
+    
+    const φ2 = Math.asin(Math.sin(φ1) * Math.cos(δ) + Math.cos(φ1) * Math.sin(δ) * Math.cos(θ));
+    const λ2 = λ1 + Math.atan2(Math.sin(θ) * Math.sin(δ) * Math.cos(φ1), Math.cos(δ) - Math.sin(φ1) * Math.sin(φ2));
+    
+    return {
+        lat: toDegrees(φ2),
+        lng: toDegrees(λ2)
+    };
+}
+
+function toDegrees(radians) {
+    return radians * (180 / Math.PI);
 }
 
 function updateNearbyStatus(type, message) {
