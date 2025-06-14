@@ -425,6 +425,17 @@ function createDrinksCard(bar) {
 }
 
 function switchCategory(category) {
+    // Don't restart nearby mode if it's already active
+    if (category === 'nearby' && nearbyMode) {
+        // Just update the UI states without restarting nearby mode
+        currentCategory = category;
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.category === category);
+        });
+        showContentSections();
+        return;
+    }
+    
     currentCategory = category;
     
     // Update filter button states
