@@ -1331,6 +1331,45 @@ function startNearbyLocationTracking() {
     );
 }
 
+// Create a new function that shows blue dot without zooming
+function showCurrentLocationMarkerOnly(lat, lng, accuracy) {
+    // Store current city center if not already stored
+    if (!currentCityCenter) {
+        currentCityCenter = map.getCenter();
+    }
+    
+    // Remove existing markers
+    if (currentLocationMarker) {
+        map.removeLayer(currentLocationMarker);
+    }
+    if (accuracyCircle) {
+        map.removeLayer(accuracyCircle);
+    }
+    
+    // Create accuracy circle
+    accuracyCircle = L.circle([lat, lng], {
+        radius: accuracy,
+        className: 'accuracy-circle',
+        fillOpacity: 0.2,
+        weight: 1
+    }).addTo(map);
+    
+    // Create current location marker
+    const currentLocationIcon = L.divIcon({
+        className: 'current-location-marker',
+        html: '<div class="current-location-marker"></div>',
+        iconSize: [20, 20],
+        iconAnchor: [10, 10]
+    });
+    
+    currentLocationMarker = L.marker([lat, lng], { 
+        icon: currentLocationIcon,
+        zIndexOffset: 1000
+    }).addTo(map);
+    
+    // Don't zoom - let the calling function handle zoom
+}
+
 function handleLocationSuccess() {
     if (!userLocation || !window.cityData) return;
     
@@ -1362,11 +1401,11 @@ function handleLocationSuccess() {
     // Display nearby venues
     displayNearbyVenues(nearbyVenues);
     
-    // Update map
-    updateMapForNearbyMode(nearbyVenues);
+    // Show blue dot without zooming (let updateMapForNearbyMode handle zoom)
+    showCurrentLocationMarkerOnly(userLocation.lat, userLocation.lng, userLocation.accuracy);
     
-    // Also show blue dot for familiarity (but don't activate button)
-    showCurrentLocationOnMap(userLocation.lat, userLocation.lng, userLocation.accuracy);
+    // Update map with proper zoom to show all nearby venues + user location
+    updateMapForNearbyMode(nearbyVenues);
 }
 
 function handleLocationError(error) {
