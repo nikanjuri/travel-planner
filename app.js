@@ -467,8 +467,8 @@ function applyFilters() {
         
         let visible = true;
         
-        // Category filter - only apply if not showing all categories
-        if (currentCategory !== 'all' && category !== currentCategory) {
+        // Category filter - only apply if not showing all categories and not in nearby mode
+        if (currentCategory !== 'all' && currentCategory !== 'nearby' && category !== currentCategory) {
             visible = false;
         }
         
