@@ -119,22 +119,33 @@ function showContentSections() {
         section.classList.remove('active');
     });
     
-    // Show sections based on current category
-    if (currentCategory === 'all') {
-        // Show all venue sections
-        document.getElementById('sightseeing-section').classList.add('active');
-        document.getElementById('food-section').classList.add('active');
-        document.getElementById('drinks-section').classList.add('active');
-    } else if (currentCategory === 'tips') {
-        document.getElementById('tips-section').classList.add('active');
-    } else if (currentCategory === 'nearby') {
-        document.getElementById('nearby-section').classList.add('active');
-    } else if (currentCategory === 'trip-planner') {
+    const originalTripPlanner = document.querySelector('.trip-planner');
+    
+    if (currentCategory === 'trip-planner') {
+        // Show trip planner in content section, hide original
         document.getElementById('trip-planner-section').classList.add('active');
-        loadTripPlannerContent(); // Load the trip planner content
+        if (originalTripPlanner) {
+            originalTripPlanner.style.display = 'none';
+        }
+        loadTripPlannerContent();
     } else {
-        // Show specific category section
-        document.getElementById(`${currentCategory}-section`).classList.add('active');
+        // Show original trip planner at bottom, hide content section
+        if (originalTripPlanner) {
+            originalTripPlanner.style.display = 'block';
+        }
+        
+        // Show appropriate content sections
+        if (currentCategory === 'all') {
+            document.getElementById('sightseeing-section').classList.add('active');
+            document.getElementById('food-section').classList.add('active');
+            document.getElementById('drinks-section').classList.add('active');
+        } else if (currentCategory === 'tips') {
+            document.getElementById('tips-section').classList.add('active');
+        } else if (currentCategory === 'nearby') {
+            document.getElementById('nearby-section').classList.add('active');
+        } else {
+            document.getElementById(`${currentCategory}-section`).classList.add('active');
+        }
     }
 }
 
@@ -2287,23 +2298,102 @@ function isVenueInDayPlans(venueName, venueType) {
 // New function to load trip planner content
 function loadTripPlannerContent() {
     const tripPlannerContent = document.getElementById('trip-planner-content');
-    if (!tripPlannerContent) return;
+    const originalTripPlanner = document.querySelector('.trip-planner');
     
-    // Move the existing trip planner HTML into the content section
-    const existingTripPlanner = document.querySelector('.trip-planner');
-    if (existingTripPlanner) {
-        tripPlannerContent.innerHTML = existingTripPlanner.innerHTML;
+    if (!tripPlannerContent || !originalTripPlanner) return;
+    
+    // Copy the HTML content (don't move the elements)
+    tripPlannerContent.innerHTML = originalTripPlanner.innerHTML;
+    
+    // Re-initialize sortable for the copied content
+    // We need to target the elements in the content section specifically
+    const contentTripItems = tripPlannerContent.querySelector('#trip-items');
+    if (contentTripItems) {
+        // Temporarily change the ID to avoid conflicts
+        contentTripItems.id = 'trip-items-content';
         
-        // Re-initialize sortable instances since we moved the DOM elements
-        initializeTripSourceSortable();
+        // Initialize sortable for the content section trip items
+        if (sortableInstances.sourceContent) {
+            sortableInstances.sourceContent.destroy();
+        }
         
-        // Re-initialize day sortables if there are day plans
-        if (window.cityData) {
-            const cityName = window.cityData.name;
-            const cityPlan = cityDayPlans[cityName];
-            if (cityPlan && cityPlan.dayCount) {
-                for (let day = 1; day <= cityPlan.dayCount; day++) {
-                    initializeDaySortable(day);
+        sortableInstances.sourceContent = new Sortable(contentTripItems, {
+            group: {
+                name: 'trip-planning-content',
+                pull: true,
+                put: true
+            },
+            sort: false,
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            chosenClass: 'sortable-chosen',
+            dragClass: 'sortable-drag',
+            forceFallback: false,
+            fallbackOnBody: false,
+            onAdd: function(evt) {
+                // Handle items coming back from day plans
+                const venueName = evt.item.querySelector('.venue-item-name').textContent;
+                const venueType = evt.item.querySelector('.venue-item-type').textContent;
+                
+                addToTrip(venueName, venueType);
+                removeFromAllDayPlans(venueName, venueType);
+                updateTripDisplay();
+                // Also update the content section display
+                loadTripPlannerContent();
+            }
+        });
+    }
+    
+    // Re-initialize day sortables for content section if there are day plans
+    if (window.cityData) {
+        const cityName = window.cityData.name;
+        const cityPlan = cityDayPlans[cityName];
+        if (cityPlan && cityPlan.dayCount) {
+            for (let day = 1; day <= cityPlan.dayCount; day++) {
+                const dayVenues = tripPlannerContent.querySelector(`#day-${day}-venues`);
+                if (dayVenues) {
+                    // Temporarily change the ID to avoid conflicts
+                    dayVenues.id = `day-${day}-venues-content`;
+                    
+                    if (sortableInstances[`day-${day}-content`]) {
+                        sortableInstances[`day-${day}-content`].destroy();
+                    }
+                    
+                    sortableInstances[`day-${day}-content`] = new Sortable(dayVenues, {
+                        group: {
+                            name: 'trip-planning-content',
+                            pull: true,
+                            put: true
+                        },
+                        animation: 150,
+                        ghostClass: 'sortable-ghost',
+                        chosenClass: 'sortable-chosen',
+                        dragClass: 'sortable-drag',
+                        forceFallback: false,
+                        fallbackOnBody: false,
+                        onAdd: function(evt) {
+                            const venueName = evt.item.querySelector('.trip-item-name') 
+                                ? evt.item.querySelector('.trip-item-name').textContent
+                                : evt.item.querySelector('.venue-item-name').textContent;
+                            const venueType = evt.item.querySelector('.trip-item-type')
+                                ? evt.item.querySelector('.trip-item-type').textContent
+                                : evt.item.querySelector('.venue-item-type').textContent;
+                            
+                            addVenueToDay(day, venueName, venueType);
+                            removeFromTrip(venueName);
+                            removeFromOtherDays(day, venueName, venueType);
+                            
+                            updateDayDisplay(day);
+                            updateTripDisplay();
+                            // Also update the content section display
+                            loadTripPlannerContent();
+                        },
+                        onUpdate: function(evt) {
+                            reorderDayVenues(day);
+                            // Also update the content section display
+                            loadTripPlannerContent();
+                        }
+                    });
                 }
             }
         }
