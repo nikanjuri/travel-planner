@@ -633,13 +633,13 @@ function updateTripDisplay() {
             <div class="trip-item" data-venue-name="${item.name}" data-venue-type="${item.type}">
                 <div class="trip-item-info">
                     <span class="trip-item-icon">${typeIcon}</span>
-                    <span class="trip-item-name">${item.name}</span>
+            <span class="trip-item-name">${item.name}</span>
                     <span class="trip-item-type">${item.type}</span>
                 </div>
-                <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+            <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
         `;
     });
     
