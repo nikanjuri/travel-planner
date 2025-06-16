@@ -945,9 +945,39 @@ select.form-control {
 
 .venue-tags {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-8);
+  margin: 0;
+  margin-top: auto;
+  min-height: 24px;
+}
+
+.tags-left {
+  display: flex;
   flex-wrap: wrap;
   gap: var(--space-6);
-  margin: 0;
+  flex: 1;
+}
+
+.booking-badge {
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.booking-badge.essential {
+  background: var(--color-error);
+  color: white;
+}
+
+.booking-badge.recommended {
+  background: var(--color-warning);
+  color: white;
 }
 
 .tag {
@@ -962,24 +992,6 @@ select.form-control {
 .michelin-stars {
   color: #ffd700;
   font-weight: var(--font-weight-bold);
-}
-
-.booking-badge {
-  padding: var(--space-2) var(--space-8);
-  border-radius: var(--radius-full);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-medium);
-  white-space: nowrap;
-}
-
-.booking-badge.essential {
-  background: var(--color-error);
-  color: white;
-}
-
-.booking-badge.recommended {
-  background: var(--color-warning);
-  color: white;
 }
 
 /* Itinerary Styles */

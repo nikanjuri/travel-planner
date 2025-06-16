@@ -368,7 +368,6 @@ function createFoodCard(restaurant) {
 
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="food" data-price="${restaurant.price_range || ''}">
-            ${bookingBadge}
             <div class="venue-header">
                 <h3 class="venue-name">${restaurant.name}</h3>
                 <div class="venue-actions">
@@ -405,7 +404,10 @@ function createFoodCard(restaurant) {
                 </div>` : ''}
             </div>
             <div class="venue-tags">
-                ${(restaurant.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="tags-left">
+                    ${(restaurant.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                ${bookingBadge}
             </div>
         </div>
     `;
