@@ -1745,22 +1745,5 @@ select.form-control {
 }
 
 .gm-style .gm-style-iw-t button {
-    background: #50fa7b !important; /* Green close button */
-    border: none !important;
-    border-radius: 50% !important;
-    width: 24px !important;
-    height: 24px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #1a1a1a !important; /* Dark text on green background */
-    font-size: 16px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-}
-
-.gm-style .gm-style-iw-t button:hover {
-    background: #40c96b !important; /* Darker green on hover */
-    transform: scale(1.1) !important;
+    display: none !important; /* Hide just the button, not the container */
 }
