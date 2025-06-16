@@ -1844,19 +1844,37 @@ select.form-control {
   padding: var(--space-16);
 }
 
-/* Drag and Drop States - SIMPLE VERSION */
+/* Drag and Drop States - FIXED VERSION - Only affect individual items */
 .sortable-ghost {
-  opacity: 0.4;
+  opacity: 0.4 !important;
 }
 
 .sortable-chosen {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
 }
 
 .sortable-drag {
-  transform: rotate(2deg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transform: rotate(2deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+}
+
+/* Ensure only the actual dragged item is affected */
+.trip-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag) {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.day-venue-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag) {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Visual feedback for currently dragging item */
+.currently-dragging {
+  opacity: 0.8 !important;
 }
 
 /* Route Controls */

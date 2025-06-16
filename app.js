@@ -1756,6 +1756,19 @@ function initializeTripSourceSortable() {
         },
         sort: false,
         animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        dragClass: 'sortable-drag',
+        forceFallback: false,  // Use native HTML5 drag
+        fallbackOnBody: false,
+        onStart: function(evt) {
+            // Ensure only the dragged item gets visual feedback
+            evt.item.classList.add('currently-dragging');
+        },
+        onEnd: function(evt) {
+            // Clean up
+            evt.item.classList.remove('currently-dragging');
+        },
         onAdd: function(evt) {
             // Item was moved back from a day plan to trip list
             const venueName = evt.item.querySelector('.venue-item-name').textContent;
@@ -1773,7 +1786,7 @@ function initializeTripSourceSortable() {
     });
 }
 
-// Initialize sortable for a specific day - SIMPLIFIED VERSION
+// Initialize sortable for a specific day - FIXED VERSION
 function initializeDaySortable(dayNumber) {
     const dayVenues = document.getElementById(`day-${dayNumber}-venues`);
     if (!dayVenues) return;
@@ -1789,6 +1802,17 @@ function initializeDaySortable(dayNumber) {
             put: true
         },
         animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen', 
+        dragClass: 'sortable-drag',
+        forceFallback: false,
+        fallbackOnBody: false,
+        onStart: function(evt) {
+            evt.item.classList.add('currently-dragging');
+        },
+        onEnd: function(evt) {
+            evt.item.classList.remove('currently-dragging');
+        },
         onAdd: function(evt) {
             const venueName = evt.item.querySelector('.trip-item-name') 
                 ? evt.item.querySelector('.trip-item-name').textContent
@@ -1811,9 +1835,6 @@ function initializeDaySortable(dayNumber) {
         onUpdate: function(evt) {
             // Reorder venues within day
             reorderDayVenues(dayNumber);
-        },
-        onRemove: function(evt) {
-            // Venue was moved to another location - will be handled by onAdd
         }
     });
 }
