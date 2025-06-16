@@ -100,6 +100,14 @@ function initializeMap() {
         food: L.layerGroup().addTo(map),
         drinks: L.layerGroup().addTo(map)
     };
+    
+    // Add popup close event listener to remove card highlights
+    map.on('popupclose', function(e) {
+        // Remove highlight from all venue cards when any popup is closed
+        document.querySelectorAll('.venue-card.highlighted').forEach(card => {
+            card.classList.remove('highlighted');
+        });
+    });
 }
 
 // Event Listeners
