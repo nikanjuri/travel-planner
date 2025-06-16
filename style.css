@@ -1739,9 +1739,9 @@ select.form-control {
     color: #40c96b !important; /* Darker green on hover */
 }
 
-/* Hide the close button completely for cleaner design */
+/* Style the close button to be visible */
 .gm-style .gm-style-iw-t {
-    display: none !important;
+    display: block !important;
 }
 
 .gm-style .gm-style-iw-t button {
@@ -1763,14 +1763,4 @@ select.form-control {
 .gm-style .gm-style-iw-t button:hover {
     background: #40c96b !important; /* Darker green on hover */
     transform: scale(1.1) !important;
-}
-
-/* Alternative: White close button option */
-.gm-style .gm-style-iw-t button.white-close {
-    background: #ffffff !important;
-    color: #1a1a1a !important;
-}
-
-.gm-style .gm-style-iw-t button.white-close:hover {
-    background: #f0f0f0 !important;
 }
