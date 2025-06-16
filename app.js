@@ -1669,18 +1669,18 @@ function generateDayBins(cityName, startDate, dayCount) {
         const dayVenues = cityDayPlans[cityName].days[day] || [];
         
         html += `
-            <div class="day-plan" data-day="${day}">
+            <div class="day-container" data-day="${day}">
                 <div class="day-header" onclick="toggleDayCollapse(${day})">
-                    <div class="day-info">
+                    <div class="day-title">
                         <div class="day-badge day-${day}" style="background-color: ${dayColor}"></div>
-                        <span class="day-title">Day ${day} – ${formattedDate}</span>
+                        <span>Day ${day} – ${formattedDate}</span>
                     </div>
                     <div class="day-controls">
                         <button class="optimize-btn" onclick="optimizeDay(${day}, event)" 
                                 ${dayVenues.length < 2 ? 'disabled' : ''}>
                             <i class="fas fa-route"></i> Optimize Route
                         </button>
-                        <button class="collapse-btn" data-collapsed="false">
+                        <button class="collapse-btn" onclick="event.stopPropagation()">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                     </div>
@@ -2040,17 +2040,25 @@ function optimizeRouteNearestNeighbor(venues) {
 // Toggle day collapse
 function toggleDayCollapse(dayNumber) {
     const dayPlan = document.querySelector(`[data-day="${dayNumber}"]`);
+    if (!dayPlan) return;
+    
+    const dayContent = dayPlan.querySelector('.day-content');
     const collapseBtn = dayPlan.querySelector('.collapse-btn');
-    const isCollapsed = collapseBtn.dataset.collapsed === 'true';
+    
+    if (!dayContent || !collapseBtn) return;
+    
+    const isCollapsed = collapseBtn.classList.contains('collapsed');
     
     if (isCollapsed) {
-        dayPlan.classList.remove('collapsed');
-        collapseBtn.dataset.collapsed = 'false';
+        // Expand
+        dayContent.style.display = 'block';
         collapseBtn.classList.remove('collapsed');
+        collapseBtn.dataset.collapsed = 'false';
     } else {
-        dayPlan.classList.add('collapsed');
-        collapseBtn.dataset.collapsed = 'true';
+        // Collapse
+        dayContent.style.display = 'none';
         collapseBtn.classList.add('collapsed');
+        collapseBtn.dataset.collapsed = 'true';
     }
 }
 
