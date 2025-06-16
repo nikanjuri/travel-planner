@@ -1213,7 +1213,6 @@ select.form-control {
 
 .sortable-drag {
   opacity: 0.8 !important;
-  transform: rotate(2deg) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
   z-index: 1001 !important;
 }
@@ -1221,7 +1220,6 @@ select.form-control {
 /* Custom fallback for better drag experience */
 .sortable-fallback-custom {
   opacity: 0.8 !important;
-  transform: rotate(2deg) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
   z-index: 1002 !important;
   background: var(--color-surface) !important;
@@ -1437,7 +1435,6 @@ select.form-control {
 
 .trip-items > .trip-item.sortable-drag {
   opacity: 0.8 !important;
-  transform: rotate(2deg) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
   z-index: 1001 !important;
 }
@@ -1465,7 +1462,6 @@ select.form-control {
 
 .day-venues > .day-venue-item.sortable-drag {
   opacity: 0.8 !important;
-  transform: rotate(2deg) !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
   z-index: 1001 !important;
 }
