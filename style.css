@@ -947,7 +947,7 @@ select.form-control {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: var(--space-6);
+  gap: var(--space-4);
   margin: 0;
   margin-top: auto;
   min-height: 24px;
@@ -956,7 +956,7 @@ select.form-control {
 .tags-left {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-6);
+  gap: var(--space-4);
   flex: 1;
 }
 
