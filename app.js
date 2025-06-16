@@ -28,13 +28,42 @@ let dayRoutePolylines = {}; // Map day numbers to polylines
 let sortableInstances = {}; // Track sortable instances
 let showAllRoutes = true;
 
-// Day route colors (matching CSS)
-const DAY_COLORS = [
-    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e',
-    '#ff69b4', '#00ced1', '#ffd700', '#8a2be2', '#ff6347', '#4169e1', '#32cd32', '#ff4500',
-    '#da70d6', '#40e0d0', '#ffa500', '#6a5acd', '#20b2aa', '#ff1493', '#00bfff', '#adff2f',
-    '#ff8c00', '#9370db', '#00fa9a', '#dc143c', '#4682b4', '#228b22'
+// New route colors that avoid pin colors (red, purple, green)
+const ROUTE_COLORS = [
+    '#FF6B35', // Day 1 - Bright Orange
+    '#00E5FF', // Day 2 - Electric Cyan
+    '#FF1744', // Day 3 - Bright Pink
+    '#FFD23F', // Day 4 - Golden Yellow
+    '#06FFA5', // Day 5 - Mint Green
+    '#FF9100', // Day 6 - Deep Orange
+    '#E91E63', // Day 7 - Magenta
+    '#00BCD4', // Day 8 - Teal
+    '#FFC107', // Day 9 - Amber
+    '#8BC34A', // Day 10 - Light Green
+    '#FF5722', // Day 11 - Deep Orange Red
+    '#00ACC1', // Day 12 - Dark Cyan
+    '#F06292', // Day 13 - Light Pink
+    '#FFEB3B', // Day 14 - Bright Yellow
+    '#4CAF50', // Day 15 - Green (different from pin green)
+    '#FF7043', // Day 16 - Orange Red
+    '#26C6DA', // Day 17 - Light Cyan
+    '#EC407A', // Day 18 - Pink
+    '#FFCA28', // Day 19 - Orange Yellow
+    '#66BB6A', // Day 20 - Light Green
+    '#FF8A65', // Day 21 - Light Orange
+    '#4DD0E1', // Day 22 - Cyan
+    '#F48FB1', // Day 23 - Light Pink
+    '#FFD54F', // Day 24 - Light Yellow
+    '#81C784', // Day 25 - Soft Green
+    '#FFAB91', // Day 26 - Peach
+    '#80DEEA', // Day 27 - Light Cyan
+    '#F8BBD9', // Day 28 - Very Light Pink
+    '#FFF176', // Day 29 - Pale Yellow
+    '#A5D6A7'  // Day 30 - Pale Green
 ];
+
+// Replace DAY_COLORS with ROUTE_COLORS
+const DAY_COLORS = ROUTE_COLORS;
 
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', async function() {
@@ -2399,3 +2428,33 @@ function loadTripPlannerContent() {
         }
     }
 }
+
+// Function to update day legend
+function updateDayLegend() {
+    const legendContainer = document.getElementById('day-legend-items');
+    if (!legendContainer) return;
+    
+    const cityName = window.cityData?.name;
+    const cityPlan = cityDayPlans[cityName];
+    
+    if (!cityPlan || !cityPlan.dayCount) {
+        legendContainer.innerHTML = '<div class="day-legend-empty">No day plans yet</div>';
+        return;
+    }
+    
+    let html = '';
+    for (let day = 1; day <= cityPlan.dayCount; day++) {
+        const color = ROUTE_COLORS[(day - 1) % ROUTE_COLORS.length];
+        html += `
+            <div class="day-legend-item">
+                <div class="day-legend-color" style="background-color: ${color}"></div>
+                <span>Day ${day}</span>
+            </div>
+        `;
+    }
+    
+    legendContainer.innerHTML = html;
+}
+
+// Call updateDayLegend when day plans are generated/updated
+// Add this to generateDayBins function and other relevant places

@@ -1643,3 +1643,40 @@ select.form-control {
 #trip-planner-section .trip-header {
     margin-bottom: var(--space-20);
 }
+
+/* Day Legend */
+.day-legend {
+    margin-top: var(--space-12);
+    padding-top: var(--space-12);
+    border-top: 1px solid var(--color-border);
+}
+
+.day-legend h5 {
+    margin: 0 0 var(--space-8) 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
+}
+
+.day-legend-scroll {
+    max-height: 120px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.day-legend-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-size: var(--font-size-xs);
+    color: var(--color-text);
+}
+
+.day-legend-color {
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
