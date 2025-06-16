@@ -1680,7 +1680,7 @@ function generateDayBins(cityName, startDate, dayCount) {
                                 ${dayVenues.length < 2 ? 'disabled' : ''}>
                             <i class="fas fa-route"></i> Optimize Route
                         </button>
-                        <button class="collapse-btn" onclick="event.stopPropagation()">
+                        <button class="collapse-btn" onclick="event.stopPropagation(); toggleDayCollapse(${day})">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                     </div>
