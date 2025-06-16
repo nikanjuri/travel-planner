@@ -928,7 +928,7 @@ function showCurrentLocationOnMap(lat, lng, accuracy) {
     // Create current location marker
     const currentLocationIcon = L.divIcon({
         className: 'current-location-marker',
-        html: '<div class="current-location-marker"></div>',
+        html: '', // Remove the nested div
         iconSize: [20, 20],
         iconAnchor: [10, 10]
     });
@@ -1429,7 +1429,7 @@ function showCurrentLocationMarkerOnly(lat, lng, accuracy) {
     // Create current location marker
     const currentLocationIcon = L.divIcon({
         className: 'current-location-marker',
-        html: '<div class="current-location-marker"></div>',
+        html: '', // Remove the nested div
         iconSize: [20, 20],
         iconAnchor: [10, 10]
     });
