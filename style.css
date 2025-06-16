@@ -1631,3 +1631,15 @@ select.form-control {
 .city-dropdown select {
   min-width: 160px;
 }
+
+/* Trip Planner Section */
+#trip-planner-section .trip-planner {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+#trip-planner-section .trip-header {
+    margin-bottom: var(--space-20);
+}

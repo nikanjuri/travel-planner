@@ -129,6 +129,9 @@ function showContentSections() {
         document.getElementById('tips-section').classList.add('active');
     } else if (currentCategory === 'nearby') {
         document.getElementById('nearby-section').classList.add('active');
+    } else if (currentCategory === 'trip-planner') {
+        document.getElementById('trip-planner-section').classList.add('active');
+        loadTripPlannerContent(); // Load the trip planner content
     } else {
         // Show specific category section
         document.getElementById(`${currentCategory}-section`).classList.add('active');
@@ -2279,4 +2282,30 @@ function isVenueInDayPlans(venueName, venueType) {
     }
     
     return false;
+}
+
+// New function to load trip planner content
+function loadTripPlannerContent() {
+    const tripPlannerContent = document.getElementById('trip-planner-content');
+    if (!tripPlannerContent) return;
+    
+    // Move the existing trip planner HTML into the content section
+    const existingTripPlanner = document.querySelector('.trip-planner');
+    if (existingTripPlanner) {
+        tripPlannerContent.innerHTML = existingTripPlanner.innerHTML;
+        
+        // Re-initialize sortable instances since we moved the DOM elements
+        initializeTripSourceSortable();
+        
+        // Re-initialize day sortables if there are day plans
+        if (window.cityData) {
+            const cityName = window.cityData.name;
+            const cityPlan = cityDayPlans[cityName];
+            if (cityPlan && cityPlan.dayCount) {
+                for (let day = 1; day <= cityPlan.dayCount; day++) {
+                    initializeDaySortable(day);
+                }
+            }
+        }
+    }
 }
