@@ -1739,9 +1739,9 @@ select.form-control {
     color: #40c96b !important; /* Darker green on hover */
 }
 
-/* Style the close button to be visible */
+/* Hide the close button completely for cleaner design */
 .gm-style .gm-style-iw-t {
-    display: block !important;
+    display: none !important;
 }
 
 .gm-style .gm-style-iw-t button {
