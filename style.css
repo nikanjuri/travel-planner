@@ -1259,7 +1259,7 @@ select.form-control {
 /* Planner Controls */
 .planner-controls {
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   gap: var(--space-16);
   margin-bottom: var(--space-20);
   flex-wrap: wrap;
@@ -1269,16 +1269,29 @@ select.form-control {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  flex: 0 0 auto;
 }
 
 .control-group label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
+  margin-bottom: var(--space-4);
 }
 
 .control-group .form-control {
-  min-width: 140px;
+  min-width: 160px;
+  height: 44px;
+  padding: var(--space-8) var(--space-12);
+}
+
+/* Generate Day Plan Button - Match form control height and alignment */
+#generate-day-plan {
+  height: 44px;
+  padding: var(--space-8) var(--space-16);
+  align-self: flex-end;
+  white-space: nowrap;
+  margin-top: auto;
 }
 
 /* Day Plans Container */
