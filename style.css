@@ -1714,9 +1714,14 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow Styling - Simplified and Working Version */
+/* Google Maps InfoWindow Styling - Fixed spacing and close button */
 
-/* Basic InfoWindow container styling */
+/* Remove Google Maps default styling that causes uneven spacing */
+.gm-style .gm-style-iw {
+    padding-top: 0 !important;
+}
+
+/* InfoWindow container - remove default padding */
 .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border-radius: var(--radius-base) !important;
@@ -1726,69 +1731,91 @@ select.form-control {
     min-width: 200px !important;
 }
 
-/* InfoWindow content wrapper */
+/* InfoWindow content wrapper - even padding all around */
 .gm-style .gm-style-iw-d {
-    padding: var(--space-12) !important;
+    padding: var(--space-12) var(--space-12) var(--space-12) var(--space-12) !important;
     overflow: hidden !important;
 }
 
-/* Close button positioning and visibility */
-.gm-style .gm-style-iw-t {
-    right: 8px !important;
-    top: 8px !important;
-    opacity: 1 !important;
-    display: block !important;
+/* Remove any default margins from Google Maps */
+.gm-style .gm-style-iw-d > div {
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* Close button styling */
+/* Close button container - make it visible and properly positioned */
+.gm-style .gm-style-iw-t {
+    position: absolute !important;
+    right: 6px !important;
+    top: 6px !important;
+    width: 22px !important;
+    height: 22px !important;
+    opacity: 1 !important;
+    display: block !important;
+    z-index: 1000 !important;
+}
+
+/* Close button - make it clearly visible */
 .gm-style .gm-style-iw-t button {
-    background: var(--color-surface) !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 22px !important;
+    height: 22px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
     border: 1px solid var(--color-border) !important;
     border-radius: 50% !important;
-    width: 20px !important;
-    height: 20px !important;
     color: var(--color-text) !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
 }
 
 .gm-style .gm-style-iw-t button:hover {
-    background: var(--color-surface-hover) !important;
+    background: rgba(255, 255, 255, 1) !important;
+    transform: scale(1.1) !important;
 }
 
-/* Popup content styling */
+/* Popup content styling with proper spacing */
 .popup-content {
     color: var(--color-text) !important;
     font-family: var(--font-family-base) !important;
     font-size: var(--font-size-sm) !important;
     line-height: var(--line-height-normal) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .popup-content h3 {
     margin: 0 0 var(--space-8) 0 !important;
+    padding: 0 !important;
     color: var(--color-text) !important;
     font-size: var(--font-size-base) !important;
     font-weight: var(--font-weight-semibold) !important;
 }
 
 .popup-desc {
-    margin-bottom: var(--space-8) !important;
+    margin: 0 0 var(--space-8) 0 !important;
+    padding: 0 !important;
     color: var(--color-text-secondary) !important;
     font-size: var(--font-size-sm) !important;
 }
 
 .popup-price {
-    margin-bottom: var(--space-4) !important;
+    margin: 0 0 var(--space-4) 0 !important;
+    padding: 0 !important;
     color: var(--color-text) !important;
     font-weight: var(--font-weight-medium) !important;
     font-size: var(--font-size-sm) !important;
 }
 
 .popup-rating {
-    margin-bottom: var(--space-8) !important;
+    margin: 0 0 var(--space-8) 0 !important;
+    padding: 0 !important;
     color: var(--color-text-secondary) !important;
     font-size: var(--font-size-sm) !important;
 }
@@ -1797,6 +1824,8 @@ select.form-control {
     color: var(--color-primary) !important;
     text-decoration: none !important;
     font-weight: var(--font-weight-medium) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .popup-content a:hover {
@@ -1811,7 +1840,11 @@ select.form-control {
 }
 
 [data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
-    background: var(--color-surface) !important;
+    background: rgba(40, 40, 40, 0.9) !important;
     border-color: var(--color-border) !important;
     color: var(--color-text) !important;
+}
+
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button:hover {
+    background: rgba(40, 40, 40, 1) !important;
 }
