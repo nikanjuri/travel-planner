@@ -857,6 +857,7 @@ select.form-control {
   display: flex;
   flex-direction: column;
   min-height: 280px;
+  gap: var(--space-16);
 }
 
 .venue-card:hover {
@@ -910,39 +911,43 @@ select.form-control {
 
 .venue-description {
   color: var(--color-text-secondary);
-  margin-bottom: var(--space-16);
   line-height: var(--line-height-normal);
-  flex-grow: 0;
+  margin: 0;
 }
 
 .venue-details {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: var(--space-12);
-  margin-bottom: auto;
+  margin-bottom: var(--space-16);
 }
 
 .detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
   font-size: var(--font-size-sm);
+  padding: var(--space-4) 0;
 }
 
 .detail-label {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  display: block;
+  flex-shrink: 0;
+  margin-right: var(--space-12);
 }
 
 .detail-value {
   color: var(--color-text);
+  text-align: right;
+  flex-grow: 1;
 }
 
 .venue-tags {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-6);
-  margin-top: var(--space-16);
-  margin-bottom: 0;
-  padding-bottom: var(--space-2);
+  margin: 0;
 }
 
 .tag {
@@ -960,15 +965,15 @@ select.form-control {
 }
 
 .booking-badge {
-  position: absolute;
-  bottom: var(--space-16);
-  right: var(--space-12);
-  padding: var(--space-4) var(--space-8);
-  border-radius: var(--radius-sm);
+  position: static;
+  align-self: flex-end;
+  margin-top: auto;
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-base);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
-  z-index: 10;
-  max-width: 120px;
+  max-width: fit-content;
+  white-space: nowrap;
 }
 
 .booking-badge.essential {
