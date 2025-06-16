@@ -1461,9 +1461,24 @@ select.form-control {
   transition: transform var(--duration-fast) var(--ease-standard);
 }
 
-/* Current Location Button - Fix hover effect */
+/* Current Location Button - Add missing base styling and fix hover */
+.location-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  box-shadow: var(--shadow-md);
+}
+
 .location-btn:hover {
-  background: var(--color-hover);
+  background: var(--color-secondary-hover);  /* Use defined variable instead of --color-hover */
   border-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
