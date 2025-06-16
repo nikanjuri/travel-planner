@@ -1671,68 +1671,120 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow - ENHANCED WORKING SOLUTION */
+/* Google Maps InfoWindow - COMPLETE SOLUTION */
 
-/* Fix the InfoWindow container background and remove scrollbar */
+/* Remove Google Maps default constraints and fix auto-sizing */
+.gm-style .gm-style-iw {
+    max-width: none !important;
+    max-height: none !important;
+    padding-top: 0 !important;
+}
+
+/* InfoWindow container - auto-size to content */
 .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border-radius: var(--radius-base) !important;
     box-shadow: var(--shadow-lg) !important;
-    max-width: 320px !important;
-    min-width: 250px !important;
-}
-
-/* Remove scrollbar and fix content area */
-.gm-style .gm-style-iw-d {
-    overflow: hidden !important;
+    padding: 0 !important;
+    max-width: 350px !important;
+    min-width: 280px !important;
+    /* Allow auto-sizing */
     max-height: none !important;
-    padding: 16px !important;
+    height: auto !important;
+    overflow: visible !important;
 }
 
-/* Enhanced content styling with better contrast */
+/* Content wrapper - remove padding constraints and scrollbar */
+.gm-style .gm-style-iw-d {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+    padding: 12px 16px 16px 16px !important;
+}
+
+/* Close button container - make it visible */
+.gm-style .gm-style-iw-t {
+    position: absolute !important;
+    right: 8px !important;
+    top: 8px !important;
+    width: 24px !important;
+    height: 24px !important;
+    opacity: 1 !important;
+    display: block !important;
+    z-index: 1000 !important;
+}
+
+/* Close button - theme-aware and highly visible */
+.gm-style .gm-style-iw-t button {
+    background: var(--color-primary) !important;
+    border: 2px solid white !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    color: white !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    transition: all 0.2s ease !important;
+}
+
+.gm-style .gm-style-iw-t button:hover {
+    background: var(--color-primary-hover) !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+/* Content styling - compact and readable */
 .popup-content {
     font-family: var(--font-family-base) !important;
     color: var(--color-text) !important;
     font-size: 14px !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
 .popup-content h3 {
-    margin: 0 0 12px 0 !important;
-    font-size: 18px !important;
+    margin: 0 0 8px 0 !important;
+    font-size: 16px !important;
     font-weight: 600 !important;
     color: var(--color-text) !important;
-    line-height: 1.3 !important;
+    line-height: 1.2 !important;
 }
 
 .popup-content .popup-desc {
-    margin: 0 0 12px 0 !important;
+    margin: 0 0 8px 0 !important;
     color: var(--color-text) !important;
-    font-size: 14px !important;
-    opacity: 0.8 !important;
+    font-size: 13px !important;
+    opacity: 0.85 !important;
+    line-height: 1.3 !important;
 }
 
 .popup-content .popup-price {
-    margin: 0 0 8px 0 !important;
+    margin: 0 0 6px 0 !important;
     color: var(--color-text) !important;
     font-weight: 500 !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
 }
 
 .popup-content .popup-rating {
-    margin: 0 0 12px 0 !important;
+    margin: 0 0 8px 0 !important;
     color: var(--color-text) !important;
-    font-size: 14px !important;
-    opacity: 0.7 !important;
+    font-size: 13px !important;
+    opacity: 0.8 !important;
 }
 
 .popup-content a {
     color: var(--color-primary) !important;
     text-decoration: none !important;
     font-weight: 500 !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
+    display: inline-block !important;
+    margin-top: 4px !important;
 }
 
 .popup-content a:hover {
@@ -1740,40 +1792,34 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-/* Dark theme enhancements */
+/* Dark theme support */
 [data-color-scheme="dark"] .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
 }
 
-[data-color-scheme="dark"] .popup-content {
-    color: var(--color-text) !important;
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
+    background: var(--color-primary) !important;
+    border-color: var(--color-surface) !important;
+    color: var(--color-btn-primary-text) !important;
 }
 
-[data-color-scheme="dark"] .popup-content h3 {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-content .popup-desc {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-content .popup-rating {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-content .popup-price {
-    color: var(--color-text) !important;
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button:hover {
+    background: var(--color-primary-hover) !important;
 }
 
 /* Mobile responsive */
 @media (max-width: 768px) {
     .gm-style .gm-style-iw-c {
-        max-width: 280px !important;
-        min-width: 220px !important;
+        max-width: 300px !important;
+        min-width: 250px !important;
+    }
+    
+    .gm-style .gm-style-iw-d {
+        padding: 10px 14px 14px 14px !important;
     }
     
     .popup-content h3 {
-        font-size: 16px !important;
+        font-size: 15px !important;
     }
 }
