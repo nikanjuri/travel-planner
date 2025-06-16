@@ -125,9 +125,6 @@ function showContentSections() {
         document.getElementById('sightseeing-section').classList.add('active');
         document.getElementById('food-section').classList.add('active');
         document.getElementById('drinks-section').classList.add('active');
-    } else if (currentCategory === 'daily-planner') {
-        // Show the daily planner section
-        document.getElementById('daily-planner-section').classList.add('active');
     } else if (currentCategory === 'tips') {
         document.getElementById('tips-section').classList.add('active');
     } else if (currentCategory === 'nearby') {
@@ -1754,15 +1751,18 @@ function initializeTripSourceSortable() {
     sortableInstances.source = new Sortable(tripItems, {
         group: {
             name: 'trip-planning',
-            pull: 'clone',
+            pull: true,
             put: false
         },
         sort: false,
+        animation: 150,
         onStart: function(evt) {
             document.body.classList.add('dragging');
+            evt.item.classList.add('dragging-item');
         },
         onEnd: function(evt) {
             document.body.classList.remove('dragging');
+            evt.item.classList.remove('dragging-item');
         }
     });
 }

@@ -1120,6 +1120,26 @@ select.form-control {
   background: var(--color-secondary);
 }
 
+/* Day Planning Section */
+.day-planning-section {
+  margin-top: var(--space-24);
+  padding-top: var(--space-20);
+  border-top: 1px solid var(--color-border);
+}
+
+.day-planning-section h4 {
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Dragging State */
+.dragging-item {
+  opacity: 0.7;
+  transform: scale(0.95);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
 .budget-calculator {
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-16);
