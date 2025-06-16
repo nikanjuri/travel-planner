@@ -1755,26 +1755,13 @@ function initializeTripSourceSortable() {
             put: true
         },
         sort: false,
-        animation: 0,  // Disable to prevent conflicts
-        ghostClass: 'sortable-ghost',
+        animation: 0,
+        ghostClass: false,
         chosenClass: 'sortable-chosen',
-        dragClass: 'sortable-drag',
+        dragClass: false,
         forceFallback: false,
         fallbackOnBody: false,
         removeCloneOnHide: true,
-        onStart: function(evt) {
-            // Clear all drag states from everything
-            document.querySelectorAll('.trip-item, .day-venue-item').forEach(item => {
-                item.classList.remove('currently-dragging', 'dragging-item');
-            });
-            evt.item.classList.add('currently-dragging');
-        },
-        onEnd: function(evt) {
-            // Clean up everything
-            document.querySelectorAll('.trip-item, .day-venue-item').forEach(item => {
-                item.classList.remove('currently-dragging', 'dragging-item');
-            });
-        },
         onAdd: function(evt) {
             const venueName = evt.item.querySelector('.venue-item-name').textContent;
             const venueType = evt.item.querySelector('.venue-item-type').textContent;
@@ -1801,24 +1788,13 @@ function initializeDaySortable(dayNumber) {
             pull: true,
             put: true
         },
-        animation: 0,  // Disable to prevent conflicts
-        ghostClass: 'sortable-ghost',
+        animation: 0,
+        ghostClass: false,
         chosenClass: 'sortable-chosen',
-        dragClass: 'sortable-drag',
+        dragClass: false,
         forceFallback: false,
         fallbackOnBody: false,
         removeCloneOnHide: true,
-        onStart: function(evt) {
-            document.querySelectorAll('.trip-item, .day-venue-item').forEach(item => {
-                item.classList.remove('currently-dragging', 'dragging-item');
-            });
-            evt.item.classList.add('currently-dragging');
-        },
-        onEnd: function(evt) {
-            document.querySelectorAll('.trip-item, .day-venue-item').forEach(item => {
-                item.classList.remove('currently-dragging', 'dragging-item');
-            });
-        },
         onAdd: function(evt) {
             const venueName = evt.item.querySelector('.trip-item-name') 
                 ? evt.item.querySelector('.trip-item-name').textContent
