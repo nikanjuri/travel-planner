@@ -1,12 +1,15 @@
 const CACHE_NAME = 'travel-planner-v2';
 const OFFLINE_URL = '/offline.html';
 
+// Generate timestamp once when service worker loads
+const BUILD_TIME = Date.now();
+
 // Core app shell files to cache immediately
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/app.js',
-  '/style.css',
+  `/app.js?v=${BUILD_TIME}`,
+  `/style.css?v=${BUILD_TIME}`,
   '/favicon.ico',
   // External dependencies (removed Leaflet references)
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
