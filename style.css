@@ -1714,7 +1714,7 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow Styling - Add after line 1685 */
+/* Google Maps InfoWindow Styling - Enhanced version */
 
 /* Style the Google Maps InfoWindow container */
 .gm-style .gm-style-iw-c {
@@ -1722,23 +1722,57 @@ select.form-control {
     border-radius: var(--radius-base) !important;
     box-shadow: var(--shadow-lg) !important;
     padding: 0 !important;
+    max-width: 300px !important;
 }
 
 /* Style the InfoWindow content wrapper */
 .gm-style .gm-style-iw-d {
     overflow: hidden !important;
     padding: var(--space-12) !important;
+    max-height: 200px !important;
+    overflow-y: auto !important;
 }
 
-/* Style the InfoWindow close button */
+/* Fix the close button visibility and styling */
+.gm-style .gm-style-iw-t {
+    right: 8px !important;
+    top: 8px !important;
+}
+
 .gm-style .gm-style-iw-t::after {
     background-color: var(--color-surface) !important;
+    width: 24px !important;
+    height: 24px !important;
+    border-radius: 50% !important;
+    box-shadow: var(--shadow-sm) !important;
 }
 
-/* Popup content styling (keep existing) */
+/* Style the close button icon */
+.gm-style .gm-style-iw-t button {
+    background: var(--color-surface) !important;
+    border: 1px solid var(--color-border) !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    color: var(--color-text) !important;
+    font-size: 14px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+}
+
+.gm-style .gm-style-iw-t button:hover {
+    background: var(--color-surface-hover) !important;
+    border-color: var(--color-border-hover) !important;
+}
+
+/* Enhanced popup content styling */
 .popup-content {
     color: var(--color-text) !important;
     font-family: var(--font-family-base) !important;
+    font-size: var(--font-size-sm) !important;
+    line-height: var(--line-height-normal) !important;
 }
 
 .popup-content h3 {
@@ -1746,6 +1780,7 @@ select.form-control {
     color: var(--color-text) !important;
     font-size: var(--font-size-base) !important;
     font-weight: var(--font-weight-semibold) !important;
+    line-height: var(--line-height-tight) !important;
 }
 
 .popup-desc {
@@ -1772,6 +1807,7 @@ select.form-control {
     color: var(--color-primary) !important;
     text-decoration: none !important;
     font-weight: var(--font-weight-medium) !important;
+    font-size: var(--font-size-sm) !important;
 }
 
 .popup-content a:hover {
@@ -1779,13 +1815,20 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-/* Dark theme specific fixes for Google Maps InfoWindows */
+/* Dark theme specific fixes */
 [data-color-scheme="dark"] .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
+    border: 1px solid var(--color-border) !important;
 }
 
 [data-color-scheme="dark"] .gm-style .gm-style-iw-t::after {
     background-color: var(--color-surface) !important;
+}
+
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
+    background: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text) !important;
 }
 
 [data-color-scheme="dark"] .popup-content {
