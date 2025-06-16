@@ -1739,7 +1739,7 @@ function generateDayVenuesHTML(venues, dayNumber) {
     }).join('');
 }
 
-// Initialize sortable for trip source
+// Initialize sortable for trip source - UPDATED VERSION
 function initializeTripSourceSortable() {
     const tripItems = document.getElementById('trip-items');
     if (!tripItems) return;
@@ -1752,22 +1752,28 @@ function initializeTripSourceSortable() {
         group: {
             name: 'trip-planning',
             pull: true,
-            put: false
+            put: true  // Allow items to be returned to trip list
         },
         sort: false,
         animation: 150,
-        onStart: function(evt) {
-            document.body.classList.add('dragging');
-            evt.item.classList.add('dragging-item');
-        },
-        onEnd: function(evt) {
-            document.body.classList.remove('dragging');
-            evt.item.classList.remove('dragging-item');
+        onAdd: function(evt) {
+            // Item was moved back from a day plan to trip list
+            const venueName = evt.item.querySelector('.venue-item-name').textContent;
+            const venueType = evt.item.querySelector('.venue-item-type').textContent;
+            
+            // Add back to trip
+            addToTrip(venueName, venueType);
+            
+            // Remove from all day plans
+            removeFromAllDayPlans(venueName, venueType);
+            
+            // Update trip display
+            updateTripDisplay();
         }
     });
 }
 
-// Initialize sortable for a specific day - FIXED VERSION
+// Initialize sortable for a specific day - SIMPLIFIED VERSION
 function initializeDaySortable(dayNumber) {
     const dayVenues = document.getElementById(`day-${dayNumber}-venues`);
     if (!dayVenues) return;
@@ -1783,54 +1789,75 @@ function initializeDaySortable(dayNumber) {
             put: true
         },
         animation: 150,
-        ghostClass: 'sortable-ghost',
-        chosenClass: 'sortable-chosen',
-        dragClass: 'sortable-drag',
-        forceFallback: true,
-        fallbackClass: 'sortable-fallback',
-        fallbackOnBody: true,
-        onStart: function(evt) {
-            // Clear any previous drag states
-            document.querySelectorAll('.dragging-item').forEach(el => {
-                el.classList.remove('dragging-item');
-            });
-            // Only mark the actual dragged item
-            evt.item.classList.add('dragging-item');
-        },
-        onEnd: function(evt) {
-            // Clean up drag states
-            document.querySelectorAll('.dragging-item').forEach(el => {
-                el.classList.remove('dragging-item');
-            });
-        },
         onAdd: function(evt) {
-            const venueName = evt.item.querySelector('.trip-item-name').textContent;
-            const venueType = evt.item.querySelector('.trip-item-type').textContent;
+            const venueName = evt.item.querySelector('.trip-item-name') 
+                ? evt.item.querySelector('.trip-item-name').textContent
+                : evt.item.querySelector('.venue-item-name').textContent;
+            const venueType = evt.item.querySelector('.trip-item-type')
+                ? evt.item.querySelector('.trip-item-type').textContent
+                : evt.item.querySelector('.venue-item-type').textContent;
             
             // Add venue to day plan
             addVenueToDay(dayNumber, venueName, venueType);
             
-            // Remove from trip source (it was moved, not copied)
+            // Remove from trip source or other days
             removeFromTrip(venueName);
+            removeFromOtherDays(dayNumber, venueName, venueType);
             
-            // Update the day display WITHOUT re-initializing sortable during drag
-            setTimeout(() => {
-                updateDayDisplay(dayNumber);
-            }, 100);
+            // Update displays
+            updateDayDisplay(dayNumber);
+            updateTripDisplay();
         },
         onUpdate: function(evt) {
             // Reorder venues within day
-            setTimeout(() => {
-                reorderDayVenuesWithoutReinit(dayNumber);
-            }, 100);
+            reorderDayVenues(dayNumber);
         },
         onRemove: function(evt) {
-            // Venue was moved to another day
-            setTimeout(() => {
-                updateDayDisplayWithoutReinit(dayNumber);
-            }, 100);
+            // Venue was moved to another location - will be handled by onAdd
         }
     });
+}
+
+// Remove venue from all day plans
+function removeFromAllDayPlans(venueName, venueType) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    if (!cityDayPlans[cityName]) return;
+    
+    Object.keys(cityDayPlans[cityName].days).forEach(dayNumber => {
+        const dayVenues = cityDayPlans[cityName].days[dayNumber];
+        const venueIndex = dayVenues.findIndex(v => v.name === venueName && v.type === venueType);
+        
+        if (venueIndex !== -1) {
+            cityDayPlans[cityName].days[dayNumber].splice(venueIndex, 1);
+            updateDayDisplay(parseInt(dayNumber));
+        }
+    });
+    
+    saveDayPlanToStorage();
+}
+
+// Remove venue from other days (not current day)
+function removeFromOtherDays(currentDay, venueName, venueType) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    if (!cityDayPlans[cityName]) return;
+    
+    Object.keys(cityDayPlans[cityName].days).forEach(dayNumber => {
+        if (parseInt(dayNumber) !== currentDay) {
+            const dayVenues = cityDayPlans[cityName].days[dayNumber];
+            const venueIndex = dayVenues.findIndex(v => v.name === venueName && v.type === venueType);
+            
+            if (venueIndex !== -1) {
+                cityDayPlans[cityName].days[dayNumber].splice(venueIndex, 1);
+                updateDayDisplay(parseInt(dayNumber));
+            }
+        }
+    });
+    
+    saveDayPlanToStorage();
 }
 
 // Update day display without re-initializing sortable
