@@ -1,4 +1,4 @@
-const CACHE_NAME = 'travel-planner-v1';
+const CACHE_NAME = 'travel-planner-v2';
 const OFFLINE_URL = '/offline.html';
 
 // Core app shell files to cache immediately
