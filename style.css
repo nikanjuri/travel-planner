@@ -1552,11 +1552,13 @@ select.form-control {
 }
 
 .day-legend-scroll {
-    max-height: 120px;
-    overflow-y: auto;
+    /* Let it size naturally based on content */
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+    /* Only add max-height and scrolling if needed */
+    max-height: 100px;
+    overflow-y: auto;
 }
 
 .day-legend-item {
