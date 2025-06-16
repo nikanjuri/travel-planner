@@ -1136,113 +1136,6 @@ select.form-control {
   cursor: pointer;
 }
 
-/* Day Route Colors */
-.day-badge.day-1 { background-color: #e74c3c; }
-.day-badge.day-2 { background-color: #3498db; }
-.day-badge.day-3 { background-color: #2ecc71; }
-.day-badge.day-4 { background-color: #f39c12; }
-.day-badge.day-5 { background-color: #9b59b6; }
-.day-badge.day-6 { background-color: #1abc9c; }
-.day-badge.day-7 { background-color: #e67e22; }
-.day-badge.day-8 { background-color: #34495e; }
-.day-badge.day-9 { background-color: #ff69b4; }
-.day-badge.day-10 { background-color: #00ced1; }
-.day-badge.day-11 { background-color: #ffd700; }
-.day-badge.day-12 { background-color: #8a2be2; }
-.day-badge.day-13 { background-color: #ff6347; }
-.day-badge.day-14 { background-color: #4169e1; }
-.day-badge.day-15 { background-color: #32cd32; }
-.day-badge.day-16 { background-color: #ff4500; }
-.day-badge.day-17 { background-color: #da70d6; }
-.day-badge.day-18 { background-color: #40e0d0; }
-.day-badge.day-19 { background-color: #ffa500; }
-.day-badge.day-20 { background-color: #6a5acd; }
-.day-badge.day-21 { background-color: #20b2aa; }
-.day-badge.day-22 { background-color: #ff1493; }
-.day-badge.day-23 { background-color: #00bfff; }
-.day-badge.day-24 { background-color: #adff2f; }
-.day-badge.day-25 { background-color: #ff8c00; }
-.day-badge.day-26 { background-color: #9370db; }
-.day-badge.day-27 { background-color: #00fa9a; }
-.day-badge.day-28 { background-color: #dc143c; }
-.day-badge.day-29 { background-color: #4682b4; }
-.day-badge.day-30 { background-color: #228b22; }
-
-/* Responsive Design for Day Planner */
-@media (max-width: 768px) {
-  .planner-controls {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-12);
-  }
-  
-  .control-group .form-control {
-    min-width: auto;
-  }
-  
-  .day-header {
-    padding: var(--space-8) var(--space-12);
-  }
-  
-  .day-controls {
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-  
-  .day-plans-container {
-    max-height: 50vh;
-  }
-  
-  .day-venue-item {
-    padding: var(--space-6) var(--space-8);
-  }
-}
-
-/* COMPLETELY DISABLE ALL ROTATION AND TILTING */
-
-/* Override any SortableJS default styles */
-.sortable-drag,
-.trip-items > .trip-item.sortable-drag,
-.day-venues > .day-venue-item.sortable-drag {
-  opacity: 0.8 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-  z-index: 1001 !important;
-  transform: none !important; /* Explicitly disable any transform */
-}
-
-.sortable-chosen,
-.trip-items > .trip-item.sortable-chosen,
-.day-venues > .day-venue-item.sortable-chosen {
-  opacity: 0.9 !important;
-  transform: scale(1.02) !important; /* Only allow scale, no rotation */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  z-index: 1000 !important;
-}
-
-.sortable-fallback-custom {
-  opacity: 0.8 !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-  z-index: 1002 !important;
-  background: var(--color-surface) !important;
-  border: 2px solid var(--color-primary) !important;
-  transform: none !important; /* Explicitly disable any transform */
-}
-
-/* Force all draggable items to never rotate */
-.trip-item,
-.day-venue-item {
-  transform-origin: center center !important;
-}
-
-.trip-item.sortable-drag,
-.day-venue-item.sortable-drag {
-  transform: none !important;
-  -webkit-transform: none !important;
-  -moz-transform: none !important;
-  -ms-transform: none !important;
-  -o-transform: none !important;
-}
-
 /* Day Planning Section */
 .day-planning-section {
   margin-top: var(--space-24);
@@ -1679,4 +1572,34 @@ select.form-control {
     height: 3px;
     border-radius: 2px;
     flex-shrink: 0;
+}
+
+/* Responsive Design for Day Planner */
+@media (max-width: 768px) {
+  .planner-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-12);
+  }
+  
+  .control-group .form-control {
+    min-width: auto;
+  }
+  
+  .day-header {
+    padding: var(--space-8) var(--space-12);
+  }
+  
+  .day-controls {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .day-plans-container {
+    max-height: 50vh;
+  }
+  
+  .day-venue-item {
+    padding: var(--space-6) var(--space-8);
+  }
 }
