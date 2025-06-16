@@ -1671,135 +1671,87 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow Styling - WORKING SOLUTION */
+/* Google Maps InfoWindow Styling - MINIMAL WORKING SOLUTION */
 
-/* Remove Google Maps default constraints that cause scrolling */
-.gm-style .gm-style-iw {
-    max-width: none !important;
-    max-height: none !important;
-    padding-top: 0 !important;
-}
-
-/* InfoWindow container - auto-size to content, no scrolling */
+/* Basic InfoWindow container - keep it simple */
 .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border-radius: var(--radius-base) !important;
     box-shadow: var(--shadow-lg) !important;
-    padding: 0 !important;
     max-width: 300px !important;
-    min-width: 220px !important;
-    /* Remove any height constraints to prevent scrolling */
-    max-height: none !important;
-    height: auto !important;
-    overflow: visible !important;
+    min-width: 250px !important;
 }
 
-/* InfoWindow content wrapper - no scrolling, proper padding */
+/* InfoWindow content - minimal styling */
 .gm-style .gm-style-iw-d {
-    padding: var(--space-16) !important;
-    overflow: visible !important;
-    max-height: none !important;
-    height: auto !important;
+    padding: 16px !important;
 }
 
-/* Close button container - make it highly visible */
+/* Close button - simple and visible */
 .gm-style .gm-style-iw-t {
-    position: absolute !important;
-    right: var(--space-8) !important;
-    top: var(--space-8) !important;
-    width: 28px !important;
-    height: 28px !important;
+    right: 8px !important;
+    top: 8px !important;
+    width: 24px !important;
+    height: 24px !important;
     opacity: 1 !important;
-    display: block !important;
-    z-index: 1000 !important;
 }
 
-/* Close button styling - theme-aware and highly visible */
-.gm-style .gm-style-iw-t::after {
-    content: '×' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 28px !important;
-    height: 28px !important;
-    background: var(--color-primary) !important;
-    border: 2px solid var(--color-surface) !important;
+.gm-style .gm-style-iw-t button {
+    background: #21808d !important;
+    border: none !important;
     border-radius: 50% !important;
-    color: var(--color-btn-primary-text) !important;
-    font-size: 18px !important;
+    width: 24px !important;
+    height: 24px !important;
+    color: white !important;
+    font-size: 16px !important;
     font-weight: bold !important;
+    cursor: pointer !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    cursor: pointer !important;
-    box-shadow: var(--shadow-md) !important;
-    transition: all var(--duration-fast) var(--ease-standard) !important;
-    line-height: 1 !important;
 }
 
-.gm-style .gm-style-iw-t:hover::after {
-    background: var(--color-primary-hover) !important;
+.gm-style .gm-style-iw-t button:hover {
+    background: #1d7480 !important;
     transform: scale(1.1) !important;
-    box-shadow: var(--shadow-lg) !important;
 }
 
-/* Hide the default Google Maps close button */
-.gm-style .gm-style-iw-t > button {
-    display: none !important;
-}
-
-/* Popup content styling - responsive text sizing */
+/* Content styling */
 .popup-content {
     color: var(--color-text) !important;
     font-family: var(--font-family-base) !important;
-    font-size: var(--font-size-sm) !important;
-    line-height: var(--line-height-normal) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
 }
 
 .popup-content h3 {
-    margin: 0 0 var(--space-12) 0 !important;
-    padding: 0 !important;
+    margin: 0 0 12px 0 !important;
     color: var(--color-text) !important;
-    font-size: var(--font-size-lg) !important;
-    font-weight: var(--font-weight-semibold) !important;
-    line-height: var(--line-height-tight) !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
 }
 
 .popup-desc {
-    margin: 0 0 var(--space-12) 0 !important;
-    padding: 0 !important;
+    margin: 0 0 12px 0 !important;
     color: var(--color-text-secondary) !important;
-    font-size: var(--font-size-sm) !important;
-    line-height: var(--line-height-normal) !important;
+    font-size: 14px !important;
 }
 
 .popup-price {
-    margin: 0 0 var(--space-8) 0 !important;
-    padding: 0 !important;
+    margin: 0 0 8px 0 !important;
     color: var(--color-text) !important;
-    font-weight: var(--font-weight-medium) !important;
-    font-size: var(--font-size-sm) !important;
+    font-weight: 500 !important;
 }
 
 .popup-rating {
-    margin: 0 0 var(--space-12) 0 !important;
-    padding: 0 !important;
+    margin: 0 0 12px 0 !important;
     color: var(--color-text-secondary) !important;
-    font-size: var(--font-size-sm) !important;
 }
 
 .popup-content a {
     color: var(--color-primary) !important;
     text-decoration: none !important;
-    font-weight: var(--font-weight-medium) !important;
-    font-size: var(--font-size-sm) !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transition: color var(--duration-fast) var(--ease-standard) !important;
+    font-weight: 500 !important;
 }
 
 .popup-content a:hover {
@@ -1807,34 +1759,17 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-/* Dark theme specific overrides */
+/* Dark theme */
 [data-color-scheme="dark"] .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
 }
 
-[data-color-scheme="dark"] .gm-style .gm-style-iw-t::after {
-    background: var(--color-primary) !important;
-    border-color: var(--color-surface) !important;
-    color: var(--color-btn-primary-text) !important;
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
+    background: #50fa7b !important;
+    color: #000 !important;
 }
 
-[data-color-scheme="dark"] .gm-style .gm-style-iw-t:hover::after {
-    background: var(--color-primary-hover) !important;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 768px) {
-    .gm-style .gm-style-iw-c {
-        max-width: 280px !important;
-        min-width: 200px !important;
-    }
-    
-    .gm-style .gm-style-iw-d {
-        padding: var(--space-12) !important;
-    }
-    
-    .popup-content h3 {
-        font-size: var(--font-size-base) !important;
-    }
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button:hover {
+    background: #40c96b !important;
 }
