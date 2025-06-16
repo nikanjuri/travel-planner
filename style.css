@@ -1671,61 +1671,15 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow - WORKING MINIMAL SOLUTION */
+/* Google Maps InfoWindow - MINIMAL WORKING SOLUTION */
 
-/* Basic InfoWindow container styling */
-.gm-style .gm-style-iw-c {
-    background-color: var(--color-surface) !important;
-    border-radius: var(--radius-base) !important;
-    box-shadow: var(--shadow-lg) !important;
-    max-width: 320px !important;
-    min-width: 250px !important;
-}
-
-/* InfoWindow content wrapper - remove scrollbar only */
-.gm-style .gm-style-iw-d {
-    overflow: hidden !important;
-    padding: 14px !important;
-}
-
-/* Close button styling - make it visible and themed */
-.gm-style .gm-style-iw-t {
-    right: 8px !important;
-    top: 8px !important;
-    width: 24px !important;
-    height: 24px !important;
-    opacity: 1 !important;
-}
-
-.gm-style .gm-style-iw-t button {
-    background: var(--color-primary) !important;
-    border: 2px solid white !important;
-    border-radius: 50% !important;
-    width: 24px !important;
-    height: 24px !important;
-    color: white !important;
-    font-size: 12px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
-}
-
-.gm-style .gm-style-iw-t button:hover {
-    background: var(--color-primary-hover) !important;
-    transform: scale(1.05) !important;
-}
-
-/* Content styling - better text contrast */
+/* Only style the content, don't touch the container */
 .popup-content {
     font-family: var(--font-family-base) !important;
     color: var(--color-text) !important;
     font-size: 14px !important;
-    line-height: 1.4 !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    line-height: 1.5 !important;
+    padding: 8px !important;
 }
 
 .popup-content h3 {
@@ -1737,64 +1691,24 @@ select.form-control {
 
 .popup-content .popup-desc {
     margin: 0 0 8px 0 !important;
-    color: var(--color-text) !important;
-    font-size: 13px !important;
-    opacity: 0.9 !important;
-}
-
-.popup-content .popup-price {
-    margin: 0 0 6px 0 !important;
-    color: var(--color-text) !important;
-    font-weight: 500 !important;
-    font-size: 13px !important;
+    color: var(--color-text-secondary) !important;
 }
 
 .popup-content .popup-rating {
     margin: 0 0 8px 0 !important;
-    color: var(--color-text) !important;
-    font-size: 13px !important;
+    color: var(--color-text-secondary) !important;
 }
 
 .popup-content a {
     color: var(--color-primary) !important;
     text-decoration: none !important;
-    font-weight: 500 !important;
-    font-size: 13px !important;
 }
 
 .popup-content a:hover {
-    color: var(--color-primary-hover) !important;
     text-decoration: underline !important;
 }
 
-/* Dark theme support */
-[data-color-scheme="dark"] .gm-style .gm-style-iw-c {
-    background-color: var(--color-surface) !important;
-    border: 1px solid var(--color-border) !important;
-}
-
-[data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
-    background: var(--color-primary) !important;
-    border-color: var(--color-surface) !important;
-    color: var(--color-btn-primary-text) !important;
-}
-
-[data-color-scheme="dark"] .gm-style .gm-style-iw-t button:hover {
-    background: var(--color-primary-hover) !important;
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .gm-style .gm-style-iw-c {
-        max-width: 300px !important;
-        min-width: 250px !important;
-    }
-    
-    .gm-style .gm-style-iw-d {
-        padding: 10px 14px 14px 14px !important;
-    }
-    
-    .popup-content h3 {
-        font-size: 15px !important;
-    }
+/* Dark theme */
+[data-color-scheme="dark"] .popup-content {
+    color: var(--color-text) !important;
 }
