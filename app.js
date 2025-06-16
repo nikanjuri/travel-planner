@@ -1756,12 +1756,15 @@ function initializeTripSourceSortable() {
         },
         sort: false,
         animation: 0,
-        ghostClass: false,
-        chosenClass: 'sortable-chosen',
-        dragClass: false,
-        forceFallback: false,
-        fallbackOnBody: false,
-        removeCloneOnHide: true,
+        // DISABLE ALL VISUAL CLASSES COMPLETELY
+        ghostClass: '',
+        chosenClass: '',
+        dragClass: '',
+        // Use native HTML5 drag and drop
+        forceFallback: true,
+        fallbackClass: 'sortable-fallback-custom',
+        fallbackOnBody: true,
+        fallbackTolerance: 0,
         onAdd: function(evt) {
             const venueName = evt.item.querySelector('.venue-item-name').textContent;
             const venueType = evt.item.querySelector('.venue-item-type').textContent;

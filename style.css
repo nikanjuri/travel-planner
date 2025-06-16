@@ -1249,3 +1249,195 @@ select.form-control {
 .day-venue-item:hover:not(.sortable-chosen) {
   background: var(--color-hover) !important;
 }
+
+/* Day Planning Section */
+.day-planning-section {
+  margin-top: var(--space-24);
+  padding-top: var(--space-20);
+  border-top: 1px solid var(--color-border);
+}
+
+.day-planning-section h4 {
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Planner Controls */
+.planner-controls {
+  display: flex;
+  align-items: end;
+  gap: var(--space-16);
+  margin-bottom: var(--space-20);
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.control-group label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.control-group .form-control {
+  min-width: 140px;
+}
+
+/* Day Plans Container */
+.day-plans-container {
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  background: var(--color-background);
+}
+
+/* Day Container */
+.day-container {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.day-container:last-child {
+  border-bottom: none;
+}
+
+/* Day Header */
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-12) var(--space-16);
+  background: var(--color-surface);
+  cursor: pointer;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.day-header:hover {
+  background: var(--color-hover);
+}
+
+.day-header.collapsed + .day-content {
+  display: none;
+}
+
+.day-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.day-badge {
+  display: inline-block;
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.collapse-icon {
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.day-header.collapsed .collapse-icon {
+  transform: rotate(-90deg);
+}
+
+/* Day Controls */
+.day-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+/* Day Content */
+.day-content {
+  padding: var(--space-12);
+}
+
+/* Day Venues */
+.day-venues {
+  min-height: 40px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-base);
+  padding: var(--space-8);
+  background: var(--color-background);
+}
+
+.day-venues.sortable-over {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.05);
+}
+
+/* Day Venue Items */
+.day-venue-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-8) var(--space-12);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  margin-bottom: var(--space-8);
+  cursor: move;
+}
+
+.day-venue-item:last-child {
+  margin-bottom: 0;
+}
+
+.day-venue-item:hover {
+  background: var(--color-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.venue-item-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.venue-item-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+}
+
+.venue-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.venue-item-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.venue-item-type {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+}
+
+/* Route Controls */
+.route-controls {
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
