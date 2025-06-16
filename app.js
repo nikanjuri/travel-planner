@@ -1,7 +1,15 @@
 // Dashboard State
 let currentCategory = 'all';
-let map = null;
-let markers = {};
+let map;
+let directionsService;
+let directionsRenderer;
+let markers = {
+    sightseeing: [],
+    food: [],
+    drinks: []
+};
+let routePolylines = {}; // Store route polylines for each day
+let openInfoWindows = []; // Track open info windows
 let myTrip = [];
 let currentLocationMarker = null;
 let accuracyCircle = null;
@@ -17,6 +25,7 @@ let nearbyMode = false;
 let userLocation = null;
 let nearbyWatchId = null;
 let nearbyRadiusCircle = null;
+let nearbyMarkers = [];
 const NEARBY_RADIUS_KM = 5;
 const CITY_MAX_DISTANCE_KM = 50;
 const LOCATION_UPDATE_THRESHOLD_M = 200;
@@ -89,25 +98,54 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // Map Initialization
 function initializeMap() {
-    map = L.map('map').setView([55.6761, 12.5683], 12);
+    // This function is now empty - Google Maps will call initMap() instead
+    console.log('Waiting for Google Maps to load...');
+}
+
+// New Google Maps initialization (this is the callback function)
+function initMap() {
+    console.log('Google Maps loaded, initializing...');
     
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    
-    markers = {
-        sightseeing: L.layerGroup().addTo(map),
-        food: L.layerGroup().addTo(map),
-        drinks: L.layerGroup().addTo(map)
-    };
-    
-    // Add popup close event listener to remove card highlights
-    map.on('popupclose', function(e) {
-        // Remove highlight from all venue cards when any popup is closed
-        document.querySelectorAll('.venue-card.highlighted').forEach(card => {
-            card.classList.remove('highlighted');
-        });
+    // Initialize map centered on Copenhagen (adjust for your default city)
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 12,
+        center: { lat: 55.6761, lng: 12.5683 }, // Copenhagen
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        styles: [
+            // Optional: Subtle dark theme to match your app
+            {
+                "featureType": "all",
+                "elementType": "labels.text.fill",
+                "stylers": [{"color": "#ffffff"}]
+            },
+            {
+                "featureType": "all",
+                "elementType": "labels.text.stroke",
+                "stylers": [{"color": "#000000"}, {"lightness": 13}]
+            }
+        ]
     });
+
+    // Initialize directions service
+    directionsService = new google.maps.DirectionsService();
+    directionsRenderer = new google.maps.DirectionsRenderer({
+        suppressMarkers: true, // We'll use custom markers
+        polylineOptions: {
+            strokeWeight: 4,
+            strokeOpacity: 0.8
+        }
+    });
+
+    // Add click listener to remove highlights when clicking on map
+    map.addListener('click', function() {
+        removeAllHighlights();
+        closeAllInfoWindows();
+    });
+
+    // Initialize other components
+    initializeEventListeners();
+    populateCityDropdown();
+    loadCityFromFile('cities/Copenhagen.json');
 }
 
 // Event Listeners
@@ -187,49 +225,132 @@ function showContentSections() {
 }
 
 function addMarkersToMap(cityData) {
-    // Sightseeing (red markers)
+    // Clear existing markers
+    clearAllMarkers();
+
+    // Add sightseeing markers (red)
     cityData.sightseeing.forEach(attraction => {
-        const marker = L.marker([attraction.location.lat, attraction.location.lng], {
-            icon: createCustomIcon('red')
-        }).bindPopup(createPopupContent(attraction, 'sightseeing'));
-        
+        const marker = new google.maps.Marker({
+            position: { lat: attraction.location.lat, lng: attraction.location.lng },
+            map: map,
+            title: attraction.name,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: '#e74c3c',
+                fillOpacity: 1,
+                strokeColor: '#ffffff',
+                strokeWeight: 2,
+                scale: 8
+            }
+        });
+
+        // Add info window
+        const infoWindow = new google.maps.InfoWindow({
+            content: createPopupContent(attraction, 'sightseeing')
+        });
+
+        marker.addListener('click', () => {
+            closeAllInfoWindows();
+            infoWindow.open(map, marker);
+            openInfoWindows.push(infoWindow);
+            highlightCard(`sightseeing-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`);
+        });
+
+        // Close info window listener
+        infoWindow.addListener('closeclick', () => {
+            removeAllHighlights();
+        });
+
         marker.venueId = `sightseeing-${attraction.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.sightseeing.addLayer(marker);
+        marker.infoWindow = infoWindow;
+        markers.sightseeing.push(marker);
     });
-    
-    // Food (purple markers)
+
+    // Add food markers (purple)
     cityData.food.forEach(restaurant => {
-        const marker = L.marker([restaurant.location.lat, restaurant.location.lng], {
-            icon: createCustomIcon('purple')
-        }).bindPopup(createPopupContent(restaurant, 'food'));
-        
+        const marker = new google.maps.Marker({
+            position: { lat: restaurant.location.lat, lng: restaurant.location.lng },
+            map: map,
+            title: restaurant.name,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: '#9b59b6',
+                fillOpacity: 1,
+                strokeColor: '#ffffff',
+                strokeWeight: 2,
+                scale: 8
+            }
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: createPopupContent(restaurant, 'food')
+        });
+
+        marker.addListener('click', () => {
+            closeAllInfoWindows();
+            infoWindow.open(map, marker);
+            openInfoWindows.push(infoWindow);
+            highlightCard(`food-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`);
+        });
+
+        infoWindow.addListener('closeclick', () => {
+    removeAllHighlights();
+        });
+
         marker.venueId = `food-${restaurant.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.food.addLayer(marker);
+        marker.infoWindow = infoWindow;
+        markers.food.push(marker);
     });
-    
-    // Drinks (green markers)
+
+    // Add drinks markers (green)
     cityData.drinks.forEach(bar => {
-        const marker = L.marker([bar.location.lat, bar.location.lng], {
-            icon: createCustomIcon('green')
-        }).bindPopup(createPopupContent(bar, 'drinks'));
-        
+        const marker = new google.maps.Marker({
+            position: { lat: bar.location.lat, lng: bar.location.lng },
+            map: map,
+            title: bar.name,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: '#27ae60',
+                fillOpacity: 1,
+                strokeColor: '#ffffff',
+                strokeWeight: 2,
+                scale: 8
+            }
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+            content: createPopupContent(bar, 'drinks')
+        });
+
+        marker.addListener('click', () => {
+            closeAllInfoWindows();
+            infoWindow.open(map, marker);
+            openInfoWindows.push(infoWindow);
+            highlightCard(`drinks-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`);
+        });
+
+        infoWindow.addListener('closeclick', () => {
+            removeAllHighlights();
+        });
+
         marker.venueId = `drinks-${bar.name.replace(/[^a-z0-9]/gi, '-').toLowerCase()}`;
-        markers.drinks.addLayer(marker);
+        marker.infoWindow = infoWindow;
+        markers.drinks.push(marker);
     });
 }
 
-function createCustomIcon(color) {
-    const colorMap = {
+function createMarkerIcon(color) {
+    const colors = {
         red: '#e74c3c',
-        purple: '#9b59b6',
+        purple: '#9b59b6', 
         green: '#27ae60'
     };
-    return L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="background-color: ${colorMap[color]}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`,
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
-    });
+    
+    return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(`
+        <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="15" cy="15" r="12" fill="${colors[color]}" stroke="white" stroke-width="3"/>
+        </svg>
+    `)}`;
 }
 
 function createPopupContent(venue, type) {
@@ -572,20 +693,24 @@ function handlePriceFilter() {
 // Map Interactions
 function toggleMapLayer(event) {
     const layerType = event.target.id.replace('-layer', '');
-    const layer = markers[layerType];
+    const markerArray = markers[layerType];
     
     if (event.target.checked) {
-        map.addLayer(layer);
+        // Show markers
+        markerArray.forEach(marker => {
+            marker.setMap(map);
+        });
     } else {
-        map.removeLayer(layer);
+        // Hide markers
+        markerArray.forEach(marker => {
+            marker.setMap(null);
+        });
     }
 }
 
 function highlightOnMap(venueId) {
     // Remove existing highlights
-    document.querySelectorAll('.venue-card').forEach(card => {
-        card.classList.remove('highlighted');
-    });
+    removeAllHighlights();
     
     // Highlight selected card
     const card = document.querySelector(`[data-venue-id="${venueId}"]`);
@@ -594,15 +719,28 @@ function highlightOnMap(venueId) {
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
     
-    // Find and open corresponding marker popup
-    Object.values(markers).forEach(layerGroup => {
-        layerGroup.eachLayer(marker => {
-            if (marker.venueId === venueId) {
-                marker.openPopup();
-                map.setView(marker.getLatLng(), Math.max(map.getZoom(), 15));
-            }
-        });
+    // Find and open corresponding marker
+    const allMarkers = [...markers.sightseeing, ...markers.food, ...markers.drinks];
+    const marker = allMarkers.find(m => m.venueId === venueId);
+    
+    if (marker) {
+        closeAllInfoWindows();
+        marker.infoWindow.open(map, marker);
+        openInfoWindows.push(marker.infoWindow);
+        map.setCenter(marker.getPosition());
+        map.setZoom(Math.max(map.getZoom(), 15));
+    }
+}
+
+function removeAllHighlights() {
+    document.querySelectorAll('.venue-card.highlighted').forEach(card => {
+        card.classList.remove('highlighted');
     });
+}
+
+function closeAllInfoWindows() {
+    openInfoWindows.forEach(infoWindow => infoWindow.close());
+    openInfoWindows = [];
 }
 
 // Trip Planning
@@ -814,10 +952,11 @@ function getCityFilename(cityName) {
 function updateDashboardWithCity(cityData) {
     // Update map center and store it
     currentCityCenter = [cityData.center.lat, cityData.center.lng];
-    map.setView(currentCityCenter, 12);
+    map.setCenter({ lat: currentCityCenter[0], lng: currentCityCenter[1] });
+    map.setZoom(12);
     
     // Clear existing markers
-    Object.values(markers).forEach(layer => layer.clearLayers());
+    clearAllMarkers();
     
     // Add new markers
     addMarkersToMap(cityData);
@@ -914,42 +1053,49 @@ function getCurrentLocation() {
 }
 
 function showCurrentLocationOnMap(lat, lng, accuracy) {
-    // Store current city center if not already stored
-    if (!currentCityCenter) {
-        currentCityCenter = map.getCenter();
-    }
+    console.log('Showing current location:', lat, lng, 'accuracy:', accuracy);
     
     // Remove existing markers
     if (currentLocationMarker) {
-        map.removeLayer(currentLocationMarker);
+        currentLocationMarker.setMap(null);
     }
     if (accuracyCircle) {
-        map.removeLayer(accuracyCircle);
+        accuracyCircle.setMap(null);
     }
     
-    // Create accuracy circle
-    accuracyCircle = L.circle([lat, lng], {
-        radius: accuracy,
-        className: 'accuracy-circle',
-        fillOpacity: 0.2,
-        weight: 1
-    }).addTo(map);
-    
-    // Create current location marker
-    const currentLocationIcon = L.divIcon({
-        className: 'current-location-marker',
-        html: '', // Remove the nested div
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
+    // Create accuracy circle (Google Maps Circle)
+    accuracyCircle = new google.maps.Circle({
+        strokeColor: '#007AFF',
+        strokeOpacity: 0.3,
+        strokeWeight: 1,
+        fillColor: '#007AFF',
+        fillOpacity: 0.1,
+        map: map,
+        center: { lat: lat, lng: lng },
+        radius: accuracy // radius in meters
     });
     
-    currentLocationMarker = L.marker([lat, lng], { 
-        icon: currentLocationIcon,
-        zIndexOffset: 1000
-    }).addTo(map);
+    // Create current location marker
+    currentLocationMarker = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map: map,
+        title: 'Your current location',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: '#007AFF',
+            fillOpacity: 1,
+            strokeColor: '#FFFFFF',
+            strokeWeight: 3,
+            scale: 8
+        },
+        zIndex: 1000
+    });
     
-    // Pan to current location
-    map.setView([lat, lng], 16, { animate: true, duration: 1 });
+    // Center map on current location
+    map.setCenter({ lat: lat, lng: lng });
+    map.setZoom(15);
+    
+    showToast('Current location found', 'success');
 }
 
 function startLocationTracking() {
@@ -974,17 +1120,17 @@ function startLocationTracking() {
 }
 
 function updateCurrentLocationMarker(lat, lng, accuracy) {
-    if (!isShowingCurrentLocation) return;
+    console.log('Updating current location marker:', lat, lng);
     
     // Update accuracy circle
     if (accuracyCircle) {
-        accuracyCircle.setLatLng([lat, lng]);
+        accuracyCircle.setCenter({ lat: lat, lng: lng });
         accuracyCircle.setRadius(accuracy);
     }
     
     // Update marker position
     if (currentLocationMarker) {
-        currentLocationMarker.setLatLng([lat, lng]);
+        currentLocationMarker.setPosition({ lat: lat, lng: lng });
     }
 }
 
@@ -997,9 +1143,10 @@ function returnToCityCenter() {
         watchId = null;
     }
     
-    // Return to city center
+    // Return to city center - FIXED for Google Maps
     if (currentCityCenter) {
-        map.setView(currentCityCenter, 12, { animate: true, duration: 1 });
+        map.setCenter(currentCityCenter);
+        map.setZoom(12);
     }
     
     // Update button state
@@ -1343,39 +1490,52 @@ function startNearbyMode() {
 }
 
 function stopNearbyMode() {
-    if (!nearbyMode) return;
-    
     nearbyMode = false;
-    userLocation = null;
     
-    // Stop location tracking
-    if (nearbyWatchId) {
-        navigator.geolocation.clearWatch(nearbyWatchId);
-        nearbyWatchId = null;
+    // Clear nearby venues
+    const nearbyGrid = document.getElementById('nearby-grid');
+    if (nearbyGrid) {
+        nearbyGrid.innerHTML = '';
     }
     
-    // Remove radius circle from map
+    // Remove nearby radius circle
     if (nearbyRadiusCircle) {
-        map.removeLayer(nearbyRadiusCircle);
+        nearbyRadiusCircle.setMap(null); // Fixed for Google Maps
         nearbyRadiusCircle = null;
     }
     
-    // Clean up blue dot and accuracy circle (only if current location button is not active)
-    if (!isShowingCurrentLocation) {
-        if (currentLocationMarker) {
-            map.removeLayer(currentLocationMarker);
-            currentLocationMarker = null;
-        }
-        if (accuracyCircle) {
-            map.removeLayer(accuracyCircle);
-            accuracyCircle = null;
-        }
+    // Remove current location marker and accuracy circle
+    if (currentLocationMarker) {
+        currentLocationMarker.setMap(null); // Fixed for Google Maps
+        currentLocationMarker = null;
+    }
+    if (accuracyCircle) {
+        accuracyCircle.setMap(null); // Fixed for Google Maps
+        accuracyCircle = null;
     }
     
-    // Return to city center view
-    if (currentCityCenter) {
-        map.setView(currentCityCenter, 12, { animate: true, duration: 1 });
+    // Stop location tracking
+    if (locationWatchId) {
+        navigator.geolocation.clearWatch(locationWatchId);
+        locationWatchId = null;
     }
+    
+    // Update button state
+    const locationBtn = document.getElementById('current-location-btn');
+    if (locationBtn) {
+        locationBtn.classList.remove('active');
+    }
+    
+    // Show all venues again
+    document.querySelectorAll('.venue-card').forEach(card => {
+        card.style.display = 'block';
+    });
+    
+    // Clear nearby status
+    updateNearbyStatus('info', 'Nearby mode disabled');
+    
+    // Restore original map view
+    returnToCityCenter();
 }
 
 function startNearbyLocationTracking() {
@@ -1415,41 +1575,43 @@ function startNearbyLocationTracking() {
 
 // Create a new function that shows blue dot without zooming
 function showCurrentLocationMarkerOnly(lat, lng, accuracy) {
-    // Store current city center if not already stored
-    if (!currentCityCenter) {
-        currentCityCenter = map.getCenter();
-    }
+    console.log('Showing current location marker only:', lat, lng);
     
     // Remove existing markers
     if (currentLocationMarker) {
-        map.removeLayer(currentLocationMarker);
+        currentLocationMarker.setMap(null);
     }
     if (accuracyCircle) {
-        map.removeLayer(accuracyCircle);
+        accuracyCircle.setMap(null);
     }
     
     // Create accuracy circle
-    accuracyCircle = L.circle([lat, lng], {
-        radius: accuracy,
-        className: 'accuracy-circle',
-        fillOpacity: 0.2,
-        weight: 1
-    }).addTo(map);
-    
-    // Create current location marker
-    const currentLocationIcon = L.divIcon({
-        className: 'current-location-marker',
-        html: '', // Remove the nested div
-        iconSize: [20, 20],
-        iconAnchor: [10, 10]
+    accuracyCircle = new google.maps.Circle({
+        strokeColor: '#007AFF',
+        strokeOpacity: 0.3,
+        strokeWeight: 1,
+        fillColor: '#007AFF',
+        fillOpacity: 0.1,
+        map: map,
+        center: { lat: lat, lng: lng },
+        radius: accuracy
     });
     
-    currentLocationMarker = L.marker([lat, lng], { 
-        icon: currentLocationIcon,
-        zIndexOffset: 1000
-    }).addTo(map);
-    
-    // Don't zoom - let the calling function handle zoom
+    // Create current location marker
+    currentLocationMarker = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map: map,
+        title: 'Your current location',
+        icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: '#007AFF',
+            fillOpacity: 1,
+            strokeColor: '#FFFFFF',
+            strokeWeight: 3,
+            scale: 8
+        },
+        zIndex: 1000
+    });
 }
 
 function handleLocationSuccess() {
@@ -1557,51 +1719,88 @@ function displayNearbyVenues(venues) {
     }, 100);
 }
 
+// Fix updateMapForNearbyMode function
 function updateMapForNearbyMode(venues) {
-    if (!userLocation) return;
+    // Clear existing nearby markers
+    clearNearbyMarkers();
     
-    // Add radius circle
-    if (nearbyRadiusCircle) {
-        map.removeLayer(nearbyRadiusCircle);
-    }
+    if (venues.length === 0) return;
     
-    // Create a more accurate geodesic circle
-    nearbyRadiusCircle = createGeodesicCircle(
-        [userLocation.lat, userLocation.lng], 
-        NEARBY_RADIUS_KM * 1000
-    ).addTo(map);
-    
-    // Auto-zoom to fit user location and nearby venues
-    if (venues.length > 0) {
-        const bounds = L.latLngBounds();
-        bounds.extend([userLocation.lat, userLocation.lng]);
-        venues.forEach(venue => {
-            bounds.extend([venue.location.lat, venue.location.lng]);
+    // Add markers for nearby venues
+    venues.forEach(venue => {
+        const color = venue.type === 'sightseeing' ? '#e74c3c' : 
+                     venue.type === 'food' ? '#9b59b6' : '#27ae60';
+        
+        const marker = new google.maps.Marker({
+            position: { lat: venue.location.lat, lng: venue.location.lng },
+            map: map,
+            title: venue.name,
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: color,
+                fillOpacity: 1,
+                strokeColor: '#ffffff',
+                strokeWeight: 2,
+                scale: 6
+            }
         });
-        map.fitBounds(bounds, { padding: [20, 20], animate: true, duration: 1 });
-    } else {
-        // Just center on user with appropriate zoom
-        map.setView([userLocation.lat, userLocation.lng], 14, { animate: true, duration: 1 });
+        
+        // Add info window
+        const infoWindow = new google.maps.InfoWindow({
+            content: createPopupContent(venue, venue.type)
+        });
+        
+        marker.addListener('click', () => {
+            closeAllInfoWindows();
+            infoWindow.open(map, marker);
+            openInfoWindows.push(infoWindow);
+        });
+        
+        nearbyMarkers.push(marker);
+    });
+    
+    // Create radius circle around user location
+    if (userLocation && !nearbyRadiusCircle) {
+        nearbyRadiusCircle = new google.maps.Circle({
+            strokeColor: '#007AFF',
+            strokeOpacity: 0.5,
+            strokeWeight: 2,
+            fillColor: '#007AFF',
+            fillOpacity: 0.1,
+            map: map,
+            center: { lat: userLocation.lat, lng: userLocation.lng },
+            radius: nearbyRadius * 1000 // Convert km to meters
+        });
     }
 }
 
-// Create a geodesic circle for accurate distance representation
+// Add helper function to clear nearby markers
+function clearNearbyMarkers() {
+    if (nearbyMarkers) {
+        nearbyMarkers.forEach(marker => marker.setMap(null));
+        nearbyMarkers = [];
+    }
+}
+
+// Fix the createGeodesicCircle function (around line 1793)
 function createGeodesicCircle(center, radiusMeters) {
     const points = [];
-    const numPoints = 64; // Number of points to create the circle
+    const numPoints = 64;
     
     for (let i = 0; i < numPoints; i++) {
         const angle = (i * 360) / numPoints;
         const point = calculatePointAtDistance(center[0], center[1], radiusMeters, angle);
-        points.push([point.lat, point.lng]);
+        points.push({ lat: point.lat, lng: point.lng });
     }
     
-    return L.polygon(points, {
-        className: 'nearby-radius-circle',
+    return new google.maps.Polygon({
+        paths: points,
+        strokeColor: '#007bff',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#007bff',
         fillOpacity: 0.1,
-        weight: 2,
-        dashArray: '5, 5',
-        color: '#007bff'
+        map: map
     });
 }
 
@@ -2140,36 +2339,69 @@ function toggleDayCollapse(dayNumber) {
 
 // Draw route for a specific day
 function drawDayRoute(dayNumber) {
-    if (!window.cityData) return;
-    
     const cityName = window.cityData.name;
-    const dayVenues = cityDayPlans[cityName].days[dayNumber] || [];
+    const dayVenues = cityDayPlans[cityName]?.days[dayNumber] || [];
     
-    // Remove existing route
-    if (dayRoutePolylines[dayNumber]) {
-        map.removeLayer(dayRoutePolylines[dayNumber]);
-        delete dayRoutePolylines[dayNumber];
+    if (dayVenues.length < 2) {
+        // Clear existing route for this day
+        if (routePolylines[dayNumber]) {
+            routePolylines[dayNumber].setMap(null);
+            delete routePolylines[dayNumber];
+        }
+        return;
     }
+
+    // Create waypoints for Google Directions API
+    const waypoints = [];
+    const locations = [];
     
-    if (dayVenues.length < 2) return;
-    
-    // Create route coordinates
-    const coordinates = dayVenues.map(venue => [venue.location.lat, venue.location.lng]);
-    const dayColor = DAY_COLORS[(dayNumber - 1) % DAY_COLORS.length];
-    
-    // Create polyline
-    const polyline = L.polyline(coordinates, {
-        color: dayColor,
-        weight: 4,
-        opacity: showAllRoutes ? 0.8 : (currentActiveDayPlan === dayNumber ? 0.8 : 0.3),
-        dashArray: '10, 5'
-    }).addTo(map);
-    
-    dayRoutePolylines[dayNumber] = polyline;
-    
-    // Add click handler to highlight day
-    polyline.on('click', () => {
-        highlightDay(dayNumber);
+    dayVenues.forEach(venue => {
+        const venueData = findVenueData(venue.name, venue.type);
+        if (venueData && venueData.location) {
+            locations.push({ lat: venueData.location.lat, lng: venueData.location.lng });
+        }
+    });
+
+    if (locations.length < 2) return;
+
+    const origin = locations[0];
+    const destination = locations[locations.length - 1];
+    const waypointsMiddle = locations.slice(1, -1).map(loc => ({
+        location: loc,
+        stopover: true
+    }));
+
+    const request = {
+        origin: origin,
+        destination: destination,
+        waypoints: waypointsMiddle,
+        travelMode: google.maps.TravelMode.WALKING,
+        optimizeWaypoints: false // Keep user's order
+    };
+
+    directionsService.route(request, (result, status) => {
+        if (status === 'OK') {
+            // Clear existing route
+            if (routePolylines[dayNumber]) {
+                routePolylines[dayNumber].setMap(null);
+            }
+
+            // Create polyline with day-specific color
+            const dayColor = ROUTE_COLORS[(dayNumber - 1) % ROUTE_COLORS.length];
+            
+            const polyline = new google.maps.Polyline({
+                path: result.routes[0].overview_path,
+                geodesic: true,
+                strokeColor: dayColor,
+                strokeOpacity: 0.8,
+                strokeWeight: 4,
+                map: map
+            });
+
+            routePolylines[dayNumber] = polyline;
+        } else {
+            console.error('Directions request failed:', status);
+        }
     });
 }
 
@@ -2182,11 +2414,11 @@ function redrawAllRoutes() {
     
     if (!dayPlan) return;
     
-    // Clear existing routes
-    Object.values(dayRoutePolylines).forEach(polyline => {
-        map.removeLayer(polyline);
+    // Clear existing routes - FIXED for Google Maps
+    Object.values(routePolylines).forEach(polyline => {
+        polyline.setMap(null);
     });
-    dayRoutePolylines = {};
+    routePolylines = {};
     
     // Redraw all day routes
     for (let day = 1; day <= dayPlan.dayCount; day++) {
@@ -2216,10 +2448,14 @@ function highlightDay(dayNumber) {
 
 // Update route visibility based on settings
 function updateRouteVisibility() {
-    Object.entries(dayRoutePolylines).forEach(([day, polyline]) => {
+    Object.entries(routePolylines).forEach(([day, polyline]) => {
         const dayNum = parseInt(day);
         const opacity = showAllRoutes ? 0.8 : (currentActiveDayPlan === dayNum ? 0.8 : 0.3);
-        polyline.setStyle({ opacity });
+        
+        // FIXED for Google Maps
+        polyline.setOptions({ 
+            strokeOpacity: opacity 
+        });
     });
 }
 
@@ -2303,11 +2539,11 @@ function clearDayPlan() {
             container.innerHTML = '';
         }
         
-        // Clear routes
-        Object.values(dayRoutePolylines).forEach(polyline => {
-            map.removeLayer(polyline);
+        // Clear routes - FIXED for Google Maps
+        Object.values(routePolylines).forEach(polyline => {
+            polyline.setMap(null);
         });
-        dayRoutePolylines = {};
+        routePolylines = {};
         
         showToast('Day plan cleared', 'info');
     }
@@ -2468,3 +2704,29 @@ function updateDayLegend() {
 
 // Call updateDayLegend when day plans are generated/updated
 // Add this to generateDayBins function and other relevant places
+
+function clearAllMarkers() {
+    // Clear all marker arrays
+    markers.sightseeing.forEach(marker => marker.setMap(null));
+    markers.food.forEach(marker => marker.setMap(null));
+    markers.drinks.forEach(marker => marker.setMap(null));
+    
+    markers.sightseeing = [];
+    markers.food = [];
+    markers.drinks = [];
+    
+    closeAllInfoWindows();
+}
+
+function findVenueData(venueName, venueType) {
+    if (!window.cityData) return null;
+    
+    const venueArrays = {
+        'sightseeing': window.cityData.sightseeing,
+        'food': window.cityData.food,
+        'drinks': window.cityData.drinks
+    };
+    
+    const venues = venueArrays[venueType] || [];
+    return venues.find(venue => venue.name === venueName);
+}

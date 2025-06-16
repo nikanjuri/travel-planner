@@ -8,9 +8,7 @@ const CORE_ASSETS = [
   '/app.js',
   '/style.css',
   '/favicon.ico',
-  // External dependencies
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css',
-  'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+  // External dependencies (removed Leaflet references)
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
   'https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js'
 ];
