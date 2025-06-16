@@ -1419,3 +1419,60 @@ select.form-control {
   padding-top: var(--space-8);
   border-top: 1px solid var(--color-border);
 }
+
+/* Add ultra-specific CSS to prevent drag state inheritance */
+
+/* Ensure only the actual dragged item gets the drag styles */
+.trip-items > .trip-item.sortable-chosen {
+  opacity: 0.9 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
+}
+
+.trip-items > .trip-item.sortable-ghost {
+  opacity: 0.5 !important;
+  background: rgba(var(--color-primary-rgb), 0.1) !important;
+}
+
+.trip-items > .trip-item.sortable-drag {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+}
+
+/* Prevent other trip items from being affected */
+.trip-items > .trip-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag) {
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  z-index: auto !important;
+}
+
+/* Same for day venue items */
+.day-venues > .day-venue-item.sortable-chosen {
+  opacity: 0.9 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
+}
+
+.day-venues > .day-venue-item.sortable-ghost {
+  opacity: 0.5 !important;
+  background: rgba(var(--color-primary-rgb), 0.1) !important;
+}
+
+.day-venues > .day-venue-item.sortable-drag {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+}
+
+.day-venues > .day-venue-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag) {
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  z-index: auto !important;
+}

@@ -615,6 +615,7 @@ function clearTrip() {
     }
 }
 
+// COMPLETELY REWRITE updateTripDisplay to have flat structure
 function updateTripDisplay() {
     const tripItems = document.getElementById('trip-items');
     if (!tripItems) return;
@@ -624,37 +625,22 @@ function updateTripDisplay() {
         return;
     }
     
-    // Group by city for better organization
-    const tripByCity = myTrip.reduce((acc, item) => {
-        const city = item.city || 'Unknown';
-        if (!acc[city]) acc[city] = [];
-        acc[city].push(item);
-        return acc;
-    }, {});
-    
+    // Create flat structure without nested groups
     let html = '';
-    Object.entries(tripByCity).forEach(([city, items]) => {
-        html += `<div class="trip-city-group">`;
-        if (Object.keys(tripByCity).length > 1) {
-            html += `<h4 class="trip-city-title">${city}</h4>`;
-        }
-        
-        items.forEach(item => {
-            const typeIcon = getTypeIcon(item.type);
-            html += `
-        <div class="trip-item">
-                    <div class="trip-item-info">
-                        <span class="trip-item-icon">${typeIcon}</span>
-            <span class="trip-item-name">${item.name}</span>
-                        <span class="trip-item-type">${item.type}</span>
-                    </div>
-            <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-            `;
-        });
-        html += `</div>`;
+    myTrip.forEach(item => {
+        const typeIcon = getTypeIcon(item.type);
+        html += `
+            <div class="trip-item" data-venue-name="${item.name}" data-venue-type="${item.type}">
+                <div class="trip-item-info">
+                    <span class="trip-item-icon">${typeIcon}</span>
+                    <span class="trip-item-name">${item.name}</span>
+                    <span class="trip-item-type">${item.type}</span>
+                </div>
+                <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
     });
     
     tripItems.innerHTML = html;
