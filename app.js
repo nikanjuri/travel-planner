@@ -673,6 +673,29 @@ function updateButtonStates() {
             }
         });
     });
+    
+    // Add states for items in day plans
+    if (window.cityData) {
+        const cityName = window.cityData.name;
+        const cityPlan = cityDayPlans[cityName];
+        
+        if (cityPlan && cityPlan.days) {
+            // Collect all venues from all days
+            const allDayVenues = [];
+            for (const dayNumber in cityPlan.days) {
+                allDayVenues.push(...cityPlan.days[dayNumber]);
+            }
+            
+            // Update button states for day plan venues
+            allDayVenues.forEach(item => {
+                document.querySelectorAll(`[onclick*="${item.name}"]`).forEach(btn => {
+                    if (btn.title === 'Add to trip') {
+                        btn.classList.add('added');
+                    }
+                });
+            });
+        }
+    }
 }
 
 // City Management
@@ -2235,4 +2258,25 @@ function clearDayPlan() {
         
         showToast('Day plan cleared', 'info');
     }
+}
+
+// Helper function to check if a venue is in any day plan
+function isVenueInDayPlans(venueName, venueType) {
+    if (!window.cityData) return false;
+    
+    const cityName = window.cityData.name;
+    const cityPlan = cityDayPlans[cityName];
+    
+    if (!cityPlan || !cityPlan.days) return false;
+    
+    // Check all days for this venue
+    for (const dayNumber in cityPlan.days) {
+        const dayVenues = cityPlan.days[dayNumber];
+        const found = dayVenues.find(venue => 
+            venue.name === venueName && venue.type === venueType
+        );
+        if (found) return true;
+    }
+    
+    return false;
 }
