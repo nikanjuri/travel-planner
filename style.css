@@ -1470,7 +1470,7 @@ select.form-control {
   pointer-events: auto;
 }
 
-/* Current Location Button - Add missing base styling and fix hover */
+/* Current Location Button - Fix hover to use black background */
 .location-btn {
   display: flex;
   align-items: center;
@@ -1487,7 +1487,8 @@ select.form-control {
 }
 
 .location-btn:hover {
-  background: var(--color-secondary-hover);
+  background: #000000 !important;  /* Black background as requested */
+  color: #ffffff !important;       /* White icon for contrast */
   border-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
@@ -1508,8 +1509,8 @@ select.form-control {
   font-size: var(--font-size-base);
 }
 
-/* Current Location Marker Styling - Make more specific to avoid conflicts */
-.leaflet-marker-icon.current-location-marker {
+/* Current Location Marker - Simplified and working styling */
+.current-location-marker {
   width: 20px !important;
   height: 20px !important;
   background: #007AFF !important;
@@ -1518,13 +1519,10 @@ select.form-control {
   box-shadow: 0 2px 8px rgba(0, 122, 255, 0.4) !important;
   position: relative !important;
   z-index: 1000 !important;
-  /* Reset any inherited styles */
-  transform: none !important;
-  transition: none !important;
 }
 
-/* Pulsing animation for current location - More specific selector */
-.leaflet-marker-icon.current-location-marker::before {
+/* Pulsing animation for current location */
+.current-location-marker::before {
   content: '';
   position: absolute;
   top: -3px;
@@ -1552,29 +1550,15 @@ select.form-control {
   }
 }
 
-/* Accuracy Circle Styling */
-.accuracy-circle {
-  fill: #007AFF !important;
-  fill-opacity: 0.1 !important;
-  stroke: #007AFF !important;
-  stroke-opacity: 0.3 !important;
-  stroke-width: 1 !important;
-}
-
 /* Dark theme adjustments for current location */
-[data-color-scheme="dark"] .leaflet-marker-icon.current-location-marker {
+[data-color-scheme="dark"] .current-location-marker {
   background: #0A84FF !important;
   border-color: #1C1C1E !important;
   box-shadow: 0 2px 8px rgba(10, 132, 255, 0.5) !important;
 }
 
-[data-color-scheme="dark"] .leaflet-marker-icon.current-location-marker::before {
+[data-color-scheme="dark"] .current-location-marker::before {
   border-color: #0A84FF;
-}
-
-[data-color-scheme="dark"] .accuracy-circle {
-  fill: #0A84FF !important;
-  stroke: #0A84FF !important;
 }
 
 /* City Dropdown */
