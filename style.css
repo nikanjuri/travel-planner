@@ -1691,13 +1691,13 @@ select.form-control {
     padding: 0 !important;
 }
 
-/* Style the popup content with white text */
+/* Style the popup content with white text - UPDATED */
 .popup-content {
     font-family: var(--font-family-base) !important;
     color: #ffffff !important; /* White text */
     font-size: 14px !important;
     line-height: 1.5 !important;
-    padding: 16px !important;
+    padding: 12px 16px 16px 16px !important; /* Reduced top padding from 16px to 12px */
     background: transparent !important;
 }
 
