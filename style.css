@@ -1642,18 +1642,6 @@ select.form-control {
 }
 
 /* Map Popup Styling - Fix text color issues */
-.leaflet-popup-content-wrapper {
-    background: var(--color-surface) !important;
-    color: var(--color-text) !important;
-    border-radius: var(--radius-base) !important;
-    box-shadow: var(--shadow-lg) !important;
-}
-
-.leaflet-popup-content {
-    margin: 0 !important;
-    padding: var(--space-12) !important;
-    color: var(--color-text) !important;
-}
 
 .popup-content {
     color: var(--color-text) !important;
@@ -1694,19 +1682,7 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-.leaflet-popup-tip {
-    background: var(--color-surface) !important;
-}
-
 /* Dark theme specific popup fixes */
-[data-color-scheme="dark"] .leaflet-popup-content-wrapper {
-    background: var(--color-surface) !important;
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .leaflet-popup-tip {
-    background: var(--color-surface) !important;
-}
 
 /* Responsive Design for Day Planner */
 @media (max-width: 768px) {
@@ -1736,4 +1712,98 @@ select.form-control {
   .day-venue-item {
     padding: var(--space-6) var(--space-8);
   }
+}
+
+/* Google Maps InfoWindow Styling - Add after line 1685 */
+
+/* Style the Google Maps InfoWindow container */
+.gm-style .gm-style-iw-c {
+    background-color: var(--color-surface) !important;
+    border-radius: var(--radius-base) !important;
+    box-shadow: var(--shadow-lg) !important;
+    padding: 0 !important;
+}
+
+/* Style the InfoWindow content wrapper */
+.gm-style .gm-style-iw-d {
+    overflow: hidden !important;
+    padding: var(--space-12) !important;
+}
+
+/* Style the InfoWindow close button */
+.gm-style .gm-style-iw-t::after {
+    background-color: var(--color-surface) !important;
+}
+
+/* Popup content styling (keep existing) */
+.popup-content {
+    color: var(--color-text) !important;
+    font-family: var(--font-family-base) !important;
+}
+
+.popup-content h3 {
+    margin: 0 0 var(--space-8) 0 !important;
+    color: var(--color-text) !important;
+    font-size: var(--font-size-base) !important;
+    font-weight: var(--font-weight-semibold) !important;
+}
+
+.popup-desc {
+    margin-bottom: var(--space-8) !important;
+    color: var(--color-text-secondary) !important;
+    font-size: var(--font-size-sm) !important;
+    line-height: var(--line-height-normal) !important;
+}
+
+.popup-price {
+    margin-bottom: var(--space-4) !important;
+    color: var(--color-text) !important;
+    font-weight: var(--font-weight-medium) !important;
+    font-size: var(--font-size-sm) !important;
+}
+
+.popup-rating {
+    margin-bottom: var(--space-8) !important;
+    color: var(--color-text-secondary) !important;
+    font-size: var(--font-size-sm) !important;
+}
+
+.popup-content a {
+    color: var(--color-primary) !important;
+    text-decoration: none !important;
+    font-weight: var(--font-weight-medium) !important;
+}
+
+.popup-content a:hover {
+    color: var(--color-primary-hover) !important;
+    text-decoration: underline !important;
+}
+
+/* Dark theme specific fixes for Google Maps InfoWindows */
+[data-color-scheme="dark"] .gm-style .gm-style-iw-c {
+    background-color: var(--color-surface) !important;
+}
+
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t::after {
+    background-color: var(--color-surface) !important;
+}
+
+[data-color-scheme="dark"] .popup-content {
+    color: var(--color-text) !important;
+}
+
+[data-color-scheme="dark"] .popup-content h3 {
+    color: var(--color-text) !important;
+}
+
+[data-color-scheme="dark"] .popup-desc {
+    color: var(--color-text-secondary) !important;
+}
+
+[data-color-scheme="dark"] .popup-price {
+    color: var(--color-text) !important;
+}
+
+[data-color-scheme="dark"] .popup-rating {
+    color: var(--color-text-secondary) !important;
 }

@@ -1145,7 +1145,7 @@ function returnToCityCenter() {
     
     // Return to city center - FIXED for Google Maps
     if (currentCityCenter) {
-        map.setCenter(currentCityCenter);
+        map.setCenter({ lat: currentCityCenter[0], lng: currentCityCenter[1] });
         map.setZoom(12);
     }
     
