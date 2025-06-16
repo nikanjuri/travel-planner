@@ -1613,3 +1613,21 @@ select.form-control {
 .location-btn i {
   font-size: var(--font-size-base);
 }
+
+/* City Dropdown */
+.city-dropdown {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.city-dropdown label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.city-dropdown select {
+  min-width: 160px;
+}
