@@ -5,10 +5,11 @@ To-be Implemented
 - [x] Current Location pin
 - [x] Geolocation "Near me"
 - [x] Offline caching
+- [x] Day-planner
 
 ### Next Up
-- [ ] Day-planner
 - [ ] Route optimizer - distance + time calculator
+- [ ] Change to google maps
 - [ ] Authentication - remember offline sync implementation.
 - [ ] Reservation on website
 - [ ] Automatically get all locations from web scraping and update/generate JSONs
