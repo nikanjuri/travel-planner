@@ -1844,19 +1844,29 @@ select.form-control {
   padding: var(--space-16);
 }
 
-/* Drag and Drop States */
+/* Drag and Drop States - FIXED */
 .sortable-ghost {
-  opacity: 0.3;
+  opacity: 0.3 !important;
 }
 
 .sortable-chosen {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
 }
 
 .sortable-drag {
-  transform: rotate(5deg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  transform: rotate(5deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+}
+
+/* Fallback for better drag UX */
+.sortable-fallback {
+  opacity: 0.7 !important;
+  transform: rotate(5deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1002 !important;
 }
 
 /* Route Controls */

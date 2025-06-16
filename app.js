@@ -1767,7 +1767,7 @@ function initializeTripSourceSortable() {
     });
 }
 
-// Initialize sortable for a specific day
+// Initialize sortable for a specific day - FIXED VERSION
 function initializeDaySortable(dayNumber) {
     const dayVenues = document.getElementById(`day-${dayNumber}-venues`);
     if (!dayVenues) return;
@@ -1786,6 +1786,23 @@ function initializeDaySortable(dayNumber) {
         ghostClass: 'sortable-ghost',
         chosenClass: 'sortable-chosen',
         dragClass: 'sortable-drag',
+        forceFallback: true,
+        fallbackClass: 'sortable-fallback',
+        fallbackOnBody: true,
+        onStart: function(evt) {
+            // Clear any previous drag states
+            document.querySelectorAll('.dragging-item').forEach(el => {
+                el.classList.remove('dragging-item');
+            });
+            // Only mark the actual dragged item
+            evt.item.classList.add('dragging-item');
+        },
+        onEnd: function(evt) {
+            // Clean up drag states
+            document.querySelectorAll('.dragging-item').forEach(el => {
+                el.classList.remove('dragging-item');
+            });
+        },
         onAdd: function(evt) {
             const venueName = evt.item.querySelector('.trip-item-name').textContent;
             const venueType = evt.item.querySelector('.trip-item-type').textContent;
@@ -1796,18 +1813,69 @@ function initializeDaySortable(dayNumber) {
             // Remove from trip source (it was moved, not copied)
             removeFromTrip(venueName);
             
-            // Update the day display
-            updateDayDisplay(dayNumber);
+            // Update the day display WITHOUT re-initializing sortable during drag
+            setTimeout(() => {
+                updateDayDisplay(dayNumber);
+            }, 100);
         },
         onUpdate: function(evt) {
             // Reorder venues within day
-            reorderDayVenues(dayNumber);
+            setTimeout(() => {
+                reorderDayVenuesWithoutReinit(dayNumber);
+            }, 100);
         },
         onRemove: function(evt) {
             // Venue was moved to another day
-            updateDayDisplay(dayNumber);
+            setTimeout(() => {
+                updateDayDisplayWithoutReinit(dayNumber);
+            }, 100);
         }
     });
+}
+
+// Update day display without re-initializing sortable
+function updateDayDisplayWithoutReinit(dayNumber) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const dayVenues = cityDayPlans[cityName].days[dayNumber] || [];
+    
+    // Update optimize button state
+    const optimizeBtn = document.querySelector(`[onclick="optimizeDay(${dayNumber}, event)"]`);
+    if (optimizeBtn) {
+        optimizeBtn.disabled = dayVenues.length < 2;
+    }
+    
+    // Redraw route for this day
+    drawDayRoute(dayNumber);
+    saveDayPlanToStorage();
+}
+
+// Reorder venues within a day without full re-initialization  
+function reorderDayVenuesWithoutReinit(dayNumber) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const container = document.getElementById(`day-${dayNumber}-venues`);
+    const venueItems = container.querySelectorAll('.day-venue-item');
+    
+    const reorderedVenues = [];
+    venueItems.forEach(item => {
+        const venueName = item.dataset.venueName;
+        const venueType = item.dataset.venueType;
+        
+        // Find venue data
+        const venue = cityDayPlans[cityName].days[dayNumber].find(
+            v => v.name === venueName && v.type === venueType
+        );
+        
+        if (venue) {
+            reorderedVenues.push(venue);
+        }
+    });
+    
+    cityDayPlans[cityName].days[dayNumber] = reorderedVenues;
+    updateDayDisplayWithoutReinit(dayNumber);
 }
 
 // Add venue to specific day
