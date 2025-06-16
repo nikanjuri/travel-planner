@@ -1714,60 +1714,41 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow Styling - Fixed version */
+/* Google Maps InfoWindow Styling - Simplified and Working Version */
 
-/* Style the Google Maps InfoWindow container - auto-size to content */
+/* Basic InfoWindow container styling */
 .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border-radius: var(--radius-base) !important;
     box-shadow: var(--shadow-lg) !important;
     padding: 0 !important;
-    max-width: 320px !important;
-    /* Remove max-height to allow auto-sizing */
+    max-width: 300px !important;
+    min-width: 200px !important;
 }
 
-/* Style the InfoWindow content wrapper - no scrolling */
+/* InfoWindow content wrapper */
 .gm-style .gm-style-iw-d {
-    overflow: visible !important;
     padding: var(--space-12) !important;
-    /* Remove max-height and overflow-y to prevent scrollbars */
+    overflow: hidden !important;
 }
 
-/* Make the close button visible and properly styled */
+/* Close button positioning and visibility */
 .gm-style .gm-style-iw-t {
     right: 8px !important;
     top: 8px !important;
-    width: 24px !important;
-    height: 24px !important;
     opacity: 1 !important;
-    z-index: 1000 !important;
+    display: block !important;
 }
 
-/* Style the close button background */
-.gm-style .gm-style-iw-t::after {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 24px !important;
-    height: 24px !important;
-    background-color: var(--color-surface) !important;
+/* Close button styling */
+.gm-style .gm-style-iw-t button {
+    background: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
     border-radius: 50% !important;
-    box-shadow: var(--shadow-sm) !important;
-}
-
-/* Style the actual close button */
-.gm-style .gm-style-iw-t button {
-    position: relative !important;
-    z-index: 1001 !important;
-    background: transparent !important;
-    border: none !important;
-    width: 24px !important;
-    height: 24px !important;
+    width: 20px !important;
+    height: 20px !important;
     color: var(--color-text) !important;
-    font-size: 16px !important;
-    font-weight: bold !important;
+    font-size: 12px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -1778,7 +1759,7 @@ select.form-control {
     background: var(--color-surface-hover) !important;
 }
 
-/* Enhanced popup content styling */
+/* Popup content styling */
 .popup-content {
     color: var(--color-text) !important;
     font-family: var(--font-family-base) !important;
@@ -1791,14 +1772,12 @@ select.form-control {
     color: var(--color-text) !important;
     font-size: var(--font-size-base) !important;
     font-weight: var(--font-weight-semibold) !important;
-    line-height: var(--line-height-tight) !important;
 }
 
 .popup-desc {
     margin-bottom: var(--space-8) !important;
     color: var(--color-text-secondary) !important;
     font-size: var(--font-size-sm) !important;
-    line-height: var(--line-height-normal) !important;
 }
 
 .popup-price {
@@ -1818,7 +1797,6 @@ select.form-control {
     color: var(--color-primary) !important;
     text-decoration: none !important;
     font-weight: var(--font-weight-medium) !important;
-    font-size: var(--font-size-sm) !important;
 }
 
 .popup-content a:hover {
@@ -1826,37 +1804,14 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-/* Dark theme specific fixes */
+/* Dark theme fixes */
 [data-color-scheme="dark"] .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
 }
 
-[data-color-scheme="dark"] .gm-style .gm-style-iw-t::after {
-    background-color: var(--color-surface) !important;
-    border-color: var(--color-border) !important;
-}
-
 [data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
+    background: var(--color-surface) !important;
+    border-color: var(--color-border) !important;
     color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-content {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-content h3 {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-desc {
-    color: var(--color-text-secondary) !important;
-}
-
-[data-color-scheme="dark"] .popup-price {
-    color: var(--color-text) !important;
-}
-
-[data-color-scheme="dark"] .popup-rating {
-    color: var(--color-text-secondary) !important;
 }
