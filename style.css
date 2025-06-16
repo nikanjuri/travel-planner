@@ -965,15 +965,16 @@ select.form-control {
 }
 
 .booking-badge {
-  position: static;
-  align-self: flex-end;
-  margin-top: auto;
+  position: absolute;
+  bottom: var(--space-12);
+  right: var(--space-12);
   padding: var(--space-6) var(--space-12);
   border-radius: var(--radius-base);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
   max-width: fit-content;
   white-space: nowrap;
+  z-index: 10;
 }
 
 .booking-badge.essential {
