@@ -21,17 +21,34 @@ const NEARBY_RADIUS_KM = 5;
 const CITY_MAX_DISTANCE_KM = 50;
 const LOCATION_UPDATE_THRESHOLD_M = 200;
 
+// Day Planner functionality variables
+let cityDayPlans = {}; // Per-city day planning data
+let currentActiveDayPlan = null;
+let dayRoutePolylines = {}; // Map day numbers to polylines
+let sortableInstances = {}; // Track sortable instances
+let showAllRoutes = true;
+
+// Day route colors (matching CSS)
+const DAY_COLORS = [
+    '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#1abc9c', '#e67e22', '#34495e',
+    '#ff69b4', '#00ced1', '#ffd700', '#8a2be2', '#ff6347', '#4169e1', '#32cd32', '#ff4500',
+    '#da70d6', '#40e0d0', '#ffa500', '#6a5acd', '#20b2aa', '#ff1493', '#00bfff', '#adff2f',
+    '#ff8c00', '#9370db', '#00fa9a', '#dc143c', '#4682b4', '#228b22'
+];
+
 // Initialize Dashboard
 document.addEventListener('DOMContentLoaded', async function() {
     initializeMap();
     initializeEventListeners();
     initializeCurrentLocation();
+    initializeDayPlanner();
 
     // Auto-discover cities first
     await discoverCities();
     
     populateCityDropdown();
     loadTripFromStorage(); // Load saved trip data
+    loadDayPlanFromStorage(); // Load saved day plans
     
     // Load the first city by default (if any cities found)
     if (cityFiles.length > 0) {
@@ -644,6 +661,9 @@ function updateTripDisplay() {
     });
     
     tripItems.innerHTML = html;
+    
+    // Reinitialize sortable for trip source after content update
+    initializeTripSourceSortable();
 }
 
 function getTypeIcon(type) {
@@ -748,6 +768,9 @@ function updateDashboardWithCity(cityData) {
     loadFood(cityData.food);
     loadDrinks(cityData.drinks);
     loadLocalTips(cityData.name.toLowerCase());
+    
+    // Load city day plan if it exists
+    loadCityDayPlan(cityData.name);
     
     // Reset current location if active
     if (isShowingCurrentLocation) {
@@ -1579,4 +1602,550 @@ function calculateWalkingTime(distanceKm) {
     if (timeMinutes < 1) return '< 1 min walk';
     if (timeMinutes === 1) return '1 min walk';
     return `${timeMinutes} min walk`;
+}
+
+// ============================================================================
+// DAY PLANNER FUNCTIONALITY
+// ============================================================================
+
+// Initialize Day Planner
+function initializeDayPlanner() {
+    // Set default start date to today
+    const today = new Date().toISOString().split('T')[0];
+    const startDateInput = document.getElementById('trip-start-date');
+    if (startDateInput) {
+        startDateInput.value = today;
+    }
+    
+    // Initialize event listeners
+    const generateBtn = document.getElementById('generate-day-plan');
+    if (generateBtn) {
+        generateBtn.addEventListener('click', generateDayPlan);
+    }
+    
+    const showAllRoutesCheckbox = document.getElementById('show-all-routes');
+    if (showAllRoutesCheckbox) {
+        showAllRoutesCheckbox.addEventListener('change', toggleRouteDisplay);
+    }
+    
+    // Initialize trip items as sortable source
+    initializeTripSourceSortable();
+}
+
+// Generate day plan structure
+function generateDayPlan() {
+    const startDate = document.getElementById('trip-start-date').value;
+    const dayCount = parseInt(document.getElementById('trip-day-count').value);
+    
+    if (!startDate) {
+        showToast('Please select a start date', 'warning');
+        return;
+    }
+    
+    if (!window.cityData) {
+        showToast('Please select a city first', 'warning');
+        return;
+    }
+    
+    const cityName = window.cityData.name;
+    
+    // Initialize city day plan if it doesn't exist
+    if (!cityDayPlans[cityName]) {
+        cityDayPlans[cityName] = {
+            startDate: startDate,
+            dayCount: dayCount,
+            days: {}
+        };
+    } else {
+        // Update existing plan
+        cityDayPlans[cityName].startDate = startDate;
+        cityDayPlans[cityName].dayCount = dayCount;
+    }
+    
+    // Generate day bins
+    generateDayBins(cityName, startDate, dayCount);
+    saveDayPlanToStorage();
+    
+    showToast(`Generated ${dayCount}-day plan starting ${formatDate(startDate)}`, 'success');
+}
+
+// Generate day bins HTML structure
+function generateDayBins(cityName, startDate, dayCount) {
+    const container = document.getElementById('day-plans-container');
+    if (!container) return;
+    
+    let html = '';
+    
+    for (let day = 1; day <= dayCount; day++) {
+        const dayDate = new Date(startDate);
+        dayDate.setDate(dayDate.getDate() + (day - 1));
+        const formattedDate = formatDate(dayDate.toISOString().split('T')[0]);
+        const dayColor = DAY_COLORS[(day - 1) % DAY_COLORS.length];
+        
+        // Get existing venues for this day
+        const dayVenues = cityDayPlans[cityName].days[day] || [];
+        
+        html += `
+            <div class="day-plan" data-day="${day}">
+                <div class="day-header" onclick="toggleDayCollapse(${day})">
+                    <div class="day-info">
+                        <div class="day-badge day-${day}" style="background-color: ${dayColor}"></div>
+                        <span class="day-title">Day ${day} – ${formattedDate}</span>
+                    </div>
+                    <div class="day-controls">
+                        <button class="optimize-btn" onclick="optimizeDay(${day}, event)" 
+                                ${dayVenues.length < 2 ? 'disabled' : ''}>
+                            <i class="fas fa-route"></i> Optimize Route
+                        </button>
+                        <button class="collapse-btn" data-collapsed="false">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="day-content">
+                    <div class="day-venues" data-day="${day}" id="day-${day}-venues">
+                        ${dayVenues.length === 0 ? 
+                            '<div class="empty-placeholder">Drop venues here to plan this day</div>' : 
+                            generateDayVenuesHTML(dayVenues, day)
+                        }
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+    
+    // Initialize sortable for each day
+    for (let day = 1; day <= dayCount; day++) {
+        initializeDaySortable(day);
+    }
+    
+    // Redraw all routes
+    redrawAllRoutes();
+}
+
+// Generate HTML for venues in a day
+function generateDayVenuesHTML(venues, dayNumber) {
+    return venues.map((venue, index) => {
+        const icon = getTypeIcon(venue.type);
+        return `
+            <div class="day-venue-item" data-venue-name="${venue.name}" data-venue-type="${venue.type}">
+                <div class="venue-item-info">
+                    <span class="venue-item-icon">${icon}</span>
+                    <span class="venue-item-name">${venue.name}</span>
+                    <span class="venue-item-type">${venue.type}</span>
+                </div>
+                <div class="venue-item-order">${index + 1}</div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Initialize sortable for trip source
+function initializeTripSourceSortable() {
+    const tripItems = document.getElementById('trip-items');
+    if (!tripItems) return;
+    
+    if (sortableInstances.source) {
+        sortableInstances.source.destroy();
+    }
+    
+    sortableInstances.source = new Sortable(tripItems, {
+        group: {
+            name: 'trip-planning',
+            pull: 'clone',
+            put: false
+        },
+        sort: false,
+        onStart: function(evt) {
+            document.body.classList.add('dragging');
+        },
+        onEnd: function(evt) {
+            document.body.classList.remove('dragging');
+        }
+    });
+}
+
+// Initialize sortable for a specific day
+function initializeDaySortable(dayNumber) {
+    const dayVenues = document.getElementById(`day-${dayNumber}-venues`);
+    if (!dayVenues) return;
+    
+    if (sortableInstances[`day-${dayNumber}`]) {
+        sortableInstances[`day-${dayNumber}`].destroy();
+    }
+    
+    sortableInstances[`day-${dayNumber}`] = new Sortable(dayVenues, {
+        group: {
+            name: 'trip-planning',
+            pull: true,
+            put: true
+        },
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        dragClass: 'sortable-drag',
+        onAdd: function(evt) {
+            const venueName = evt.item.querySelector('.trip-item-name').textContent;
+            const venueType = evt.item.querySelector('.trip-item-type').textContent;
+            
+            // Add venue to day plan
+            addVenueToDay(dayNumber, venueName, venueType);
+            
+            // Remove from trip source (it was moved, not copied)
+            removeFromTrip(venueName);
+            
+            // Update the day display
+            updateDayDisplay(dayNumber);
+        },
+        onUpdate: function(evt) {
+            // Reorder venues within day
+            reorderDayVenues(dayNumber);
+        },
+        onRemove: function(evt) {
+            // Venue was moved to another day
+            updateDayDisplay(dayNumber);
+        }
+    });
+}
+
+// Add venue to specific day
+function addVenueToDay(dayNumber, venueName, venueType) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    
+    // Initialize day if it doesn't exist
+    if (!cityDayPlans[cityName].days[dayNumber]) {
+        cityDayPlans[cityName].days[dayNumber] = [];
+    }
+    
+    // Find venue data
+    let venueData = null;
+    const allVenues = [
+        ...window.cityData.sightseeing.map(v => ({ ...v, type: 'sightseeing' })),
+        ...window.cityData.food.map(v => ({ ...v, type: 'food' })),
+        ...window.cityData.drinks.map(v => ({ ...v, type: 'drinks' }))
+    ];
+    
+    venueData = allVenues.find(v => v.name === venueName && v.type === venueType);
+    
+    if (venueData) {
+        // Check if venue already exists in this day
+        const existingIndex = cityDayPlans[cityName].days[dayNumber].findIndex(
+            v => v.name === venueName && v.type === venueType
+        );
+        
+        if (existingIndex === -1) {
+            cityDayPlans[cityName].days[dayNumber].push(venueData);
+            saveDayPlanToStorage();
+        }
+    }
+}
+
+// Update day display after changes
+function updateDayDisplay(dayNumber) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const dayVenues = cityDayPlans[cityName].days[dayNumber] || [];
+    const container = document.getElementById(`day-${dayNumber}-venues`);
+    
+    if (!container) return;
+    
+    if (dayVenues.length === 0) {
+        container.innerHTML = '<div class="empty-placeholder">Drop venues here to plan this day</div>';
+    } else {
+        container.innerHTML = generateDayVenuesHTML(dayVenues, dayNumber);
+        
+        // Re-initialize sortable for this day
+        initializeDaySortable(dayNumber);
+    }
+    
+    // Update optimize button state
+    const optimizeBtn = document.querySelector(`[onclick="optimizeDay(${dayNumber}, event)"]`);
+    if (optimizeBtn) {
+        optimizeBtn.disabled = dayVenues.length < 2;
+    }
+    
+    // Redraw route for this day
+    drawDayRoute(dayNumber);
+    saveDayPlanToStorage();
+}
+
+// Reorder venues within a day based on DOM order
+function reorderDayVenues(dayNumber) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const container = document.getElementById(`day-${dayNumber}-venues`);
+    const venueItems = container.querySelectorAll('.day-venue-item');
+    
+    const reorderedVenues = [];
+    venueItems.forEach(item => {
+        const venueName = item.dataset.venueName;
+        const venueType = item.dataset.venueType;
+        
+        // Find venue data
+        const venue = cityDayPlans[cityName].days[dayNumber].find(
+            v => v.name === venueName && v.type === venueType
+        );
+        
+        if (venue) {
+            reorderedVenues.push(venue);
+        }
+    });
+    
+    cityDayPlans[cityName].days[dayNumber] = reorderedVenues;
+    updateDayDisplay(dayNumber);
+}
+
+// Optimize route for a specific day
+function optimizeDay(dayNumber, event) {
+    event.stopPropagation();
+    
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const dayVenues = cityDayPlans[cityName].days[dayNumber] || [];
+    
+    if (dayVenues.length < 2) return;
+    
+    // Apply nearest neighbor algorithm
+    const optimizedVenues = optimizeRouteNearestNeighbor(dayVenues);
+    cityDayPlans[cityName].days[dayNumber] = optimizedVenues;
+    
+    updateDayDisplay(dayNumber);
+    showToast(`Optimized route for Day ${dayNumber}`, 'success');
+}
+
+// Nearest neighbor route optimization
+function optimizeRouteNearestNeighbor(venues) {
+    if (venues.length <= 1) return venues;
+    
+    const optimized = [];
+    const remaining = [...venues];
+    
+    // Start with the first venue
+    let current = remaining.shift();
+    optimized.push(current);
+    
+    // Find nearest unvisited venue
+    while (remaining.length > 0) {
+        let nearestIndex = 0;
+        let nearestDistance = calculateDistance(
+            current.location.lat, current.location.lng,
+            remaining[0].location.lat, remaining[0].location.lng
+        );
+        
+        for (let i = 1; i < remaining.length; i++) {
+            const distance = calculateDistance(
+                current.location.lat, current.location.lng,
+                remaining[i].location.lat, remaining[i].location.lng
+            );
+            
+            if (distance < nearestDistance) {
+                nearestDistance = distance;
+                nearestIndex = i;
+            }
+        }
+        
+        current = remaining.splice(nearestIndex, 1)[0];
+        optimized.push(current);
+    }
+    
+    return optimized;
+}
+
+// Toggle day collapse
+function toggleDayCollapse(dayNumber) {
+    const dayPlan = document.querySelector(`[data-day="${dayNumber}"]`);
+    const collapseBtn = dayPlan.querySelector('.collapse-btn');
+    const isCollapsed = collapseBtn.dataset.collapsed === 'true';
+    
+    if (isCollapsed) {
+        dayPlan.classList.remove('collapsed');
+        collapseBtn.dataset.collapsed = 'false';
+        collapseBtn.classList.remove('collapsed');
+    } else {
+        dayPlan.classList.add('collapsed');
+        collapseBtn.dataset.collapsed = 'true';
+        collapseBtn.classList.add('collapsed');
+    }
+}
+
+// Draw route for a specific day
+function drawDayRoute(dayNumber) {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const dayVenues = cityDayPlans[cityName].days[dayNumber] || [];
+    
+    // Remove existing route
+    if (dayRoutePolylines[dayNumber]) {
+        map.removeLayer(dayRoutePolylines[dayNumber]);
+        delete dayRoutePolylines[dayNumber];
+    }
+    
+    if (dayVenues.length < 2) return;
+    
+    // Create route coordinates
+    const coordinates = dayVenues.map(venue => [venue.location.lat, venue.location.lng]);
+    const dayColor = DAY_COLORS[(dayNumber - 1) % DAY_COLORS.length];
+    
+    // Create polyline
+    const polyline = L.polyline(coordinates, {
+        color: dayColor,
+        weight: 4,
+        opacity: showAllRoutes ? 0.8 : (currentActiveDayPlan === dayNumber ? 0.8 : 0.3),
+        dashArray: '10, 5'
+    }).addTo(map);
+    
+    dayRoutePolylines[dayNumber] = polyline;
+    
+    // Add click handler to highlight day
+    polyline.on('click', () => {
+        highlightDay(dayNumber);
+    });
+}
+
+// Redraw all routes
+function redrawAllRoutes() {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    const dayPlan = cityDayPlans[cityName];
+    
+    if (!dayPlan) return;
+    
+    // Clear existing routes
+    Object.values(dayRoutePolylines).forEach(polyline => {
+        map.removeLayer(polyline);
+    });
+    dayRoutePolylines = {};
+    
+    // Redraw all day routes
+    for (let day = 1; day <= dayPlan.dayCount; day++) {
+        drawDayRoute(day);
+    }
+}
+
+// Highlight specific day
+function highlightDay(dayNumber) {
+    // Remove previous highlights
+    document.querySelectorAll('.day-plan').forEach(plan => {
+        plan.classList.remove('active');
+    });
+    
+    // Highlight selected day
+    const dayPlan = document.querySelector(`[data-day="${dayNumber}"]`);
+    if (dayPlan) {
+        dayPlan.classList.add('active');
+        dayPlan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    currentActiveDayPlan = dayNumber;
+    
+    // Update route visibility
+    updateRouteVisibility();
+}
+
+// Update route visibility based on settings
+function updateRouteVisibility() {
+    Object.entries(dayRoutePolylines).forEach(([day, polyline]) => {
+        const dayNum = parseInt(day);
+        const opacity = showAllRoutes ? 0.8 : (currentActiveDayPlan === dayNum ? 0.8 : 0.3);
+        polyline.setStyle({ opacity });
+    });
+}
+
+// Toggle route display
+function toggleRouteDisplay() {
+    const checkbox = document.getElementById('show-all-routes');
+    showAllRoutes = checkbox.checked;
+    updateRouteVisibility();
+}
+
+// Format date for display
+function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { month: 'long', day: 'numeric' };
+    const suffix = getOrdinalSuffix(date.getDate());
+    return date.toLocaleDateString('en-US', options).replace(/\d+/, date.getDate() + suffix);
+}
+
+// Get ordinal suffix for date
+function getOrdinalSuffix(day) {
+    if (day > 3 && day < 21) return 'th';
+    switch (day % 10) {
+        case 1: return 'st';
+        case 2: return 'nd';
+        case 3: return 'rd';
+        default: return 'th';
+    }
+}
+
+// Save day plan to localStorage
+function saveDayPlanToStorage() {
+    try {
+        localStorage.setItem('travel-planner-day-plans', JSON.stringify(cityDayPlans));
+    } catch (error) {
+        console.error('Error saving day plans to storage:', error);
+        showToast('Unable to save day plan data', 'error');
+    }
+}
+
+// Load day plan from localStorage
+function loadDayPlanFromStorage() {
+    try {
+        const savedPlans = localStorage.getItem('travel-planner-day-plans');
+        if (savedPlans) {
+            cityDayPlans = JSON.parse(savedPlans);
+        }
+    } catch (error) {
+        console.error('Error loading day plans from storage:', error);
+        cityDayPlans = {};
+    }
+}
+
+// Load city day plan when city changes
+function loadCityDayPlan(cityName) {
+    const dayPlan = cityDayPlans[cityName];
+    if (!dayPlan) return;
+    
+    // Update form controls
+    const startDateInput = document.getElementById('trip-start-date');
+    const dayCountSelect = document.getElementById('trip-day-count');
+    
+    if (startDateInput) startDateInput.value = dayPlan.startDate;
+    if (dayCountSelect) dayCountSelect.value = dayPlan.dayCount;
+    
+    // Generate day bins
+    generateDayBins(cityName, dayPlan.startDate, dayPlan.dayCount);
+}
+
+// Clear day plan for current city
+function clearDayPlan() {
+    if (!window.cityData) return;
+    
+    const cityName = window.cityData.name;
+    if (cityDayPlans[cityName]) {
+        delete cityDayPlans[cityName];
+        saveDayPlanToStorage();
+        
+        // Clear display
+        const container = document.getElementById('day-plans-container');
+        if (container) {
+            container.innerHTML = '';
+        }
+        
+        // Clear routes
+        Object.values(dayRoutePolylines).forEach(polyline => {
+            map.removeLayer(polyline);
+        });
+        dayRoutePolylines = {};
+        
+        showToast('Day plan cleared', 'info');
+    }
 }

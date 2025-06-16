@@ -1486,7 +1486,6 @@ select.form-control {
 .trip-item-name {
   font-weight: var(--font-weight-medium);
   color: var(--color-text);
-  flex: 1;
 }
 
 .trip-item-type {
@@ -1568,4 +1567,352 @@ select.form-control {
   stroke: rgba(66, 133, 244, 0.5);
   stroke-width: 2;
   stroke-dasharray: 5, 5;
+}
+
+/* Day Planner Styles */
+.planner-controls {
+  display: flex;
+  gap: var(--space-16);
+  align-items: end;
+  margin-bottom: var(--space-24);
+  padding: var(--space-16);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.control-group label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.control-group .form-control {
+  min-width: 140px;
+}
+
+.day-plans-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.day-plan {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.day-plan.collapsed .day-content {
+  display: none;
+}
+
+.day-plan.active {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 1px var(--color-primary);
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-12) var(--space-16);
+  background: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.day-header:hover {
+  background: var(--color-hover);
+}
+
+.day-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.day-badge {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.day-title {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+}
+
+.day-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.optimize-btn {
+  padding: var(--space-4) var(--space-8);
+  font-size: var(--font-size-xs);
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.optimize-btn:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.optimize-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.collapse-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.collapse-btn:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.collapse-btn.collapsed i {
+  transform: rotate(-90deg);
+}
+
+.day-content {
+  padding: var(--space-16);
+}
+
+.day-venues {
+  min-height: 60px;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-base);
+  background: var(--color-background);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.day-venues.drag-over {
+  border-color: var(--color-primary);
+  background: rgba(var(--color-primary-rgb), 0.05);
+}
+
+.day-venues.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+.day-venue-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-8) var(--space-12);
+  margin-bottom: var(--space-8);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  cursor: move;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.day-venue-item:last-child {
+  margin-bottom: 0;
+}
+
+.day-venue-item:hover {
+  background: var(--color-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-venue-item.dragging {
+  opacity: 0.5;
+  transform: rotate(5deg);
+}
+
+.venue-item-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex: 1;
+}
+
+.venue-item-icon {
+  font-size: var(--font-size-lg);
+}
+
+.venue-item-name {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.venue-item-type {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-transform: capitalize;
+  background: var(--color-secondary);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-sm);
+}
+
+.venue-item-order {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Trip Header Updates */
+.trip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+  padding-bottom: var(--space-12);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.trip-actions {
+  display: flex;
+  gap: var(--space-8);
+}
+
+/* Sortable Source Styling */
+.sortable-source {
+  min-height: 40px;
+}
+
+.sortable-source.empty::after {
+  content: "Add venues to your trip to start planning your days";
+  display: block;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-16);
+}
+
+/* Drag and Drop States */
+.sortable-ghost {
+  opacity: 0.3;
+}
+
+.sortable-chosen {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sortable-drag {
+  transform: rotate(5deg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Route Controls */
+.route-controls {
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
+}
+
+.route-controls label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* Day Route Colors */
+.day-badge.day-1 { background-color: #e74c3c; }
+.day-badge.day-2 { background-color: #3498db; }
+.day-badge.day-3 { background-color: #2ecc71; }
+.day-badge.day-4 { background-color: #f39c12; }
+.day-badge.day-5 { background-color: #9b59b6; }
+.day-badge.day-6 { background-color: #1abc9c; }
+.day-badge.day-7 { background-color: #e67e22; }
+.day-badge.day-8 { background-color: #34495e; }
+.day-badge.day-9 { background-color: #ff69b4; }
+.day-badge.day-10 { background-color: #00ced1; }
+.day-badge.day-11 { background-color: #ffd700; }
+.day-badge.day-12 { background-color: #8a2be2; }
+.day-badge.day-13 { background-color: #ff6347; }
+.day-badge.day-14 { background-color: #4169e1; }
+.day-badge.day-15 { background-color: #32cd32; }
+.day-badge.day-16 { background-color: #ff4500; }
+.day-badge.day-17 { background-color: #da70d6; }
+.day-badge.day-18 { background-color: #40e0d0; }
+.day-badge.day-19 { background-color: #ffa500; }
+.day-badge.day-20 { background-color: #6a5acd; }
+.day-badge.day-21 { background-color: #20b2aa; }
+.day-badge.day-22 { background-color: #ff1493; }
+.day-badge.day-23 { background-color: #00bfff; }
+.day-badge.day-24 { background-color: #adff2f; }
+.day-badge.day-25 { background-color: #ff8c00; }
+.day-badge.day-26 { background-color: #9370db; }
+.day-badge.day-27 { background-color: #00fa9a; }
+.day-badge.day-28 { background-color: #dc143c; }
+.day-badge.day-29 { background-color: #4682b4; }
+.day-badge.day-30 { background-color: #228b22; }
+
+/* Responsive Design for Day Planner */
+@media (max-width: 768px) {
+  .planner-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-12);
+  }
+  
+  .control-group .form-control {
+    min-width: auto;
+  }
+  
+  .day-header {
+    padding: var(--space-8) var(--space-12);
+  }
+  
+  .day-controls {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .day-plans-container {
+    max-height: 50vh;
+  }
+  
+  .day-venue-item {
+    padding: var(--space-6) var(--space-8);
+  }
 }
