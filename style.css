@@ -1671,15 +1671,33 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow - ENHANCED CONTRAST SOLUTION */
+/* Google Maps InfoWindow - BLACK BACKGROUND SOLUTION */
 
-/* Only style the content, don't touch the container */
+/* Style the InfoWindow container with black background */
+.gm-style .gm-style-iw-c {
+    background-color: #1a1a1a !important; /* Dark background */
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid #333 !important;
+    max-height: none !important;
+    max-width: 320px !important;
+    min-width: 250px !important;
+}
+
+/* Remove scrollbar and style content wrapper */
+.gm-style .gm-style-iw-d {
+    overflow: hidden !important;
+    max-height: none !important;
+    padding: 0 !important;
+}
+
+/* Style the popup content with white text */
 .popup-content {
     font-family: var(--font-family-base) !important;
-    color: #134252 !important; /* Explicit dark color for light theme */
+    color: #ffffff !important; /* White text */
     font-size: 14px !important;
     line-height: 1.5 !important;
-    padding: 12px !important;
+    padding: 16px !important;
     background: transparent !important;
 }
 
@@ -1687,75 +1705,72 @@ select.form-control {
     margin: 0 0 8px 0 !important;
     font-size: 16px !important;
     font-weight: 600 !important;
-    color: #134252 !important; /* Explicit dark color */
+    color: #ffffff !important; /* White heading */
 }
 
 .popup-content .popup-desc {
     margin: 0 0 8px 0 !important;
-    color: #626c71 !important; /* Explicit secondary color */
-    opacity: 1 !important; /* Remove opacity that makes text lighter */
+    color: #e0e0e0 !important; /* Light gray for description */
+    opacity: 1 !important;
 }
 
 .popup-content .popup-rating {
     margin: 0 0 8px 0 !important;
-    color: #134252 !important; /* Explicit dark color */
-    opacity: 1 !important; /* Remove opacity */
+    color: #ffffff !important; /* White rating text */
+    opacity: 1 !important;
     font-weight: 500 !important;
 }
 
 .popup-content .popup-price {
     margin: 0 0 6px 0 !important;
-    color: #134252 !important; /* Explicit dark color */
+    color: #ffffff !important; /* White price text */
     font-weight: 600 !important;
     font-size: 14px !important;
 }
 
 .popup-content a {
-    color: #21808d !important; /* Explicit primary color */
+    color: #50fa7b !important; /* Green website link */
     text-decoration: none !important;
     font-weight: 500 !important;
 }
 
 .popup-content a:hover {
     text-decoration: underline !important;
-    color: #1d7480 !important; /* Darker on hover */
+    color: #40c96b !important; /* Darker green on hover */
 }
 
-/* Dark theme - explicit colors */
-[data-color-scheme="dark"] .popup-content {
-    color: #f5f5f5 !important; /* Explicit light color for dark theme */
+/* Style the close button to be visible */
+.gm-style .gm-style-iw-t {
+    display: block !important;
 }
 
-[data-color-scheme="dark"] .popup-content h3 {
-    color: #f5f5f5 !important;
+.gm-style .gm-style-iw-t button {
+    background: #50fa7b !important; /* Green close button */
+    border: none !important;
+    border-radius: 50% !important;
+    width: 24px !important;
+    height: 24px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #1a1a1a !important; /* Dark text on green background */
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
 }
 
-[data-color-scheme="dark"] .popup-content .popup-desc {
-    color: #b0b3b8 !important;
+.gm-style .gm-style-iw-t button:hover {
+    background: #40c96b !important; /* Darker green on hover */
+    transform: scale(1.1) !important;
 }
 
-[data-color-scheme="dark"] .popup-content .popup-rating {
-    color: #f5f5f5 !important;
+/* Alternative: White close button option */
+.gm-style .gm-style-iw-t button.white-close {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
 }
 
-[data-color-scheme="dark"] .popup-content .popup-price {
-    color: #f5f5f5 !important;
-}
-
-[data-color-scheme="dark"] .popup-content a {
-    color: #50fa7b !important; /* Green for dark theme */
-}
-
-[data-color-scheme="dark"] .popup-content a:hover {
-    color: #40c96b !important;
-}
-
-/* Remove scrollbar from InfoWindow */
-.gm-style .gm-style-iw-d {
-    overflow: hidden !important;
-    max-height: none !important;
-}
-
-.gm-style .gm-style-iw-c {
-    max-height: none !important;
+.gm-style .gm-style-iw-t button.white-close:hover {
+    background: #f0f0f0 !important;
 }
