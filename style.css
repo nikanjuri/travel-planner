@@ -1135,9 +1135,10 @@ select.form-control {
 
 /* Dragging State */
 .dragging-item {
-  opacity: 0.7;
-  transform: scale(0.95);
-  transition: all var(--duration-fast) var(--ease-standard);
+  /* Disable this - it's interfering */
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
 
 .budget-calculator {
@@ -1953,4 +1954,95 @@ select.form-control {
   .day-venue-item {
     padding: var(--space-6) var(--space-8);
   }
+}
+
+/* BULLETPROOF DRAG FIX - Ultra-specific selectors to prevent conflicts */
+
+/* Disable the conflicting dragging-item class */
+.dragging-item {
+  /* Disable this - it's interfering */
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Trip items drag states with maximum specificity */
+.trip-items .trip-item.sortable-ghost {
+  opacity: 0.4 !important;
+  transform: none !important;
+  background: rgba(var(--color-primary-rgb), 0.1) !important;
+  transition: none !important;
+}
+
+.trip-items .trip-item.sortable-chosen {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
+  background: var(--color-hover) !important;
+  transition: none !important;
+}
+
+.trip-items .trip-item.sortable-drag {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) scale(1.02) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+  transition: none !important;
+}
+
+/* Force ALL other trip items to normal state */
+.trip-items .trip-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag):not(.currently-dragging) {
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--color-background) !important;
+  z-index: auto !important;
+  transition: background var(--duration-fast) var(--ease-standard) !important;
+}
+
+/* Day venue items with same ultra-specific approach */
+.day-venues .day-venue-item.sortable-ghost {
+  opacity: 0.4 !important;
+  transform: none !important;
+  background: rgba(var(--color-primary-rgb), 0.1) !important;
+  transition: none !important;
+}
+
+.day-venues .day-venue-item.sortable-chosen {
+  opacity: 1 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
+  background: var(--color-hover) !important;
+  transition: none !important;
+}
+
+.day-venues .day-venue-item.sortable-drag {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) scale(1.02) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+  transition: none !important;
+}
+
+.day-venues .day-venue-item:not(.sortable-chosen):not(.sortable-ghost):not(.sortable-drag):not(.currently-dragging) {
+  opacity: 1 !important;
+  transform: none !important;
+  box-shadow: none !important;
+  background: var(--color-surface) !important;
+  z-index: auto !important;
+  transition: background var(--duration-fast) var(--ease-standard) !important;
+}
+
+/* Remove old generic sortable classes to prevent conflicts */
+.sortable-ghost,
+.sortable-chosen,
+.sortable-drag {
+  /* These are overridden by the specific selectors above */
+}
+
+/* Container states during drag */
+.dragging-active {
+  /* Can be used for container-level effects if needed */
 }
