@@ -1461,6 +1461,15 @@ select.form-control {
   transition: transform var(--duration-fast) var(--ease-standard);
 }
 
+/* Current Location Control - Position in bottom-left of map */
+.location-control {
+  position: absolute;
+  bottom: var(--space-16);
+  left: var(--space-16);
+  z-index: 1000;
+  pointer-events: auto;
+}
+
 /* Current Location Button - Add missing base styling and fix hover */
 .location-btn {
   display: flex;
@@ -1478,7 +1487,7 @@ select.form-control {
 }
 
 .location-btn:hover {
-  background: var(--color-secondary-hover);  /* Use defined variable instead of --color-hover */
+  background: var(--color-secondary-hover);
   border-color: var(--color-primary);
   transform: translateY(-1px);
   box-shadow: var(--shadow-lg);
