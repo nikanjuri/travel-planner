@@ -1671,53 +1671,91 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow - MINIMAL WORKING SOLUTION */
+/* Google Maps InfoWindow - ENHANCED CONTRAST SOLUTION */
 
 /* Only style the content, don't touch the container */
 .popup-content {
     font-family: var(--font-family-base) !important;
-    color: var(--color-text) !important;
+    color: #134252 !important; /* Explicit dark color for light theme */
     font-size: 14px !important;
     line-height: 1.5 !important;
-    padding: 8px !important;
+    padding: 12px !important;
+    background: transparent !important;
 }
 
 .popup-content h3 {
     margin: 0 0 8px 0 !important;
     font-size: 16px !important;
     font-weight: 600 !important;
-    color: var(--color-text) !important;
+    color: #134252 !important; /* Explicit dark color */
 }
 
 .popup-content .popup-desc {
     margin: 0 0 8px 0 !important;
-    color: var(--color-text) !important;
-    opacity: 0.9 !important;
+    color: #626c71 !important; /* Explicit secondary color */
+    opacity: 1 !important; /* Remove opacity that makes text lighter */
 }
 
 .popup-content .popup-rating {
     margin: 0 0 8px 0 !important;
-    color: var(--color-text) !important;
-    opacity: 0.8 !important;
+    color: #134252 !important; /* Explicit dark color */
+    opacity: 1 !important; /* Remove opacity */
+    font-weight: 500 !important;
 }
 
 .popup-content .popup-price {
     margin: 0 0 6px 0 !important;
-    color: var(--color-text) !important;
-    font-weight: 500 !important;
+    color: #134252 !important; /* Explicit dark color */
+    font-weight: 600 !important;
     font-size: 14px !important;
 }
 
 .popup-content a {
-    color: var(--color-primary) !important;
+    color: #21808d !important; /* Explicit primary color */
     text-decoration: none !important;
+    font-weight: 500 !important;
 }
 
 .popup-content a:hover {
     text-decoration: underline !important;
+    color: #1d7480 !important; /* Darker on hover */
 }
 
-/* Dark theme */
+/* Dark theme - explicit colors */
 [data-color-scheme="dark"] .popup-content {
-    color: var(--color-text) !important;
+    color: #f5f5f5 !important; /* Explicit light color for dark theme */
+}
+
+[data-color-scheme="dark"] .popup-content h3 {
+    color: #f5f5f5 !important;
+}
+
+[data-color-scheme="dark"] .popup-content .popup-desc {
+    color: #b0b3b8 !important;
+}
+
+[data-color-scheme="dark"] .popup-content .popup-rating {
+    color: #f5f5f5 !important;
+}
+
+[data-color-scheme="dark"] .popup-content .popup-price {
+    color: #f5f5f5 !important;
+}
+
+[data-color-scheme="dark"] .popup-content a {
+    color: #50fa7b !important; /* Green for dark theme */
+}
+
+[data-color-scheme="dark"] .popup-content a:hover {
+    color: #40c96b !important;
+}
+
+/* Remove scrollbar from InfoWindow */
+.gm-style .gm-style-iw-d {
+    overflow: hidden !important;
+    max-height: none !important;
+}
+
+.gm-style .gm-style-iw-c {
+    max-height: none !important;
 }
