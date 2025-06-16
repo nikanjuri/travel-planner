@@ -227,15 +227,15 @@ function loadLocalTips(cityName) {
         <div class="tips-block">
             <h4>Transportation</h4>
             <ul>${tips.transportation.map(t => `<li>${t}</li>`).join('')}</ul>
-        </div>
+                    </div>
         <div class="tips-block">
             <h4>Culture</h4>
             <ul>${tips.culture.map(t => `<li>${t}</li>`).join('')}</ul>
-        </div>
+                </div>
         <div class="tips-block">
             <h4>Emergency</h4>
             <ul>${tips.emergency.map(t => `<li>${t}</li>`).join('')}</ul>
-        </div>
+                    </div>
     `;
 }
 
@@ -257,7 +257,7 @@ function createSightseeingCard(attraction) {
             </div>
         `;
     }
-
+    
     return `
         <div class="venue-card" data-venue-id="${id}" data-category="sightseeing" data-price="${priceCategory}">
             <div class="venue-header">
@@ -318,7 +318,7 @@ function createFoodCard(restaurant) {
                 <div class="distance-info">
                     <span class="distance-km">${restaurant.distance.toFixed(1)}km away</span>
                     <span class="walking-time">${walkingTime}</span>
-                </div>
+        </div>
             </div>
         `;
     }
@@ -442,7 +442,7 @@ function switchCategory(category) {
     // Don't restart nearby mode if it's already active
     if (category === 'nearby' && nearbyMode) {
         // Just update the UI states without restarting nearby mode
-        currentCategory = category;
+    currentCategory = category;
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.category === category);
         });
@@ -602,14 +602,14 @@ function clearTrip() {
     if (myTrip.length === 0) return;
     
     if (confirm('Are you sure you want to clear your entire trip?')) {
-        myTrip = [];
+    myTrip = [];
         saveTripToStorage(); // Save to localStorage
-        updateTripDisplay();
-        
+    updateTripDisplay();
+    
         // Remove all added states
         document.querySelectorAll('.action-btn.added').forEach(btn => {
             btn.classList.remove('added');
-        });
+    });
         
         showToast('Trip cleared', 'info');
     }
@@ -642,16 +642,16 @@ function updateTripDisplay() {
         items.forEach(item => {
             const typeIcon = getTypeIcon(item.type);
             html += `
-                <div class="trip-item">
+        <div class="trip-item">
                     <div class="trip-item-info">
                         <span class="trip-item-icon">${typeIcon}</span>
-                        <span class="trip-item-name">${item.name}</span>
+            <span class="trip-item-name">${item.name}</span>
                         <span class="trip-item-type">${item.type}</span>
                     </div>
-                    <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+            <button class="remove-item" onclick="removeFromTrip('${item.name}')" title="Remove from trip">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
             `;
         });
         html += `</div>`;
@@ -1755,17 +1755,14 @@ function initializeTripSourceSortable() {
             put: true
         },
         sort: false,
-        animation: 0,
-        // DISABLE ALL VISUAL CLASSES COMPLETELY
-        ghostClass: '',
-        chosenClass: '',
-        dragClass: '',
-        // Use native HTML5 drag and drop
-        forceFallback: true,
-        fallbackClass: 'sortable-fallback-custom',
-        fallbackOnBody: true,
-        fallbackTolerance: 0,
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        chosenClass: 'sortable-chosen',
+        dragClass: 'sortable-drag',
+        forceFallback: false,
+        fallbackOnBody: false,
         onAdd: function(evt) {
+            // Handle items coming back from day plans
             const venueName = evt.item.querySelector('.venue-item-name').textContent;
             const venueType = evt.item.querySelector('.venue-item-type').textContent;
             
@@ -1791,14 +1788,14 @@ function initializeDaySortable(dayNumber) {
             pull: true,
             put: true
         },
-        animation: 0,
-        ghostClass: false,
+        animation: 150,
+        ghostClass: 'sortable-ghost',
         chosenClass: 'sortable-chosen',
-        dragClass: false,
+        dragClass: 'sortable-drag',
         forceFallback: false,
         fallbackOnBody: false,
-        removeCloneOnHide: true,
         onAdd: function(evt) {
+            // Handle items from trip or other days
             const venueName = evt.item.querySelector('.trip-item-name') 
                 ? evt.item.querySelector('.trip-item-name').textContent
                 : evt.item.querySelector('.venue-item-name').textContent;

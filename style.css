@@ -1198,56 +1198,34 @@ select.form-control {
   }
 }
 
-/* NUCLEAR DRAG FIX - Completely disable all visual effects during drag */
-
-/* Remove ALL existing sortable styles */
-.sortable-ghost,
-.sortable-chosen,
-.sortable-drag,
-.sortable-fallback,
-.dragging-item,
-.currently-dragging,
-.trip-items .trip-item.sortable-ghost,
-.trip-items .trip-item.sortable-chosen,
-.trip-items .trip-item.sortable-drag,
-.day-venues .day-venue-item.sortable-ghost,
-.day-venues .day-venue-item.sortable-chosen,
-.day-venues .day-venue-item.sortable-drag {
-  opacity: 1 !important;
-  transform: none !important;
-  box-shadow: none !important;
-  background: inherit !important;
-  z-index: auto !important;
-  transition: none !important;
-  border: inherit !important;
+/* Proper Drag and Drop Styles */
+.sortable-ghost {
+  opacity: 0.5 !important;
+  background: rgba(var(--color-primary-rgb), 0.1) !important;
 }
 
-/* Force normal appearance for ALL items */
-.trip-item,
-.day-venue-item {
-  opacity: 1 !important;
-  transform: none !important;
-  box-shadow: none !important;
-  z-index: auto !important;
-  transition: background var(--duration-fast) var(--ease-standard) !important;
+.sortable-chosen {
+  opacity: 0.9 !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  z-index: 1000 !important;
 }
 
-/* Only minimal visual feedback - subtle border for chosen item */
-.trip-item.sortable-chosen {
+.sortable-drag {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1001 !important;
+}
+
+/* Custom fallback for better drag experience */
+.sortable-fallback-custom {
+  opacity: 0.8 !important;
+  transform: rotate(2deg) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+  z-index: 1002 !important;
+  background: var(--color-surface) !important;
   border: 2px solid var(--color-primary) !important;
-}
-
-.day-venue-item.sortable-chosen {
-  border: 2px solid var(--color-primary) !important;
-}
-
-/* Keep hover effects when not dragging */
-.trip-item:hover:not(.sortable-chosen) {
-  background: var(--color-hover) !important;
-}
-
-.day-venue-item:hover:not(.sortable-chosen) {
-  background: var(--color-hover) !important;
 }
 
 /* Day Planning Section */
