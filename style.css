@@ -1641,49 +1641,6 @@ select.form-control {
     flex-shrink: 0;
 }
 
-/* Map Popup Styling - Fix text color issues */
-
-.popup-content {
-    color: var(--color-text) !important;
-}
-
-.popup-content h3 {
-    margin: 0 0 var(--space-8) 0 !important;
-    color: var(--color-text) !important;
-    font-size: var(--font-size-base) !important;
-    font-weight: var(--font-weight-semibold) !important;
-}
-
-.popup-desc {
-    margin-bottom: var(--space-8) !important;
-    color: var(--color-text-secondary) !important;
-    font-size: var(--font-size-sm) !important;
-}
-
-.popup-price {
-    margin-bottom: var(--space-4) !important;
-    color: var(--color-text) !important;
-    font-weight: var(--font-weight-medium) !important;
-}
-
-.popup-rating {
-    margin-bottom: var(--space-8) !important;
-    color: var(--color-text-secondary) !important;
-    font-size: var(--font-size-sm) !important;
-}
-
-.popup-content a {
-    color: var(--color-primary) !important;
-    text-decoration: none !important;
-}
-
-.popup-content a:hover {
-    color: var(--color-primary-hover) !important;
-    text-decoration: underline !important;
-}
-
-/* Dark theme specific popup fixes */
-
 /* Responsive Design for Day Planner */
 @media (max-width: 768px) {
   .planner-controls {
@@ -1714,76 +1671,117 @@ select.form-control {
   }
 }
 
-/* Google Maps InfoWindow Styling - Conservative and Working Version */
+/* Google Maps InfoWindow Styling - COMPLETE SOLUTION */
 
-/* Basic InfoWindow container styling - minimal changes */
+/* Remove Google Maps default constraints that cause scrolling */
+.gm-style .gm-style-iw {
+    max-width: none !important;
+    max-height: none !important;
+}
+
+/* InfoWindow container - auto-size to content, no scrolling */
 .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border-radius: var(--radius-base) !important;
     box-shadow: var(--shadow-lg) !important;
-    max-width: 300px !important;
+    padding: 0 !important;
+    max-width: 320px !important;
+    min-width: 250px !important;
+    /* Remove any height constraints */
+    max-height: none !important;
+    height: auto !important;
 }
 
-/* InfoWindow content wrapper - just fix padding */
+/* InfoWindow content wrapper - no scrolling, proper padding */
 .gm-style .gm-style-iw-d {
-    padding: var(--space-12) !important;
+    padding: var(--space-16) !important;
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
 }
 
-/* Close button - simple visibility fix */
+/* Close button container - make it highly visible */
 .gm-style .gm-style-iw-t {
-    right: 8px !important;
-    top: 8px !important;
+    position: absolute !important;
+    right: var(--space-8) !important;
+    top: var(--space-8) !important;
+    width: 24px !important;
+    height: 24px !important;
     opacity: 1 !important;
+    display: block !important;
+    z-index: 1000 !important;
 }
 
-/* Close button styling - simple and visible */
+/* Close button - theme-aware and highly visible */
 .gm-style .gm-style-iw-t button {
-    background: white !important;
-    border: 1px solid #ccc !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 24px !important;
+    height: 24px !important;
+    background: var(--color-primary) !important;
+    border: 2px solid var(--color-surface) !important;
     border-radius: 50% !important;
-    width: 20px !important;
-    height: 20px !important;
-    color: #333 !important;
-    font-size: 12px !important;
+    color: var(--color-btn-primary-text) !important;
+    font-size: 14px !important;
     font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     cursor: pointer !important;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1) !important;
+    box-shadow: var(--shadow-md) !important;
+    transition: all var(--duration-fast) var(--ease-standard) !important;
 }
 
 .gm-style .gm-style-iw-t button:hover {
-    background: #f0f0f0 !important;
+    background: var(--color-primary-hover) !important;
+    transform: scale(1.1) !important;
+    box-shadow: var(--shadow-lg) !important;
 }
 
-/* Popup content styling - keep it simple */
+.gm-style .gm-style-iw-t button:active {
+    background: var(--color-primary-active) !important;
+    transform: scale(0.95) !important;
+}
+
+/* Popup content styling - responsive text sizing */
 .popup-content {
     color: var(--color-text) !important;
     font-family: var(--font-family-base) !important;
     font-size: var(--font-size-sm) !important;
     line-height: var(--line-height-normal) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .popup-content h3 {
-    margin: 0 0 var(--space-8) 0 !important;
+    margin: 0 0 var(--space-12) 0 !important;
+    padding: 0 !important;
     color: var(--color-text) !important;
-    font-size: var(--font-size-base) !important;
+    font-size: var(--font-size-lg) !important;
     font-weight: var(--font-weight-semibold) !important;
+    line-height: var(--line-height-tight) !important;
 }
 
 .popup-desc {
-    margin-bottom: var(--space-8) !important;
+    margin: 0 0 var(--space-12) 0 !important;
+    padding: 0 !important;
     color: var(--color-text-secondary) !important;
     font-size: var(--font-size-sm) !important;
+    line-height: var(--line-height-normal) !important;
 }
 
 .popup-price {
-    margin-bottom: var(--space-4) !important;
+    margin: 0 0 var(--space-8) 0 !important;
+    padding: 0 !important;
     color: var(--color-text) !important;
     font-weight: var(--font-weight-medium) !important;
     font-size: var(--font-size-sm) !important;
 }
 
 .popup-rating {
-    margin-bottom: var(--space-8) !important;
+    margin: 0 0 var(--space-12) 0 !important;
+    padding: 0 !important;
     color: var(--color-text-secondary) !important;
     font-size: var(--font-size-sm) !important;
 }
@@ -1792,6 +1790,10 @@ select.form-control {
     color: var(--color-primary) !important;
     text-decoration: none !important;
     font-weight: var(--font-weight-medium) !important;
+    font-size: var(--font-size-sm) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transition: color var(--duration-fast) var(--ease-standard) !important;
 }
 
 .popup-content a:hover {
@@ -1799,14 +1801,34 @@ select.form-control {
     text-decoration: underline !important;
 }
 
-/* Dark theme fixes - simple */
+/* Dark theme specific overrides */
 [data-color-scheme="dark"] .gm-style .gm-style-iw-c {
     background-color: var(--color-surface) !important;
     border: 1px solid var(--color-border) !important;
 }
 
 [data-color-scheme="dark"] .gm-style .gm-style-iw-t button {
-    background: var(--color-surface) !important;
-    border-color: var(--color-border) !important;
-    color: var(--color-text) !important;
+    background: var(--color-primary) !important;
+    border-color: var(--color-surface) !important;
+    color: var(--color-btn-primary-text) !important;
+}
+
+[data-color-scheme="dark"] .gm-style .gm-style-iw-t button:hover {
+    background: var(--color-primary-hover) !important;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .gm-style .gm-style-iw-c {
+        max-width: 280px !important;
+        min-width: 220px !important;
+    }
+    
+    .gm-style .gm-style-iw-d {
+        padding: var(--space-12) !important;
+    }
+    
+    .popup-content h3 {
+        font-size: var(--font-size-base) !important;
+    }
 }
