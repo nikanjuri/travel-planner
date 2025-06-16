@@ -126,8 +126,8 @@ function showContentSections() {
         document.getElementById('food-section').classList.add('active');
         document.getElementById('drinks-section').classList.add('active');
     } else if (currentCategory === 'daily-planner') {
-        // For daily planner tab, don't show the "Suggested Itineraries" section
-        // Just show the trip planner (which is always visible)
+        // Show the daily planner section
+        document.getElementById('daily-planner-section').classList.add('active');
     } else if (currentCategory === 'tips') {
         document.getElementById('tips-section').classList.add('active');
     } else if (currentCategory === 'nearby') {
