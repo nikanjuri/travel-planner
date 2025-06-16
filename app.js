@@ -32,7 +32,7 @@ let showAllRoutes = true;
 const ROUTE_COLORS = [
     '#FF6B35', // Day 1 - Bright Orange
     '#00E5FF', // Day 2 - Electric Cyan
-    '#FF1744', // Day 3 - Bright Pink
+    '#1E88E5', // Day 3 - Bright Blue (changed from red #FF1744)
     '#FFD23F', // Day 4 - Golden Yellow
     '#06FFA5', // Day 5 - Mint Green
     '#FF9100', // Day 6 - Deep Orange
