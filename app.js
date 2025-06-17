@@ -463,7 +463,9 @@ function createSightseeingCard(attraction) {
                 </div>` : ''}
             </div>
             <div class="venue-tags">
-                ${(attraction.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="tags-left">
+                    ${(attraction.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
             </div>
         </div>
     `;
@@ -606,7 +608,10 @@ function createDrinksCard(bar) {
                 </div>` : ''}
             </div>
             <div class="venue-tags">
-                ${(bar.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                <div class="tags-left">
+                    ${(bar.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+                ${bookingBadge}
             </div>
         </div>
     `;
