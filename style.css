@@ -1608,6 +1608,8 @@ select.form-control {
 .day-legend {
     margin-top: var(--space-8);
     margin-bottom: -var(--space-4); /* Reduces effective bottom padding */
+    background: red !important; /* Temporary - to see if CSS is loading */
+    min-height: 20px !important; /* Temporary - to make it visible even when empty */
 }
 
 .day-legend h5 {
