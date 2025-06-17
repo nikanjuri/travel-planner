@@ -1607,7 +1607,7 @@ select.form-control {
 /* Day Legend - Remove border line and fix spacing */
 .day-legend {
     margin-top: var(--space-8);
-    margin-bottom: -var(--space-8); /* Increased from -var(--space-4) */
+    margin-bottom: -var(--space-12); /* Increased from -var(--space-8) */
 }
 
 .day-legend h5 {
