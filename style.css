@@ -1607,9 +1607,7 @@ select.form-control {
 /* Day Legend - Remove border line and fix spacing */
 .day-legend {
     margin-top: var(--space-8);
-    margin-bottom: -var(--space-4); /* Reduces effective bottom padding */
-    background: red !important; /* Temporary - to see if CSS is loading */
-    min-height: 20px !important; /* Temporary - to make it visible even when empty */
+    margin-bottom: -var(--space-8); /* Increased from -var(--space-4) */
 }
 
 .day-legend h5 {
