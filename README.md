@@ -14,6 +14,7 @@ To-be Implemented
 - [ ] Reservation on website
 - [ ] Automatically get all locations from web scraping and update/generate JSONs
 - [ ] Check Progressive webapp status.
+- [ ] Check Mobile/iPad optimization
 
 ### Backlog (to do last)
 - [ ] Marker Clustering
