@@ -700,8 +700,9 @@ select.form-control {
 
 .map-controls {
   position: absolute;
-  bottom: var(--space-32);
-  right: var(--space-12);
+  top: 50%;
+  left: var(--space-16);
+  transform: translateY(-50%);
   background: var(--color-surface);
   padding: var(--space-8);
   border-radius: var(--radius-base);
